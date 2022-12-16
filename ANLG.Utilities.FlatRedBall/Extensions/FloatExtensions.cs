@@ -1,4 +1,4 @@
-﻿namespace ANLG.Utilities.Extensions;
+﻿namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class FloatExtensions

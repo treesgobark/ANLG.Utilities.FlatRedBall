@@ -1,6 +1,6 @@
 ﻿using MgMatrix = Microsoft.Xna.Framework.Matrix;
 
-namespace ANLG.Utilities.Extensions;
+namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class MatrixExtensions

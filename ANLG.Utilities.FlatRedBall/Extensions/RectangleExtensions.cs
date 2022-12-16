@@ -1,7 +1,7 @@
 ﻿using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgRectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace ANLG.Utilities.Extensions;
+namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class RectangleExtensions

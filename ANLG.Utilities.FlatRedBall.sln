@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.FRB.Utilities", "ANLG.FRB.Utilities\ANLG.FRB.Utilities.csproj", "{26579E2C-8602-4701-B508-A38EE72109E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall", "ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj", "{26579E2C-8602-4701-B508-A38EE72109E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.FRB.Utilities.Tests", "ANLG.FRB.Utilities.Tests\ANLG.FRB.Utilities.Tests.csproj", "{D6A02744-E500-49A1-845A-0976A2859F8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.Tests", "ANLG.Utilities.FlatRedBall.Tests\ANLG.Utilities.FlatRedBall.Tests.csproj", "{D6A02744-E500-49A1-845A-0976A2859F8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

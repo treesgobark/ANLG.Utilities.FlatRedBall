@@ -1,7 +1,7 @@
 ﻿using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace ANLG.Utilities.Extensions;
+namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class PointExtensions

@@ -1,10 +1,10 @@
-using ANLG.Utilities.Constants;
-using ANLG.Utilities.Extensions;
+using ANLG.Utilities.FlatRedBall.Constants;
+using ANLG.Utilities.FlatRedBall.Extensions;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 
-namespace ANLG.FRB.Utilities.Tests;
+namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
 [TestFixture]
 public class Vector2ExtensionsTests

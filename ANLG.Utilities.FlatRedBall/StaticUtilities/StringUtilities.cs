@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.StaticUtilities;
+namespace ANLG.Utilities.FlatRedBall.StaticUtilities;
 
 ///
 public static class StringUtilities

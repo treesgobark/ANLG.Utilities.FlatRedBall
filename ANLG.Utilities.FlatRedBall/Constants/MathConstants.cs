@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Constants;
+namespace ANLG.Utilities.FlatRedBall.Constants;
 
 /// <summary>
 /// A collection of constants commonly used for mathematics and physics.

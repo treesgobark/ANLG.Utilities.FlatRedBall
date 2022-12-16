@@ -1,8 +1,8 @@
-using ANLG.Utilities.Extensions;
+using ANLG.Utilities.FlatRedBall.Extensions;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace ANLG.FRB.Utilities.Tests;
+namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
 [TestFixture]
 public class PointExtensionTests

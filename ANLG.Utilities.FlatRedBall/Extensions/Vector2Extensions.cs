@@ -1,10 +1,10 @@
-﻿using ANLG.Utilities.Constants;
+﻿using ANLG.Utilities.FlatRedBall.Constants;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 
-namespace ANLG.Utilities.Extensions;
+namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class MgVector2Extensions

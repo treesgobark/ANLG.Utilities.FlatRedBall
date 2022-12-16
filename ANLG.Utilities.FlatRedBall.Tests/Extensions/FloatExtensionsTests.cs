@@ -1,6 +1,6 @@
-using ANLG.Utilities.Extensions;
+using ANLG.Utilities.FlatRedBall.Extensions;
 
-namespace ANLG.FRB.Utilities.Tests;
+namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
 [TestFixture]
 public class FloatExtensionsTests

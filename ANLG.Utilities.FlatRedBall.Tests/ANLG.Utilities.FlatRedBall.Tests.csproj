@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ANLG.FRB.Utilities\ANLG.FRB.Utilities.csproj" />
+      <ProjectReference Include="..\ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj" />
     </ItemGroup>
 
 </Project>

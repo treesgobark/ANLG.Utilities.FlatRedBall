@@ -3,7 +3,7 @@ using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 
-namespace ANLG.Utilities.Extensions;
+namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class Vector3Extensions
