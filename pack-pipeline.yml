@@ -27,3 +27,10 @@ steps:
     includesymbols: true
     includesource: true
     versioningScheme: 'byBuildNumber'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.FlatRedBall.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet Public'
