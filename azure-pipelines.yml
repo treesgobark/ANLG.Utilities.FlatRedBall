@@ -1,0 +1,57 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  Major: 0
+  Minor: 1
+  Patch: $[counter(format('{0}.{1}',variables['Major'],variables['Minor']),0)]
+
+steps:
+- task: NuGetToolInstaller@1
+  #inputs:
+    #versionSpec: # Optional
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+    vstsFeed: '3e1fe989-4c5e-4463-8a2b-6786b209e0cf'
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    clean: true
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*Tests*.dll
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'ANLG.FRB.Utilties/ANLG.FRB.Utilties.csproj'
+    versioningScheme: 'byPrereleaseNumber'
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
+    includeReferencedProjects: true
+- task: NuGetAuthenticate@0
+  displayName: 'NuGet Authenticate'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Get-ChildItem $(Build.ArtifactStagingDirectory)'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/ANLG.FRB.Utilties*.nupkg;'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '3e1fe989-4c5e-4463-8a2b-6786b209e0cf'
