@@ -23,11 +23,16 @@ steps:
       
       echo '||||||||||||||||||||||||||||||||||||||||||'
       ls
-      ls ANLG.Utilities.FlatRedBall
+      echo '------'
+      ls ANLG.Utilities.FlatRedBall/
+      echo '------'
       ls ANLG.Utilities.FlatRedBall/Libraries/
-      ls ANLG.Utilities.FlatRedBall/Libraries/DesktopGl/
+      echo '------'
+      ls ANLG.Utilities.FlatRedBall/Libraries/DesktopGl/Debug/
       echo '||||||||||||||||||||||||||||||||||||||||||'
       cat ANLG.Utilities.FlatRedBall.sln
+      echo '------'
+      cat ANLG.Utilities.FlatRedBall/ANLG.Utilities.FlatRedBall.csproj
       echo '||||||||||||||||||||||||||||||||||||||||||'
 
 - task: DotNetCoreCLI@2
