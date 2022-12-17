@@ -9,6 +9,16 @@ namespace ANLG.Utilities.FlatRedBall.Extensions;
 public static class Vector3Extensions
 {
     /// <summary>
+    /// Allows deconstruction into (float x, float y, float z)
+    /// </summary>
+    public static void Deconstruct(this MgVector3 input, out float x, out float y, out float z)
+    {
+        x = input.X;
+        y = input.Y;
+        z = input.Z;
+    }
+    
+    /// <summary>
     /// Stuffs the X and Y components of this vector into the X and Y components of a vector, respectively.
     /// </summary>
     public static MgVector2 XY(this MgVector3 input)

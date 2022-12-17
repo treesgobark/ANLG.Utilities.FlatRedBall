@@ -10,6 +10,15 @@ namespace ANLG.Utilities.FlatRedBall.Extensions;
 public static class MgVector2Extensions
 {
     /// <summary>
+    /// Allows deconstruction into (float x, float y)
+    /// </summary>
+    public static void Deconstruct(this MgVector2 input, out float x, out float y)
+    {
+        x = input.X;
+        y = input.Y;
+    }
+    
+    /// <summary>
     /// Adds a dimension to a <see cref="MgVector2"/>.
     /// </summary>
     /// <param name="input"></param>

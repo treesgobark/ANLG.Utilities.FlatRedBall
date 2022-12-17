@@ -6,6 +6,15 @@ namespace ANLG.Utilities.FlatRedBall.Extensions;
 ///
 public static class PointExtensions
 {
+    /// <summary>
+    /// Allows deconstruction into (double x, double y)
+    /// </summary>
+    public static void Deconstruct(this FrbPoint input, out double x, out double y)
+    {
+        x = input.X;
+        y = input.Y;
+    }
+    
     #region Arithmetic: FrbPoint
 
     /// <summary>
