@@ -15,6 +15,22 @@ public static class PointExtensions
         y = input.Y;
     }
     
+    /// <summary>
+    /// Allows deconstruction into (double x, double y)
+    /// </summary>
+    public static void Deconstruct(this FrbPoint? input, out double x, out double y)
+    {
+        if (input is null)
+        {
+            x = 0;
+            y = 0;
+            return;
+        }
+        
+        x = input.Value.X;
+        y = input.Value.Y;
+    }
+    
     #region Arithmetic: FrbPoint
 
     /// <summary>

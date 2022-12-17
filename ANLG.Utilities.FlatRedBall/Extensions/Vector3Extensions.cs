@@ -19,6 +19,24 @@ public static class Vector3Extensions
     }
     
     /// <summary>
+    /// Allows deconstruction into (float x, float y, float z)
+    /// </summary>
+    public static void Deconstruct(this MgVector3? input, out float x, out float y, out float z)
+    {
+        if (input is null)
+        {
+            x = 0f;
+            y = 0f;
+            z = 0f;
+            return;
+        }
+
+        x = input.Value.X;
+        y = input.Value.Y;
+        z = input.Value.Z;
+    }
+    
+    /// <summary>
     /// Stuffs the X and Y components of this vector into the X and Y components of a vector, respectively.
     /// </summary>
     public static MgVector2 XY(this MgVector3 input)

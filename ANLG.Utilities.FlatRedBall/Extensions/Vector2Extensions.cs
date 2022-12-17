@@ -19,6 +19,22 @@ public static class MgVector2Extensions
     }
     
     /// <summary>
+    /// Allows deconstruction into (float x, float y)
+    /// </summary>
+    public static void Deconstruct(this MgVector2? input, out float x, out float y)
+    {
+        if (input is null)
+        {
+            x = 0f;
+            y = 0f;
+            return;
+        }
+        
+        x = input.Value.X;
+        y = input.Value.Y;
+    }
+    
+    /// <summary>
     /// Adds a dimension to a <see cref="MgVector2"/>.
     /// </summary>
     /// <param name="input"></param>
