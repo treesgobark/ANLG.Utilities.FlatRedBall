@@ -23,11 +23,11 @@ steps:
       
       echo '||||||||||||||||||||||||||||||||||||||||||'
       ls
-      ls MyProject
-      ls MyProject/Libraries/
-      ls MyProject/Libraries/DesktopGl/
+      ls ANLG.Utilities.FlatRedBall
+      ls ANLG.Utilities.FlatRedBall/Libraries/
+      ls ANLG.Utilities.FlatRedBall/Libraries/DesktopGl/
       echo '||||||||||||||||||||||||||||||||||||||||||'
-      cat MyProject.sln
+      cat ANLG.Utilities.FlatRedBall.sln
       echo '||||||||||||||||||||||||||||||||||||||||||'
 
 - task: DotNetCoreCLI@2
