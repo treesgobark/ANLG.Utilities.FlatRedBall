@@ -15,6 +15,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo '||||||||||||||||||||||||||||||||||||||||||'
+      ls
+      ls MyProject
+      ls MyProject/Libraries/
+      ls MyProject/Libraries/DesktopGl/
+      echo '||||||||||||||||||||||||||||||||||||||||||'
+      cat MyProject.sln
+      echo '||||||||||||||||||||||||||||||||||||||||||'
 
 - task: DotNetCoreCLI@2
   inputs:
