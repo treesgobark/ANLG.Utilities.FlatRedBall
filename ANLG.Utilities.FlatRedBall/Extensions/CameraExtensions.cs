@@ -15,4 +15,22 @@ public static class CameraExtensions
             new MgVector2(camera.AbsoluteRightXEdgeAt(absoluteZ), camera.AbsoluteTopYEdgeAt(absoluteZ))
             );
     }
+    
+    /// <summary>
+    /// Returns the four absolute corners of this camera in vectors in the form of (topLeft, topRight, bottomLeft, bottomRight).
+    /// </summary>
+    public static (MgVector2 topLeft, MgVector2 topRight, MgVector2 bottomLeft, MgVector2 bottomRight) AbsoluteCornersAt(this FrbCamera camera, float absoluteZ = 0)
+    {
+        var left = camera.AbsoluteLeftXEdgeAt(absoluteZ);
+        var bottom = camera.AbsoluteBottomYEdgeAt(absoluteZ);
+        var right = camera.AbsoluteRightXEdgeAt(absoluteZ);
+        var top = camera.AbsoluteTopYEdgeAt(absoluteZ);
+        
+        return (
+            new MgVector2(left, top),
+            new MgVector2(right, top),
+            new MgVector2(left, bottom),
+            new MgVector2(right, bottom)
+            );
+    }
 }
