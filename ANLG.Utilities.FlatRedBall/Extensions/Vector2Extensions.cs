@@ -1,4 +1,7 @@
 ﻿using ANLG.Utilities.FlatRedBall.Constants;
+using FlatRedBall;
+using FlatRedBall.Utilities;
+using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
@@ -130,14 +133,59 @@ public static class MgVector2Extensions
 
     /// <summary>
     /// Returns the projection of this vector onto a target vector.
-    ///   For a visualization of projection, see here: https://www.geogebra.org/m/XShfg9r8
-    /// <remarks>proj_<paramref name="target"/> <paramref name="input"/></remarks>
+    ///   For a visualization of projection, see <a href="https://www.geogebra.org/m/XShfg9r8">here</a>.
+    /// <br/>Value: proj_<paramref name="target"/> <paramref name="input"/>
     /// </summary>
     public static MgVector2 ProjectOnto(this MgVector2 input, MgVector2 target)
     {
         var dot = MgVector2.Dot(input, target);
         var result = dot / target.LengthSquared() * target;
         return result;
+    }
+
+    /// <summary>
+    /// Performs a linear interpolation between <paramref name="input.lerpFrom"/> and <paramref name="input.lerpTo"/>.
+    ///   Wrapper for <see cref="MgVector2.Lerp(MgVector2, MgVector2, float)"/>
+    /// </summary>
+    public static MgVector2 Lerp(this (MgVector2 lerpFrom, MgVector2 lerpTo) input, float t)
+    {
+        return MgVector2.Lerp(input.lerpFrom, input.lerpTo, t);
+    }
+
+    /// <summary>
+    /// Performs linear interpolation from the first vector to the second vector on its components individually,
+    ///   using <paramref name="tValues"/>.X to lerp the X components and <paramref name="tValues"/>.Y to lerp the Y components.
+    /// </summary>
+    public static MgVector2 PiecewiseLerp(this (MgVector2 lerpFrom, MgVector2 lerpTo) input, MgVector2 tValues)
+    {
+        var xLerp = MathHelper.Lerp(input.lerpFrom.X, input.lerpTo.X, tValues.X);
+        var yLerp = MathHelper.Lerp(input.lerpFrom.Y, input.lerpTo.Y, tValues.Y);
+        return new MgVector2(xLerp, yLerp);
+    }
+
+    /// <summary>
+    /// Generates two random numbers greater than or equal to 0.0 and less than 1.0, then returns a copy of this vector whose
+    ///   components have each been multiplied by one of those numbers. You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
+    /// <br/><br/>Common usage: <c>Vector2.One.Randomize()</c>
+    /// <br/>Remarks: Uses <see cref="Random.NextSingle()"/> for the random numbers.
+    /// </summary>
+    public static MgVector2 Randomize(this MgVector2 input, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return new MgVector2(input.X * random.NextSingle(), input.Y * random.NextSingle());
+    }
+
+    /// <summary>
+    /// Returns a new vector with random values between the two input vectors.
+    ///   You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// Common usage: <c>Vector2.One.Randomize()</c> <br/>
+    /// </summary>
+    public static MgVector2 RandomizeBetween(this (MgVector2 minValues, MgVector2 maxValues) input, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.PiecewiseLerp(MgVector2.One.Randomize(random));
     }
 
     #region Transforms
