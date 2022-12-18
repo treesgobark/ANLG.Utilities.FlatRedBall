@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
@@ -70,6 +71,53 @@ public static class Vector3Extensions
         var dot = MgVector3.Dot(input, target);
         var result = dot / target.LengthSquared() * target;
         return result;
+    }
+
+    /// <summary>
+    /// Performs a linear interpolation between <paramref name="input.lerpFrom"/> and <paramref name="input.lerpTo"/>.
+    ///   Wrapper for <see cref="MgVector3.Lerp(MgVector3, MgVector3, float)"/>
+    /// </summary>
+    public static MgVector3 Lerp(this (MgVector3 lerpFrom, MgVector3 lerpTo) input, float t)
+    {
+        return MgVector3.Lerp(input.lerpFrom, input.lerpTo, t);
+    }
+
+    /// <summary>
+    /// Performs linear interpolation from the first vector to the second vector on its components individually,
+    ///   using <paramref name="tValues"/>.X to lerp the X components, <paramref name="tValues"/>.Y to lerp the Y components,
+    ///   and <paramref name="tValues"/>.Z to lerp the Z components.
+    /// </summary>
+    public static MgVector3 PiecewiseLerp(this (MgVector3 lerpFrom, MgVector3 lerpTo) input, MgVector3 tValues)
+    {
+        var xLerp = MathHelper.Lerp(input.lerpFrom.X, input.lerpTo.X, tValues.X);
+        var yLerp = MathHelper.Lerp(input.lerpFrom.Y, input.lerpTo.Y, tValues.Y);
+        var zLerp = MathHelper.Lerp(input.lerpFrom.Z, input.lerpTo.Z, tValues.Z);
+        return new MgVector3(xLerp, yLerp, zLerp);
+    }
+
+    /// <summary>
+    /// Generates three random numbers greater than or equal to 0.0 and less than 1.0, then returns a copy of this vector whose
+    ///   components have each been multiplied by one of those numbers. You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
+    /// <br/><br/>Common usage: <c>Vector3.One.Randomize()</c>
+    /// <br/>Remarks: Uses <see cref="Random.NextSingle()"/> for the random numbers.
+    /// </summary>
+    public static MgVector3 Randomize(this MgVector3 input, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return new MgVector3(input.X * random.NextSingle(), input.Y * random.NextSingle(), input.Z * random.NextSingle());
+    }
+
+    /// <summary>
+    /// Returns a new vector with random values between the two input vectors.
+    ///   You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// Common usage: <c>Vector3.One.Randomize()</c> <br/>
+    /// </summary>
+    public static MgVector3 RandomizeBetween(this (MgVector3 minValues, MgVector3 maxValues) input, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.PiecewiseLerp(MgVector3.One.Randomize(random));
     }
 
     #region Transforms
