@@ -130,8 +130,8 @@ public static class MgVector2Extensions
 
     /// <summary>
     /// Returns the projection of this vector onto a target vector.
-    ///   For a visualization of projection, see here: https://www.geogebra.org/m/XShfg9r8
-    /// <remarks>proj_<paramref name="target"/> <paramref name="input"/></remarks>
+    ///   For a visualization of projection, see <a href="https://www.geogebra.org/m/XShfg9r8">here</a>.
+    /// <br/>Value: proj_<paramref name="target"/> <paramref name="input"/>
     /// </summary>
     public static MgVector2 ProjectOnto(this MgVector2 input, MgVector2 target)
     {
