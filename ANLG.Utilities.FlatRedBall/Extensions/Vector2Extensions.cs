@@ -128,6 +128,18 @@ public static class MgVector2Extensions
         return input.Scale(1 + distance / length, 1 + distance / length);
     }
 
+    /// <summary>
+    /// Returns the projection of this vector onto a target vector.
+    ///   For a visualization of projection, see here: https://www.geogebra.org/m/XShfg9r8
+    /// <remarks>proj_<paramref name="target"/> <paramref name="input"/></remarks>
+    /// </summary>
+    public static MgVector2 ProjectOnto(this MgVector2 input, MgVector2 target)
+    {
+        var dot = MgVector2.Dot(input, target);
+        var result = dot / target.LengthSquared() * target;
+        return result;
+    }
+
     #region Transforms
 
     /// <summary>
@@ -185,9 +197,6 @@ public static class MgVector2Extensions
     /// <summary>
     /// Applies a given func to each component of this vector and returns the result.
     /// </summary>
-    /// <param name="inputMgVector"></param>
-    /// <param name="mutator"></param>
-    /// <returns></returns>
     public static MgVector2 MutatePiecewise(this MgVector2 inputMgVector, Func<float, float> mutator)
     {
         return new MgVector2(mutator(inputMgVector.X), mutator(inputMgVector.Y));
@@ -196,9 +205,6 @@ public static class MgVector2Extensions
     /// <summary>
     /// Moves this vector right the specified amount and returns the result.
     /// </summary>
-    /// <param name="inputMgVector"></param>
-    /// <param name="amount"></param>
-    /// <returns></returns>
     public static MgVector2 Right(this MgVector2 inputMgVector, float amount)
     {
         return inputMgVector with { X = inputMgVector.X + amount};
@@ -207,9 +213,6 @@ public static class MgVector2Extensions
     /// <summary>
     /// Moves this vector left the specified amount and returns the result.
     /// </summary>
-    /// <param name="inputMgVector"></param>
-    /// <param name="amount"></param>
-    /// <returns></returns>
     public static MgVector2 Left(this MgVector2 inputMgVector, float amount)
     {
         return inputMgVector with { X = inputMgVector.X - amount };
@@ -218,9 +221,6 @@ public static class MgVector2Extensions
     /// <summary>
     /// Moves this vector up the specified amount and returns the result.
     /// </summary>
-    /// <param name="inputMgVector"></param>
-    /// <param name="amount"></param>
-    /// <returns></returns>
     public static MgVector2 Up(this MgVector2 inputMgVector, float amount)
     {
         return inputMgVector with { Y = inputMgVector.Y + amount };
