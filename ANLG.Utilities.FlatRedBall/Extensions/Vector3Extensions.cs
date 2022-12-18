@@ -60,6 +60,18 @@ public static class Vector3Extensions
         return new MgVector2(input.Y, input.Z);
     }
 
+    /// <summary>
+    /// Returns the projection of this vector onto a target vector.
+    ///   For a visualization of projection, see here: https://www.geogebra.org/m/XShfg9r8
+    /// <remarks>proj_<paramref name="target"/> <paramref name="input"/></remarks>
+    /// </summary>
+    public static MgVector3 ProjectOnto(this MgVector3 input, MgVector3 target)
+    {
+        var dot = MgVector3.Dot(input, target);
+        var result = dot / target.LengthSquared() * target;
+        return result;
+    }
+
     #region Transforms
 
     /// <summary>
