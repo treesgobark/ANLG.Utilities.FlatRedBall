@@ -1,4 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using ANLG.Utilities.FlatRedBall.Constants;
+using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
@@ -95,30 +98,97 @@ public static class Vector3Extensions
         return new MgVector3(xLerp, yLerp, zLerp);
     }
 
+    #region Random
+
     /// <summary>
-    /// Generates three random numbers greater than or equal to 0.0 and less than 1.0, then returns a copy of this vector whose
-    ///   components have each been multiplied by one of those numbers. You may optionally provide an existing <see cref="Random"/> instance.
+    /// Generates two random numbers greater than or equal to 0.0 and less than 1.0, then returns a copy of this vector whose
+    ///   components have each been multiplied by one of those numbers.
+    /// <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
-    /// <br/><br/>Common usage: <c>Vector3.One.Randomize()</c>
-    /// <br/>Remarks: Uses <see cref="Random.NextSingle()"/> for the random numbers.
+    /// <br/><br/>Common usage: <c>Vector2.One.Randomize()</c>
     /// </summary>
-    public static MgVector3 Randomize(this MgVector3 input, Random? random = null)
+    public static MgVector3 Randomize(this MgVector3 input, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
+        if (canInvert)
+        {
+            return new MgVector3(input.X * random.NextSingle() * random.NextSign(), 
+                input.Y * random.NextSingle() * random.NextSign(),
+                input.Z * random.NextSingle() * random.NextSign());
+        }
         return new MgVector3(input.X * random.NextSingle(), input.Y * random.NextSingle(), input.Z * random.NextSingle());
     }
 
     /// <summary>
     /// Returns a new vector with random values between the two input vectors.
-    ///   You may optionally provide an existing <see cref="Random"/> instance.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
-    /// Common usage: <c>Vector3.One.Randomize()</c> <br/>
+    /// Common usage: <c>(Vector2.Zero, Vector2.One).Randomize()</c> <br/>
     /// </summary>
     public static MgVector3 RandomizeBetween(this (MgVector3 minValues, MgVector3 maxValues) input, Random? random = null)
     {
         random ??= Random.Shared;
-        return input.PiecewiseLerp(MgVector3.One.Randomize(random));
+        return input.PiecewiseLerp(MgVector3.One.Randomize(random: random));
     }
+
+    /// <summary>
+    /// Returns a new vector with the same magnitude, but a random angle. By default, the new angle could be any direction.
+    ///   Providing a tolerance means that the new angle will be within that much in either direction from the current angle.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector3 RandomizeAngle(this MgVector3 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.RotatedBy(MathHelper.Lerp(-tolerance, tolerance, random.NextSingle()));
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same magnitude, but a random angle greater than or equal to
+    ///   <paramref name="min"/> and less than <paramref name="max"/>.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector3 RandomizeAngleBetween(this MgVector3 input, float min, float max, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.AtAngle(MathHelper.Lerp(min, max, random.NextSingle()));
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same angle, but a random and lesser magnitude. If <paramref name="canInvert"/> is true,
+    ///   the new vector also has a 50% chance to be pointing backward.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector3 RandomizeMagnitude(this MgVector3 input, bool canInvert = false, Random? random = null)
+    {
+        random ??= Random.Shared;
+        if (canInvert)
+        {
+            return random.NextSingle() * random.NextSign() * input;
+        }
+        return random.NextSingle() * input;
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same angle, but a random magnitude greater than or equal to <paramref name="min"/>
+    ///   and less than <paramref name="max"/>.
+    ///   If <paramref name="canInvert"/> is true, the new vector also has a 50% chance to be pointing backward.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector3 RandomizeMagnitudeBetween(this MgVector3 input, float min, float max, bool canInvert = false, Random? random = null)
+    {
+        random ??= Random.Shared;
+        if (canInvert)
+        {
+            return MathHelper.Lerp(min, max, random.NextSingle()) * random.NextSign() * input;
+        }
+        return MathHelper.Lerp(min, max, random.NextSingle()) * input;
+    }
+
+    #endregion
 
     #region Transforms
 

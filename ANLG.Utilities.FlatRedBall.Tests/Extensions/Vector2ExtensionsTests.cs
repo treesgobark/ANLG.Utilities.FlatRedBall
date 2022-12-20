@@ -30,50 +30,62 @@ public class Vector2ExtensionsTests
     [Test]
     public void GetQuadrant_PositivePositive_QuadrantI()
     {
-        Assert.That(1, Is.EqualTo(new MgVector2(2, 5).GetQuadrant()));
+        Assert.That(new MgVector2(2, 5).GetQuadrant(), Is.EqualTo(Quadrant.One));
     }
     
     [Test]
     public void GetQuadrant_NegativePositive_QuadrantII()
     {
-        Assert.That(2, Is.EqualTo(new MgVector2(-2, 5).GetQuadrant()));
+        Assert.That(new MgVector2(-2, 5).GetQuadrant(), Is.EqualTo(Quadrant.Two));
     }
     
     [Test]
     public void GetQuadrant_NegativeNegative_QuadrantIII()
     {
-        Assert.That(3, Is.EqualTo(new MgVector2(-2, -5).GetQuadrant()));
+        Assert.That(new MgVector2(-2, -5).GetQuadrant(), Is.EqualTo(Quadrant.Three));
     }
     
     [Test]
     public void GetQuadrant_PositiveNegative_QuadrantIV()
     {
-        Assert.That(4, Is.EqualTo(new MgVector2(2, -5).GetQuadrant()));
+        Assert.That(new MgVector2(2, -5).GetQuadrant(), Is.EqualTo(Quadrant.Four));
     }
     
     [Test]
-    public void GetQuadrant_NonZeroAndZero_QuadrantNone()
+    public void GetQuadrant_PositiveAndZero_QuadrantNone()
     {
-        Assert.That(0, Is.EqualTo(new MgVector2(2, 0).GetQuadrant()));
+        Assert.That(new MgVector2(2, 0).GetQuadrant(), Is.EqualTo(Quadrant.Right));
     }
     
     [Test]
-    public void GetQuadrant_ZeroAndNonZero_QuadrantNone()
+    public void GetQuadrant_ZeroAndPositive_QuadrantNone()
     {
-        Assert.That(0, Is.EqualTo(new MgVector2(0, 5).GetQuadrant()));
+        Assert.That(new MgVector2(0, 5).GetQuadrant(), Is.EqualTo(Quadrant.Up));
+    }
+    
+    [Test]
+    public void GetQuadrant_NegativeAndZero_QuadrantNone()
+    {
+        Assert.That(new MgVector2(-2, 0).GetQuadrant(), Is.EqualTo(Quadrant.Left));
+    }
+    
+    [Test]
+    public void GetQuadrant_ZeroAndNegative_QuadrantNone()
+    {
+        Assert.That(new MgVector2(0, -5).GetQuadrant(), Is.EqualTo(Quadrant.Down));
     }
     
     [Test]
     public void GetQuadrant_ZeroZero_QuadrantNone()
     {
-        Assert.That(0, Is.EqualTo(new MgVector2(0, 0).GetQuadrant()));
+        Assert.That(new MgVector2(0, 0).GetQuadrant(), Is.EqualTo(Quadrant.Zero));
     }
 
     [Test]
     public void GetClosestPoint_ReturnsClosestPoint()
     {
         MgVector2 testPoint = new(1, 7);
-        MgVector2[] pointCollection =
+        var pointCollection = new MgVector2[]
         {
             new(0, 0),
             new(2, 5),
@@ -81,7 +93,7 @@ public class Vector2ExtensionsTests
             new(-45, 301),
             new(45, -3),
         };
-        
+
         Assert.That(new MgVector2(2, 5), Is.EqualTo(testPoint.GetClosestPoint(pointCollection)));
     }
 
@@ -89,56 +101,56 @@ public class Vector2ExtensionsTests
     public void GetCcwAngle_FromQuadrantI_ReturnsBetween0AndPiOver2()
     {
         const float expected = MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(2, 2).GetCcwAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(2, 2).GetCcwAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetCcwAngle_FromQuadrantII_ReturnsBetweenPiOver2AndPi()
     {
         const float expected = 3 * MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(-2, 2).GetCcwAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(-2, 2).GetCcwAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetCcwAngle_FromQuadrantIII_ReturnsBetweenPiAnd3PiOver2()
     {
         const float expected = 5 * MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(-2, -2).GetCcwAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(-2, -2).GetCcwAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetCcwAngle_FromQuadrantIV_ReturnsBetween3PiOver2AndPi()
     {
         const float expected = 7 * MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(2, -2).GetCcwAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(2, -2).GetCcwAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetClosestAngle_FromQuadrantI_ReturnsBetween0AndPiOver2()
     {
         const float expected = MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(2, 2).GetClosestAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(2, 2).GetClosestAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetClosestAngle_FromQuadrantII_ReturnsBetweenPiOver2AndPi()
     {
         const float expected = 3 * MathConstants.RotateCcw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(-2, 2).GetClosestAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(-2, 2).GetClosestAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetClosestAngle_FromQuadrantIII_ReturnsBetweenNegativePiAndNegativePiOver2()
     {
         const float expected = 3 * MathConstants.RotateCw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(-2, -2).GetClosestAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(-2, -2).GetClosestAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]
     public void GetClosestAngle_FromQuadrantIV_ReturnsBetweenNegativePiOver2And0()
     {
         const float expected = MathConstants.RotateCw * MathConstants.EighthTurn;
-        Assert.That(expected, Is.EqualTo(new MgVector2(2, -2).GetClosestAngle()).Within(0.01)!);
+        Assert.That(new MgVector2(2, -2).GetClosestAngle(), Is.EqualTo(expected).Within(0.01)!);
     }
 
     [Test]

@@ -1,6 +1,5 @@
 ﻿using ANLG.Utilities.FlatRedBall.Constants;
-using FlatRedBall;
-using FlatRedBall.Utilities;
+using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
@@ -62,19 +61,23 @@ public static class MgVector2Extensions
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static int GetQuadrant(this MgVector2 input)
+    public static Quadrant GetQuadrant(this MgVector2 input)
     {
         return input switch
         {
-            { X: 0 } or { Y: 0 } => 0,
-            { X: > 0, Y: > 0 } => 1,
-            { X: < 0, Y: > 0 } => 2,
-            { X: < 0, Y: < 0 } => 3,
-            { X: > 0, Y: < 0 } => 4,
-            _ => throw new Exception("This should be unreachable."),
+            { X: > 0, Y: > 0 } => Quadrant.One,
+            { X: < 0, Y: > 0 } => Quadrant.Two,
+            { X: < 0, Y: < 0 } => Quadrant.Three,
+            { X: > 0, Y: < 0 } => Quadrant.Four,
+            { X: > 0, Y:   0 } => Quadrant.Right,
+            { X:   0, Y: > 0 } => Quadrant.Up,
+            { X: < 0, Y:   0 } => Quadrant.Left,
+            { X:   0, Y: < 0 } => Quadrant.Down,
+            { X:   0, Y:   0 } => Quadrant.Zero,
+            { X: float.NaN } or { Y: float.NaN } => throw new ArgumentException("Vector components must not be NaN"),
         };
     }
-
+    
     /// <summary>
     /// Returns the vector representation of the point in the given list
     ///   which is closest to this vector representation of a point.
@@ -96,16 +99,18 @@ public static class MgVector2Extensions
     }
 
     /// <summary>
-    /// Returns the angle of this vector where 0 is the X unit vector. Ranges from 0 to 2*pi
+    /// Returns the angle of this vector where 0 is the X unit vector. Ranges from 0 to 2*pi.
+    ///   Returns <see cref="float.NaN"/> if this vector is (0, 0) or if either component is not a number.
     /// </summary>
     public static float GetCcwAngle(this MgVector2 input)
     {
-        var quadrant = GetQuadrant(input);
-        if (quadrant is 1 or 2)
+        return input.GetQuadrant() switch
         {
-            return MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length());
-        }
-        return MathConstants.FullTurn - MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length());
+            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => MathConstants.FullTurn - MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.Zero => float.NaN,
+            _ => throw new Exception(),
+        };
     }
 
     /// <summary>
@@ -113,12 +118,13 @@ public static class MgVector2Extensions
     /// </summary>
     public static float GetClosestAngle(this MgVector2 input)
     {
-        var quadrant = GetQuadrant(input);
-        if (quadrant is 1 or 2)
+        return input.GetQuadrant() switch
         {
-            return MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length());
-        }
-        return -MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length());
+            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => -MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.Zero => float.NaN,
+            _ => throw new Exception(),
+        };
     }
 
     /// <summary>
@@ -163,30 +169,95 @@ public static class MgVector2Extensions
         return new MgVector2(xLerp, yLerp);
     }
 
+    #region Random
+
     /// <summary>
     /// Generates two random numbers greater than or equal to 0.0 and less than 1.0, then returns a copy of this vector whose
-    ///   components have each been multiplied by one of those numbers. You may optionally provide an existing <see cref="Random"/> instance.
+    ///   components have each been multiplied by one of those numbers.
+    /// <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
     /// <br/><br/>Common usage: <c>Vector2.One.Randomize()</c>
-    /// <br/>Remarks: Uses <see cref="Random.NextSingle()"/> for the random numbers.
     /// </summary>
-    public static MgVector2 Randomize(this MgVector2 input, Random? random = null)
+    public static MgVector2 Randomize(this MgVector2 input, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
+        if (canInvert)
+        {
+            return new MgVector2(input.X * random.NextSingle() * random.NextSign(), input.Y * random.NextSingle() * random.NextSign());
+        }
         return new MgVector2(input.X * random.NextSingle(), input.Y * random.NextSingle());
     }
 
     /// <summary>
     /// Returns a new vector with random values between the two input vectors.
-    ///   You may optionally provide an existing <see cref="Random"/> instance.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
-    /// Common usage: <c>Vector2.One.Randomize()</c> <br/>
+    /// Common usage: <c>(Vector2.Zero, Vector2.One).Randomize()</c> <br/>
     /// </summary>
     public static MgVector2 RandomizeBetween(this (MgVector2 minValues, MgVector2 maxValues) input, Random? random = null)
     {
         random ??= Random.Shared;
-        return input.PiecewiseLerp(MgVector2.One.Randomize(random));
+        return input.PiecewiseLerp(MgVector2.One.Randomize(random: random));
     }
+
+    /// <summary>
+    /// Returns a new vector with the same magnitude, but a random angle. By default, the new angle could be any direction.
+    ///   Providing a tolerance means that the new angle will be within that much in either direction from the current angle.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector2 RandomizeAngle(this MgVector2 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.RotatedBy(MathHelper.Lerp(-tolerance, tolerance, random.NextSingle()));
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same magnitude, but a random angle greater than or equal to
+    ///   <paramref name="min"/> and less than <paramref name="max"/>.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector2 RandomizeAngleBetween(this MgVector2 input, float min, float max, Random? random = null)
+    {
+        random ??= Random.Shared;
+        return input.AtLength(MathHelper.Lerp(min, max, random.NextSingle()));
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same angle, but a random and lesser magnitude. If <paramref name="canInvert"/> is true,
+    ///   the new vector also has a 50% chance to be pointing backward.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector2 RandomizeMagnitude(this MgVector2 input, bool canInvert = false, Random? random = null)
+    {
+        random ??= Random.Shared;
+        if (canInvert)
+        {
+            return random.NextSingle() * random.NextSign() * input;
+        }
+        return random.NextSingle() * input;
+    }
+
+    /// <summary>
+    /// Returns a new vector with the same angle, but a random magnitude greater than or equal to <paramref name="min"/>
+    ///   and less than <paramref name="max"/>.
+    ///   If <paramref name="canInvert"/> is true, the new vector also has a 50% chance to be pointing backward.
+    ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
+    ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
+    /// </summary>
+    public static MgVector2 RandomizeMagnitudeBetween(this MgVector2 input, float min, float max, bool canInvert = false, Random? random = null)
+    {
+        random ??= Random.Shared;
+        if (canInvert)
+        {
+            return MathHelper.Lerp(min, max, random.NextSingle()) * random.NextSign() * input;
+        }
+        return MathHelper.Lerp(min, max, random.NextSingle()) * input;
+    }
+
+    #endregion
 
     #region Transforms
 
@@ -218,28 +289,46 @@ public static class MgVector2Extensions
         return new MgVector2(input1.X * x, input1.Y * y);
     }
 
+    // /// <summary>
+    // /// Rotates a vector by <paramref name="radians"/>.
+    // /// </summary>
+    // /// <returns>A new MgVector2 that has been rotated.</returns>
+    // public static MgVector2 Rotate(this MgVector2 input1, float radians)
+    // {
+    //     return input1.Transform(MgMatrix.CreateRotationZ(radians));
+    // }
+
+    // /// <summary>
+    // /// Normalizes a vector, i.e. sets this vector's magnitude to 0 while preserving its direction.
+    // /// </summary>
+    // /// <param name="input1"></param>
+    // /// <returns>A MgVector2 with magnitude 1 if the input vector's magnitude is nonzero. Returns the zero vector otherwise.</returns>
+    // public static MgVector2 NormalizeExtension(this MgVector2 input1)
+    // {
+    //     var magnitude = input1.Length();
+    //     if (magnitude == 0)
+    //     {
+    //         return MgVector2.Zero;
+    //     }
+    //     return input1 / magnitude;
+    // }
+
     /// <summary>
-    /// Rotates a vector by <paramref name="radians"/>.
+    /// Returns a new vector with the same direction but with the magnitude provided.
     /// </summary>
-    /// <returns>A new MgVector2 that has been rotated.</returns>
-    public static MgVector2 Rotate(this MgVector2 input1, float radians)
+    public static MgVector2 WithMagnitude(this MgVector2 input, float magnitude)
     {
-        return input1.Transform(MgMatrix.CreateRotationZ(radians));
+        var angle = input.GetCcwAngle();
+        return magnitude * Vector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
-    /// Normalizes a vector, i.e. sets this vector's magnitude to 0 while preserving its direction.
+    /// Returns a new vector with the same magnitude but at the angle provided.
     /// </summary>
-    /// <param name="input1"></param>
-    /// <returns>A MgVector2 with magnitude 1 if the input vector's magnitude is nonzero. Returns the zero vector otherwise.</returns>
-    public static MgVector2 NormalizeExtension(this MgVector2 input1)
+    public static MgVector2 WithAngle(this MgVector2 input, float angle)
     {
-        var magnitude = input1.Length();
-        if (magnitude == 0)
-        {
-            return MgVector2.Zero;
-        }
-        return input1 / magnitude;
+        var length = input.Length();
+        return length * Vector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
@@ -418,4 +507,17 @@ public static class MgVector2Extensions
     }
 
     #endregion
+}
+
+public enum Quadrant
+{
+    Zero,
+    One,
+    Two,
+    Three,
+    Four,
+    Right,
+    Up,
+    Left,
+    Down,
 }
