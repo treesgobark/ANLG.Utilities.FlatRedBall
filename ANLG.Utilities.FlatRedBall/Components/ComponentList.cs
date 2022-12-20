@@ -9,14 +9,32 @@ public class ComponentList
     /// The list of components this manages.
     /// </summary>
     protected readonly List<IComponent> Components = new();
+    
+    /// <summary>
+    /// Returns the first component in this list of type <typeparamref name="T"/> if it exists. If not, returns null.
+    /// </summary>
+    public T? HasComponent<T>() where T : class, IComponent
+    {
+        foreach (var component in Components)
+        {
+            if (component is T tComponent)
+            {
+                return tComponent;
+            }
+        }
+        return null;
+    }
 
     /// <summary>
     /// Adds the given component at the end of the list if it isn't already present.
     ///   Returns null if the component was not added, like if it were already present.
     /// </summary>
-    public T? AddComponent<T>(T component) where T : class, IComponent
+    public T AddComponent<T>(T component) where T : class, IComponent
     {
-        if (Components.Contains(component)) return null;
+        if (HasComponent<T>() is not null)
+        {
+            throw new InvalidOperationException($"This component list already has a component of type {nameof(T)}.");
+        }
         
         Components.Add(component);
         return component;
@@ -26,12 +44,21 @@ public class ComponentList
     /// Adds the given component to the list immediately before the other given component. Returns null if
     ///   <paramref name="newComponent"/> already exists in the list or if <paramref name="existingComponent"/> doesn't.
     /// </summary>
-    public T? AddComponentBefore<T>(T newComponent, IComponent existingComponent) where T : class, IComponent
+    public TNew AddComponentBefore<TNew, TExisting>(TNew newComponent)
+        where TNew : class, IComponent
+        where TExisting : class, IComponent
     {
-        var existingIndex = Components.IndexOf(existingComponent);
+        if (HasComponent<TNew>() is not null)
+        {
+            throw new InvalidOperationException($"This component list already has a component of type {nameof(TNew)}.");
+        }
+        var existingComponent = HasComponent<TExisting>();
+        if (existingComponent is null)
+        {
+            throw new InvalidOperationException($"This component list does not contain a component with the type {nameof(TExisting)}.");
+        }
         
-        if (existingIndex < 0) return null;
-        if (Components.Contains(newComponent)) return null;
+        var existingIndex = Components.IndexOf(existingComponent);
         
         Components.Insert(existingIndex, newComponent);
         return newComponent;
@@ -41,23 +68,65 @@ public class ComponentList
     /// Adds the given component to the list immediately after the other given component. Returns null if
     ///   <paramref name="newComponent"/> already exists in the list or if <paramref name="existingComponent"/> doesn't.
     /// </summary>
-    public T? AddComponentAfter<T>(T newComponent, IComponent existingComponent) where T : class, IComponent
+    public TNew AddComponentAfter<TNew, TExisting>(TNew newComponent)
+        where TNew : class, IComponent
+        where TExisting : class, IComponent
     {
-        var existingIndex = Components.IndexOf(existingComponent);
+        if (HasComponent<TNew>() is not null)
+        {
+            throw new InvalidOperationException($"This component list already has a component of type {nameof(TNew)}.");
+        }
+        var existingComponent = HasComponent<TExisting>();
+        if (existingComponent is null)
+        {
+            throw new InvalidOperationException($"This component list does not contain a component with the type {nameof(TExisting)}.");
+        }
         
-        if (existingIndex < 0) return null;
-        if (Components.Contains(newComponent)) return null;
+        var existingIndex = Components.IndexOf(existingComponent);
         
         Components.Insert(existingIndex + 1, newComponent);
         return newComponent;
     }
 
     /// <summary>
+    /// Gets the first component in this component list that is of the type <typeparamref name="T"/>.
+    /// </summary>
+    public T GetComponent<T>() where T : class, IComponent
+    {
+        foreach (var component in Components)
+        {
+            if (component is T tComponent)
+            {
+                return tComponent;
+            }
+        }
+        throw new InvalidOperationException($"Component of type {typeof(T).Name} was not found.");
+    }
+
+    /// <summary>
+    /// Gets all components in this component list that are of the type <typeparamref name="T"/>.
+    /// </summary>
+    public List<T> GetComponents<T>() where T : class, IComponent
+    {
+        List<T> foundComponents = new();
+        foreach (var component in Components)
+        {
+            if (component is T tComponent)
+            {
+                foundComponents.Add(tComponent);
+            }
+        }
+        return foundComponents;
+    }
+
+    /// <summary>
     /// Removes the given component from the list and returns the component if successful. Returns null if it's not found.
     /// </summary>
-    public T? RemoveComponent<T>(T component) where T : class, IComponent
+    public T? RemoveComponent<T>() where T : class, IComponent
     {
-        return Components.Remove(component) ? component : null;
+        var existingComponent = HasComponent<T>();
+        Components.Remove(existingComponent!);
+        return existingComponent;
     }
 
     /// <summary>
@@ -66,9 +135,15 @@ public class ComponentList
     ///   indexes places it at the beginning instead. Input that would place it above the range puts it at the end.
     ///   <br/>Returns false if no components were moved.
     /// </summary>
-    public bool ShiftComponent(IComponent component, int spaces)
+    public bool ShiftComponent<T>(int spaces) where T : class, IComponent
     {
-        var componentIndex = Components.IndexOf(component);
+        var existingComponent = HasComponent<T>();
+        if (existingComponent is null)
+        {
+            throw new InvalidOperationException($"This component list does not contain a component with the type {nameof(T)}.");
+        }
+        
+        var componentIndex = Components.IndexOf(existingComponent);
         if (spaces == 0 || componentIndex < 0) return false;
 
         var indexesToEnd = Components.Count - 1 - componentIndex;
