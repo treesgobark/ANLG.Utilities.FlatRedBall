@@ -14,7 +14,7 @@ public class ComponentList
     /// Adds the given component at the end of the list if it isn't already present.
     ///   Returns null if the component was not added, like if it were already present.
     /// </summary>
-    public IComponent? AddComponent(IComponent component)
+    public T? AddComponent<T>(T component) where T : class, IComponent
     {
         if (Components.Contains(component)) return null;
         
@@ -26,7 +26,7 @@ public class ComponentList
     /// Adds the given component to the list immediately before the other given component. Returns null if
     ///   <paramref name="newComponent"/> already exists in the list or if <paramref name="existingComponent"/> doesn't.
     /// </summary>
-    public IComponent? AddComponentBefore(IComponent newComponent, IComponent existingComponent)
+    public T? AddComponentBefore<T>(T newComponent, IComponent existingComponent) where T : class, IComponent
     {
         var existingIndex = Components.IndexOf(existingComponent);
         
@@ -41,7 +41,7 @@ public class ComponentList
     /// Adds the given component to the list immediately after the other given component. Returns null if
     ///   <paramref name="newComponent"/> already exists in the list or if <paramref name="existingComponent"/> doesn't.
     /// </summary>
-    public IComponent? AddComponentAfter(IComponent newComponent, IComponent existingComponent)
+    public T? AddComponentAfter<T>(T newComponent, IComponent existingComponent) where T : class, IComponent
     {
         var existingIndex = Components.IndexOf(existingComponent);
         
@@ -55,7 +55,7 @@ public class ComponentList
     /// <summary>
     /// Removes the given component from the list and returns the component if successful. Returns null if it's not found.
     /// </summary>
-    public IComponent? RemoveComponent(IComponent component)
+    public T? RemoveComponent<T>(T component) where T : class, IComponent
     {
         return Components.Remove(component) ? component : null;
     }
