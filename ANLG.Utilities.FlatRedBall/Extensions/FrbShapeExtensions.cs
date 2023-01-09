@@ -3,13 +3,17 @@ using FlatRedBall.Content.Math.Geometry;
 using FlatRedBall.Content.Polygon;
 using FlatRedBall.Math.Geometry;
 using Color = Microsoft.Xna.Framework.Color;
+// ReSharper disable UnusedMember.Global
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
 public static class FrbShapeExtensions
 {
-    private static void SetRelativeValuesOn(this AxisAlignedRectangleSave from, AxisAlignedRectangle to)
+    /// <summary>
+    /// Maps a shape save into an shape, interpreting the save values as relative positions and overwriting the existing shape values.
+    /// </summary>
+    public static void MapShapeRelative(this AxisAlignedRectangleSave from, AxisAlignedRectangle to)
     {
         to.RelativeX = from.X;
         to.RelativeY = from.Y;
@@ -22,15 +26,11 @@ public static class FrbShapeExtensions
             (byte) (from.Alpha * (double) byte.MaxValue));
         to.Name = from.Name;
     }
-
-    private static AxisAlignedRectangle ToRelativeAxisAlignedRectangle(this AxisAlignedRectangleSave from)
-    {
-        AxisAlignedRectangle to = new();
-        SetRelativeValuesOn(from, to);
-        return to;
-    }
     
-    private static void SetRelativeValuesOn(this AxisAlignedCubeSave from, AxisAlignedCube to)
+    /// <summary>
+    /// Maps a shape save into an shape, interpreting the save values as relative positions and overwriting the existing shape values.
+    /// </summary>
+    public static void MapShapeRelative(this AxisAlignedCubeSave from, AxisAlignedCube to)
     {
         to.RelativeX = from.X;
         to.RelativeY = from.Y;
@@ -43,21 +43,49 @@ public static class FrbShapeExtensions
             (byte) (from.Alpha * (double) byte.MaxValue));
         to.Name = from.Name;
     }
-
-    private static AxisAlignedCube ToRelativeAxisAlignedCube(this AxisAlignedCubeSave from)
-    {
-        AxisAlignedCube to = new();
-        SetRelativeValuesOn(from, to);
-        return to;
-    }
     
-    private static void SetRelativeValuesOn(this PolygonSave from, Polygon to)
+    /// <summary>
+    /// Maps a shape save into an shape, interpreting the save values as relative positions and overwriting the existing shape values.
+    /// </summary>
+    public static void MapShapeRelative(this PolygonSave from, Polygon to)
     {
         to.RelativeX = from.X;
         to.RelativeY = from.Y;
         to.RelativeZ = from.Z;
         to.RotationZ = from.RotationZ;
-        to.Points = (Point[])from.Points.Clone();
+        to.Points = (Point[])from.Points!.Clone();
+        to.Color = new Color((byte) (from.Red * (double) byte.MaxValue),
+            (byte) (from.Green * (double) byte.MaxValue),
+            (byte) (from.Blue * (double) byte.MaxValue),
+            (byte) (from.Alpha * (double) byte.MaxValue));
+        to.Name = from.Name;
+    }
+    
+    /// <summary>
+    /// Maps a shape save into an shape, interpreting the save values as relative positions and overwriting the existing shape values.
+    /// </summary>
+    public static void MapShapeRelative(this CircleSave from, Circle to)
+    {
+        to.RelativeX = from.X;
+        to.RelativeY = from.Y;
+        to.RelativeZ = from.Z;
+        to.Radius = from.Radius;
+        to.Color = new Color((byte) (from.Red * (double) byte.MaxValue),
+            (byte) (from.Green * (double) byte.MaxValue),
+            (byte) (from.Blue * (double) byte.MaxValue),
+            (byte) (from.Alpha * (double) byte.MaxValue));
+        to.Name = from.Name;
+    }
+    
+    /// <summary>
+    /// Maps a shape save into an shape, interpreting the save values as relative positions and overwriting the existing shape values.
+    /// </summary>
+    public static void MapShapeRelative(this SphereSave from, Sphere to)
+    {
+        to.RelativeX = from.X;
+        to.RelativeY = from.Y;
+        to.RelativeZ = from.Z;
+        to.Radius = from.Radius;
         to.Color = new Color((byte) (from.Red * (double) byte.MaxValue),
             (byte) (from.Green * (double) byte.MaxValue),
             (byte) (from.Blue * (double) byte.MaxValue),
@@ -65,50 +93,80 @@ public static class FrbShapeExtensions
         to.Name = from.Name;
     }
 
-    private static Polygon ToRelativePolygon(this PolygonSave from)
+    /// <summary>
+    /// Maps a shape save to a new instance of a shape, interpreting the save values as relative positions.
+    /// </summary>
+    public static AxisAlignedRectangle MapToNewShapeRelative(this AxisAlignedRectangleSave from, PositionedObject? newParent = null)
+    {
+        AxisAlignedRectangle to = new();
+        MapShapeRelative(from, to);
+        
+        if (newParent is not null)
+        {
+            to.AttachTo(newParent);
+        }
+        
+        return to;
+    }
+
+    /// <summary>
+    /// Maps a shape save to a new instance of a shape, interpreting the save values as relative positions.
+    /// </summary>
+    public static AxisAlignedCube MapToNewShapeRelative(this AxisAlignedCubeSave from, PositionedObject? newParent = null)
+    {
+        AxisAlignedCube to = new();
+        MapShapeRelative(from, to);
+        
+        if (newParent is not null)
+        {
+            to.AttachTo(newParent);
+        }
+        
+        return to;
+    }
+
+    /// <summary>
+    /// Maps a shape save to a new instance of a shape, interpreting the save values as relative positions.
+    /// </summary>
+    public static Polygon MapToNewShapeRelative(this PolygonSave from, PositionedObject? newParent = null)
     {
         Polygon to = new();
-        SetRelativeValuesOn(from, to);
+        MapShapeRelative(from, to);
+        
+        if (newParent is not null)
+        {
+            to.AttachTo(newParent);
+        }
+        
         return to;
     }
-    
-    private static void SetRelativeValuesOn(this CircleSave from, Circle to)
-    {
-        to.RelativeX = from.X;
-        to.RelativeY = from.Y;
-        to.RelativeZ = from.Z;
-        to.Radius = from.Radius;
-        to.Color = new Color((byte) (from.Red * (double) byte.MaxValue),
-            (byte) (from.Green * (double) byte.MaxValue),
-            (byte) (from.Blue * (double) byte.MaxValue),
-            (byte) (from.Alpha * (double) byte.MaxValue));
-        to.Name = from.Name;
-    }
 
-    private static Circle ToRelativeCircle(this CircleSave from)
+    /// <summary>
+    /// Maps a shape save to a new instance of a shape, interpreting the save values as relative positions.
+    /// </summary>
+    public static Circle MapToNewShapeRelative(this CircleSave from, PositionedObject? newParent = null)
     {
         Circle to = new();
-        SetRelativeValuesOn(from, to);
+        MapShapeRelative(from, to);
+        
+        if (newParent is not null)
+        {
+            to.AttachTo(newParent);
+        }
+        
         return to;
     }
-    
-    private static void SetRelativeValuesOn(this SphereSave from, Sphere to)
-    {
-        to.RelativeX = from.X;
-        to.RelativeY = from.Y;
-        to.RelativeZ = from.Z;
-        to.Radius = from.Radius;
-        to.Color = new Color((byte) (from.Red * (double) byte.MaxValue),
-            (byte) (from.Green * (double) byte.MaxValue),
-            (byte) (from.Blue * (double) byte.MaxValue),
-            (byte) (from.Alpha * (double) byte.MaxValue));
-        to.Name = from.Name;
-    }
 
-    private static Sphere ToRelativeSphere(this SphereSave from)
+    /// <summary>
+    /// Maps a shape save to a new instance of a shape, interpreting the save values as relative positions.
+    /// </summary>
+    public static Sphere MapToNewShapeRelative(this SphereSave from, PositionedObject? newParent = null)
     {
         Sphere to = new();
-        SetRelativeValuesOn(from, to);
+        MapShapeRelative(from, to);
+        
+        if (newParent is not null) { to.AttachTo(newParent); }
+        
         return to;
     }
 
@@ -117,103 +175,153 @@ public static class FrbShapeExtensions
     ///   overwrites the lists in "<paramref name="to"/>' with the found shapes. All shapes' parents are set to
     ///   '<paramref name="newParent"/>'. You may provide a null parent to not parent the shapes.
     /// </summary>
-    private static void SetShapesByName(this ShapeCollectionSave from, ShapeCollection to, string name, PositionedObject newParent)
+    public static void SetShapesByName(this ShapeCollectionSave from, ShapeCollection to, string name, PositionedObject? newParent)
     {
-        int toRectIndex = 0;
-        foreach (var rectangleSave in from.AxisAlignedRectangleSaves)
+        int toShapeIndex = 0;
+        foreach (var shapeSave in from.AxisAlignedRectangleSaves!)
         {
-            if (rectangleSave.Name != name)
+            if (shapeSave.Name != name) { continue; }
+
+            if (toShapeIndex >= to.AxisAlignedRectangles!.Count)
             {
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.AxisAlignedRectangles.Add(newShape);
                 continue;
             }
-
-            AxisAlignedRectangle copyToRectangle;
-            if (toRectIndex < to.AxisAlignedRectangles.Count)
+            
+            var copyToShape = to.AxisAlignedRectangles[toShapeIndex++];
+            if (copyToShape is null)
             {
-                copyToRectangle = to.AxisAlignedRectangles[toRectIndex++];
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.AxisAlignedRectangles[toShapeIndex] = newShape;
             }
             else
             {
-                copyToRectangle = new AxisAlignedRectangle();
-                copyToRectangle.AttachTo(newParent);
+                shapeSave.MapShapeRelative(copyToShape);
             }
-            rectangleSave.SetRelativeValuesOn(copyToRectangle);
         }
-        foreach (var cubeSave in from.AxisAlignedCubeSaves)
+        
+        foreach (var shapeSave in from.AxisAlignedCubeSaves!)
         {
-            if (cubeSave.Name != name)
+            if (shapeSave.Name != name) { continue; }
+
+            if (toShapeIndex >= to.AxisAlignedCubes!.Count)
             {
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.AxisAlignedCubes.Add(newShape);
                 continue;
             }
-
-            AxisAlignedCube copyToCube;
-            if (toRectIndex < to.AxisAlignedCubes.Count)
+            
+            var copyToShape = to.AxisAlignedCubes[toShapeIndex++];
+            if (copyToShape is null)
             {
-                copyToCube = to.AxisAlignedCubes[toRectIndex++];
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.AxisAlignedCubes[toShapeIndex] = newShape;
             }
             else
             {
-                copyToCube = new AxisAlignedCube();
-                copyToCube.AttachTo(newParent);
+                shapeSave.MapShapeRelative(copyToShape);
             }
-            cubeSave.SetRelativeValuesOn(copyToCube);
         }
-        foreach (var polygonSave in from.PolygonSaves)
+        
+        foreach (var shapeSave in from.PolygonSaves!)
         {
-            if (polygonSave.Name != name)
+            if (shapeSave.Name != name) { continue; }
+
+            if (toShapeIndex >= to.Polygons!.Count)
             {
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Polygons.Add(newShape);
                 continue;
             }
-
-            Polygon copyToPolygon;
-            if (toRectIndex < to.Polygons.Count)
+            
+            var copyToShape = to.Polygons[toShapeIndex++];
+            if (copyToShape is null)
             {
-                copyToPolygon = to.Polygons[toRectIndex++];
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Polygons[toShapeIndex] = newShape;
             }
             else
             {
-                copyToPolygon = new Polygon();
-                copyToPolygon.AttachTo(newParent);
+                shapeSave.MapShapeRelative(copyToShape);
             }
-            polygonSave.SetRelativeValuesOn(copyToPolygon);
         }
-        foreach (var circleSave in from.CircleSaves)
+        
+        foreach (var shapeSave in from.CircleSaves!)
         {
-            if (circleSave.Name != name)
+            if (shapeSave.Name != name) { continue; }
+
+            if (toShapeIndex >= to.Circles!.Count)
             {
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Circles.Add(newShape);
                 continue;
             }
-
-            Circle copyToCircle;
-            if (toRectIndex < to.Circles.Count)
+            
+            var copyToShape = to.Circles[toShapeIndex++];
+            if (copyToShape is null)
             {
-                copyToCircle = to.Circles[toRectIndex++];
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Circles[toShapeIndex] = newShape;
             }
             else
             {
-                copyToCircle = new Circle();
-                copyToCircle.AttachTo(newParent);
+                shapeSave.MapShapeRelative(copyToShape);
             }
-            circleSave.SetRelativeValuesOn(copyToCircle);
         }
-        foreach (var sphereSave in from.SphereSaves)
+        
+        foreach (var shapeSave in from.SphereSaves!)
         {
-            if (sphereSave.Name != name)
+            if (shapeSave.Name != name) { continue; }
+
+            if (toShapeIndex >= to.Spheres!.Count)
             {
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Spheres.Add(newShape);
                 continue;
             }
-
-            Sphere copyToSphere;
-            if (toRectIndex < to.Spheres.Count)
+            
+            var copyToShape = to.Spheres[toShapeIndex++];
+            if (copyToShape is null)
             {
-                copyToSphere = to.Spheres[toRectIndex++];
+                var newShape = MapToNewShapeRelative(shapeSave, newParent);
+                to.Spheres[toShapeIndex] = newShape;
             }
             else
             {
-                copyToSphere = new Sphere();
-                copyToSphere.AttachTo(newParent);
+                shapeSave.MapShapeRelative(copyToShape);
             }
-            sphereSave.SetRelativeValuesOn(copyToSphere);
         }
     }
+
+    // /// <summary>
+    // /// Checks this shape collection to see that all its shape lists are filled with only non-null values.
+    // /// <br/>Returns true if validated.
+    // /// </summary>
+    // public static bool ValidateShapeCollectionNonNull(this ShapeCollection collection)
+    // {
+    //     foreach (var shape in collection.AxisAlignedRectangles) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.AxisAlignedCubes) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Polygons) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Circles) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Spheres) { if (shape is null) { return false; } }
+    //     
+    //     return true;
+    // }
+    //
+    // /// <summary>
+    // /// Checks if this shape collection's shape lists are initialized and that all shapes are non-null. Null lists will
+    // ///   be initialized and null shapes will be removed.
+    // /// <br/>Returns true if collection was updated.
+    // /// </summary>
+    // public static bool EnsureShapeCollectionNonNull(this ShapeCollection collection)
+    // {
+    //     foreach (var shape in collection.AxisAlignedRectangles) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.AxisAlignedCubes) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Polygons) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Circles) { if (shape is null) { return false; } }
+    //     foreach (var shape in collection.Spheres) { if (shape is null) { return false; } }
+    //     
+    //     return true;
+    // }
 }
