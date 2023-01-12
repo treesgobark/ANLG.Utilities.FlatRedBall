@@ -20,7 +20,7 @@ public class ControllerCollection<T, TController>
     /// The currently active controller
     /// </summary>
     protected TController CurrentController { get; set; }
-
+    
     /// <summary>
     /// Adds a controller to the collection.
     /// </summary>
@@ -80,7 +80,7 @@ public class ControllerCollection<T, TController>
         
         var newController = CurrentController.EvaluateExitConditions();
         
-        if (!ReferenceEquals(newController, CurrentController))
+        if (newController is not null)
         {
             CurrentController.BeforeDeactivate();
             CurrentController = newController;

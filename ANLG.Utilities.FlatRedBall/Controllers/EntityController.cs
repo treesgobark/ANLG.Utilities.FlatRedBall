@@ -40,13 +40,17 @@ public abstract class EntityController<T, TSelf>
     public abstract void CustomActivity();
     
     /// <summary>
-    /// Called once before this controller is no longer the active controller
+    /// Called before CustomActivity each frame. Should evaluate the current state of the entity and decide which
+    ///   controller should be moved to next. Returning null signals that no exit conditions have been fulfilled
+    ///   and the current state should be maintained. Returning <c>`this`</c> signals that the machine should
+    ///   transition out of the current state and then back into the current state. This action would trigger
+    ///   all the lifecycle hooks again.
     /// </summary>
-    public abstract void BeforeDeactivate();
+    public abstract TSelf? EvaluateExitConditions();
     
     /// <summary>
-    /// Called before CustomActivity each frame. Should evaluate the current state of the entity and decide which
-    ///   controller should be moved to next. Will usually return <c>this</c> controller as a default.
+    /// Called once before this controller is no longer the active controller. This happens after <see cref="EvaluateExitConditions"/>,
+    ///   but before the next state's <see cref="OnActivate"/>.
     /// </summary>
-    public abstract TSelf EvaluateExitConditions();
+    public abstract void BeforeDeactivate();
 }
