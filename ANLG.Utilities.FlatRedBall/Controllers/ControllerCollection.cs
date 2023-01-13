@@ -42,7 +42,7 @@ public class ControllerCollection<T, TController>
     {
         foreach (var controller in Controllers)
         {
-            if (Type.GetTypeHandle(this).Value == typeof(TSearch).TypeHandle.Value)
+            if (Type.GetTypeHandle(controller).Value == typeof(TSearch).TypeHandle.Value)
             {
                 return (TSearch)controller;
             }
