@@ -42,9 +42,9 @@ public class ControllerCollection<T, TController>
     {
         foreach (var controller in Controllers)
         {
-            if (controller is TSearch castController)
+            if (Type.GetTypeHandle(this).Value == typeof(TSearch).TypeHandle.Value)
             {
-                return castController;
+                return (TSearch)controller;
             }
         }
         throw new ArgumentException($"Collection does not contain any controllers of type {typeof(TSearch).Name}");
