@@ -1,11 +1,11 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using ANLG.Utilities.FlatRedBall.Constants;
-using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
+using static Microsoft.Xna.Framework.Vector3ExtensionMethods;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 

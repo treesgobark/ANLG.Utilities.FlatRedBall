@@ -1,10 +1,10 @@
 ﻿using ANLG.Utilities.FlatRedBall.Constants;
-using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
+using static Microsoft.Xna.Framework.Vector2ExtensionMethods;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
@@ -319,7 +319,7 @@ public static class MgVector2Extensions
     public static MgVector2 WithMagnitude(this MgVector2 input, float magnitude)
     {
         var angle = input.GetCcwAngle();
-        return magnitude * Vector2.UnitX.RotatedBy(angle);
+        return magnitude * MgVector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
@@ -328,7 +328,7 @@ public static class MgVector2Extensions
     public static MgVector2 WithAngle(this MgVector2 input, float angle)
     {
         var length = input.Length();
-        return length * Vector2.UnitX.RotatedBy(angle);
+        return length * MgVector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
