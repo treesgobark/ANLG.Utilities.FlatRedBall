@@ -26,23 +26,20 @@
       </PackageReference>
       <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
     </ItemGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="../../../../source/repos/FlatRedBall/Engines/FlatRedBallXNA/FlatRedBallDesktopGLNet6/FlatRedBallDesktopGLNet6.csproj">
-            <Name>FlatRedBallDesktopGLNet6</Name>
-        </ProjectReference>
-        <ProjectReference Include="../../../../source/repos/FlatRedBall/Engines/Forms/FlatRedBall.Forms/FlatRedBall.Forms.DesktopGlNet6/FlatRedBall.Forms.DesktopGlNet6.csproj">
-            <Name>FlatRedBall.Forms.DesktopGlNet6</Name>
-        </ProjectReference>
-        <ProjectReference Include="../../../../source/repos/FlatRedBall/Engines/Forms/FlatRedBall.Forms/StateInterpolation/StateInterpolation.DesktopGlNet6/StateInterpolation.DesktopNet6.csproj">
-            <Name>StateInterpolation.DesktopNet6</Name>
-        </ProjectReference>
-        <ProjectReference Include="../../../../source/repos/Gum/GumCore/GumCoreXnaPc/GumCore.DesktopGlNet6/GumCore.DesktopGlNet6.csproj">
-            <Name>GumCore.DesktopGlNet6</Name>
-        </ProjectReference>
-        <ProjectReference Include="../../../../source/repos/Gum/SvgPlugin/SkiaInGumShared/SkiaInGum.csproj">
-            <Name>SkiaInGum</Name>
-        </ProjectReference>
+        <Reference Include="FlatRedBall.Forms">
+            <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>
+        </Reference>
+        <Reference Include="FlatRedBallDesktopGL">
+            <HintPath>Libraries\DesktopGl\Debug\FlatRedBallDesktopGL.dll</HintPath>
+        </Reference>
+        <Reference Include="GumCoreXnaPc">
+            <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>
+        </Reference>
+        <Reference Include="StateInterpolation">
+            <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
