@@ -22,20 +22,6 @@
     <ItemGroup>
       <ProjectReference Include="..\ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj" />
     </ItemGroup>
-    <ItemGroup>
-        <Reference Include="FlatRedBall.Forms">
-            <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>
-        </Reference>
-        <Reference Include="FlatRedBallDesktopGL">
-            <HintPath>Libraries\DesktopGl\Debug\FlatRedBallDesktopGL.dll</HintPath>
-        </Reference>
-        <Reference Include="GumCoreXnaPc">
-            <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>
-        </Reference>
-        <Reference Include="StateInterpolation">
-            <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>
-        </Reference>
-    </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Libraries\Tmx" />
