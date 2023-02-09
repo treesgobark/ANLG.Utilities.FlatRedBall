@@ -1,6 +1,6 @@
-using MgVector2 = Microsoft.Xna.Framework.Vector2;
-using MgVector3 = Microsoft.Xna.Framework.Vector3;
-using MgVector4 = Microsoft.Xna.Framework.Vector4;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
+using Vector4 = Microsoft.Xna.Framework.Vector4;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
@@ -9,7 +9,7 @@ public static class Vector4Extensions
     /// <summary>
     /// Returns the component at the given index. 0 is X, 1 is Y, 2 is Z, and 3 is W.
     /// </summary>
-    public static float GetComponent(this MgVector4 input, int index)
+    public static float GetComponent(this Vector4 input, int index)
     {
         return index switch
         {
@@ -26,7 +26,7 @@ public static class Vector4Extensions
     /// <summary>
     /// Returns a new vector with the component at the given index set to the given value. 0 is X, 1 is Y, 2 is Z, and 3 is W.
     /// </summary>
-    public static MgVector4 SetComponent(this MgVector4 input, int index, float value)
+    public static Vector4 SetComponent(this Vector4 input, int index, float value)
     {
         return index switch
         {
@@ -41,7 +41,7 @@ public static class Vector4Extensions
     /// <summary>
     /// Sets the given vector's component at the given index to the given value. Mutates original vector. 0 is X, 1 is Y, 2 is Z, and 3 is W.
     /// </summary>
-    public static void SetComponentMutate(this ref MgVector4 input, int index, float value)
+    public static void SetComponentMutate(this ref Vector4 input, int index, float value)
     {
         switch (index)
         {
@@ -71,17 +71,17 @@ public static class Vector4Extensions
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
     /// <br/><br/>Common usage: <c>Vector2.One.Randomize()</c>
     /// </summary>
-    public static MgVector4 Randomize(this MgVector4 input, bool canInvert = false, Random? random = null)
+    public static Vector4 Randomize(this Vector4 input, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
         if (canInvert)
         {
-            return new MgVector4(input.X * random.NextSingle() * random.NextSign(), 
+            return new Vector4(input.X * random.NextSingle() * random.NextSign(), 
                 input.Y * random.NextSingle() * random.NextSign(),
                 input.Z * random.NextSingle() * random.NextSign(),
                 input.W * random.NextSingle() * random.NextSign());
         }
-        return new MgVector4(input.X * random.NextSingle(), input.Y * random.NextSingle(),
+        return new Vector4(input.X * random.NextSingle(), input.Y * random.NextSingle(),
             input.Z * random.NextSingle(), input.W * random.NextSingle());
     }
 
@@ -91,10 +91,10 @@ public static class Vector4Extensions
     // ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     // /// Common usage: <c>(Vector2.Zero, Vector2.One).Randomize()</c> <br/>
     // /// </summary>
-    // public static MgVector4 RandomizeBetween(this (MgVector4 minValues, MgVector4 maxValues) input, Random? random = null)
+    // public static Vector4 RandomizeBetween(this (Vector4 minValues, Vector4 maxValues) input, Random? random = null)
     // {
     //     random ??= Random.Shared;
-    //     return input.PiecewiseLerp(MgVector4.One.Randomize(random: random));
+    //     return input.PiecewiseLerp(Vector4.One.Randomize(random: random));
     // }
     //
     // /// <summary>
@@ -103,7 +103,7 @@ public static class Vector4Extensions
     // ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     // ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     // /// </summary>
-    // public static MgVector4 RandomizeAngle(this MgVector4 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
+    // public static Vector4 RandomizeAngle(this Vector4 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
     // {
     //     random ??= Random.Shared;
     //     return input.RotatedBy(MathHelper.Lerp(-tolerance, tolerance, random.NextSingle()));
@@ -115,7 +115,7 @@ public static class Vector4Extensions
     // ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     // ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     // /// </summary>
-    // public static MgVector4 RandomizeAngleBetween(this MgVector4 input, float min, float max, Random? random = null)
+    // public static Vector4 RandomizeAngleBetween(this Vector4 input, float min, float max, Random? random = null)
     // {
     //     random ??= Random.Shared;
     //     return input.AtAngle(MathHelper.Lerp(min, max, random.NextSingle()));
@@ -127,7 +127,7 @@ public static class Vector4Extensions
     // ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     // ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     // /// </summary>
-    // public static MgVector4 RandomizeMagnitude(this MgVector4 input, bool canInvert = false, Random? random = null)
+    // public static Vector4 RandomizeMagnitude(this Vector4 input, bool canInvert = false, Random? random = null)
     // {
     //     random ??= Random.Shared;
     //     if (canInvert)
@@ -144,7 +144,7 @@ public static class Vector4Extensions
     // ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     // ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     // /// </summary>
-    // public static MgVector4 RandomizeMagnitudeBetween(this MgVector4 input, float min, float max, bool canInvert = false, Random? random = null)
+    // public static Vector4 RandomizeMagnitudeBetween(this Vector4 input, float min, float max, bool canInvert = false, Random? random = null)
     // {
     //     random ??= Random.Shared;
     //     if (canInvert)

@@ -1,21 +1,21 @@
 ﻿using ANLG.Utilities.FlatRedBall.Constants;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
-using MgVector2 = Microsoft.Xna.Framework.Vector2;
-using MgVector3 = Microsoft.Xna.Framework.Vector3;
-using MgVector4 = Microsoft.Xna.Framework.Vector4;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
+using Vector4 = Microsoft.Xna.Framework.Vector4;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 using static Microsoft.Xna.Framework.Vector2ExtensionMethods;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 ///
-public static class MgVector2Extensions
+public static class Vector2Extensions
 {
     // /// <summary>
     // /// Allows deconstruction into (float x, float y)
     // /// </summary>
-    // public static void Deconstruct(this MgVector2 input, out float x, out float y)
+    // public static void Deconstruct(this Vector2 input, out float x, out float y)
     // {
     //     x = input.X;
     //     y = input.Y;
@@ -24,7 +24,7 @@ public static class MgVector2Extensions
     /// <summary>
     /// Allows deconstruction into (float x, float y)
     /// </summary>
-    public static void Deconstruct(this MgVector2? input, out float x, out float y)
+    public static void Deconstruct(this Vector2? input, out float x, out float y)
     {
         if (input is null)
         {
@@ -38,28 +38,28 @@ public static class MgVector2Extensions
     }
     
     /// <summary>
-    /// Adds a dimension to a <see cref="MgVector2"/>.
+    /// Adds a dimension to a <see cref="Vector2"/>.
     /// </summary>
-    /// <returns>A new <see cref="MgVector3"/> of the form { <paramref name="input"/>.X, <paramref name="input"/>.Y, <paramref name="z"/> }</returns>
-    public static MgVector3 ToVec3(this MgVector2 input, float z = 0f)
+    /// <returns>A new <see cref="Vector3"/> of the form { <paramref name="input"/>.X, <paramref name="input"/>.Y, <paramref name="z"/> }</returns>
+    public static Vector3 ToVec3(this Vector2 input, float z = 0f)
     {
-        return new MgVector3(input, z);
+        return new Vector3(input, z);
     }
     
     /// <summary>
-    /// Adds two dimensions to a <see cref="MgVector2"/>.
+    /// Adds two dimensions to a <see cref="Vector2"/>.
     /// </summary>
-    /// <returns>A new <see cref="MgVector3"/> of the form
+    /// <returns>A new <see cref="Vector3"/> of the form
     /// { <paramref name="input"/>.X, <paramref name="input"/>.Y, <paramref name="z"/>, <paramref name="w"/> }</returns>
-    public static MgVector4 ToVec4(this MgVector2 input, float z = 0f, float w = 0f)
+    public static Vector4 ToVec4(this Vector2 input, float z = 0f, float w = 0f)
     {
-        return new MgVector4(input, z, w);
+        return new Vector4(input, z, w);
     }
 
     /// <summary>
     /// Returns the component at the given index. 0 is X and 1 is Y.
     /// </summary>
-    public static float GetComponent(this MgVector2 input, int index)
+    public static float GetComponent(this Vector2 input, int index)
     {
         return index switch
         {
@@ -74,7 +74,7 @@ public static class MgVector2Extensions
     /// <summary>
     /// Returns a new vector with the component at the given index set to the given value. 0 is X and 1 is Y.
     /// </summary>
-    public static MgVector2 SetComponent(this MgVector2 input, int index, float value)
+    public static Vector2 SetComponent(this Vector2 input, int index, float value)
     {
         return index switch
         {
@@ -87,7 +87,7 @@ public static class MgVector2Extensions
     /// <summary>
     /// Sets the given vector's component at the given index to the given value. Mutates original vector. 0 is X, 1 is Y.
     /// </summary>
-    public static void SetComponentMutate(this ref MgVector2 input, int index, float value)
+    public static void SetComponentMutate(this ref Vector2 input, int index, float value)
     {
         switch (index)
         {
@@ -105,7 +105,7 @@ public static class MgVector2Extensions
     /// <summary>
     /// Returns the slope of this vector: Y/X
     /// </summary>
-    public static float GetSlope(this MgVector2 input)
+    public static float GetSlope(this Vector2 input)
     {
         return input.Y / input.X;
     }
@@ -116,7 +116,7 @@ public static class MgVector2Extensions
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static Quadrant GetQuadrant(this MgVector2 input)
+    public static Quadrant GetQuadrant(this Vector2 input)
     {
         return input switch
         {
@@ -137,13 +137,13 @@ public static class MgVector2Extensions
     /// Returns the vector representation of the point in the given list
     ///   which is closest to this vector representation of a point.
     /// </summary>
-    public static MgVector2 GetClosestPoint(this MgVector2 input, MgVector2[] otherPoints)
+    public static Vector2 GetClosestPoint(this Vector2 input, Vector2[] otherPoints)
     {
         float lowestDist = float.MaxValue;
-        MgVector2 closestPoint = input;
+        Vector2 closestPoint = input;
         for (int i = 0; i < otherPoints.Length; i++)
         {
-            var thisDist = MgVector2.DistanceSquared(input, otherPoints[i]);
+            var thisDist = Vector2.DistanceSquared(input, otherPoints[i]);
             if (thisDist <= lowestDist)
             {
                 closestPoint = otherPoints[i];
@@ -157,12 +157,12 @@ public static class MgVector2Extensions
     /// Returns the angle of this vector where 0 is the X unit vector. Ranges from 0 to 2*pi.
     ///   Returns <see cref="float.NaN"/> if this vector is (0, 0) or if either component is not a number.
     /// </summary>
-    public static float GetCcwAngle(this MgVector2 input)
+    public static float GetCcwAngle(this Vector2 input)
     {
         return input.GetQuadrant() switch
         {
-            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
-            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => MathConstants.FullTurn - MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(Vector2.Dot(Vector2.UnitX, input) / input.Length()),
+            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => MathConstants.FullTurn - MathF.Acos(Vector2.Dot(Vector2.UnitX, input) / input.Length()),
             Quadrant.Zero => float.NaN,
             _ => throw new Exception(),
         };
@@ -171,12 +171,12 @@ public static class MgVector2Extensions
     /// <summary>
     /// Returns the angle of this vector where 0 is the X unit vector. Ranges from -pi to pi
     /// </summary>
-    public static float GetClosestAngle(this MgVector2 input)
+    public static float GetClosestAngle(this Vector2 input)
     {
         return input.GetQuadrant() switch
         {
-            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
-            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => -MathF.Acos(MgVector2.Dot(MgVector2.UnitX, input) / input.Length()),
+            Quadrant.One or Quadrant.Two or Quadrant.Up or Quadrant.Left => MathF.Acos(Vector2.Dot(Vector2.UnitX, input) / input.Length()),
+            Quadrant.Three or Quadrant.Four or Quadrant.Down or Quadrant.Right => -MathF.Acos(Vector2.Dot(Vector2.UnitX, input) / input.Length()),
             Quadrant.Zero => float.NaN,
             _ => throw new Exception(),
         };
@@ -186,7 +186,7 @@ public static class MgVector2Extensions
     /// Increases the magnitude of a vector by the specified amount without changing its direction and returns the result as a new vector.
     ///   Does not mutate <paramref name="input"/>.
     /// </summary>
-    public static MgVector2 Extend(this MgVector2 input, float distance)
+    public static Vector2 Extend(this Vector2 input, float distance)
     {
         var length = input.Length();
         return input.Scale(1 + distance / length, 1 + distance / length);
@@ -197,31 +197,31 @@ public static class MgVector2Extensions
     ///   For a visualization of projection, see <a href="https://www.geogebra.org/m/XShfg9r8">here</a>.
     /// <br/>Value: proj_<paramref name="target"/> <paramref name="input"/>
     /// </summary>
-    public static MgVector2 ProjectOnto(this MgVector2 input, MgVector2 target)
+    public static Vector2 ProjectOnto(this Vector2 input, Vector2 target)
     {
-        var dot = MgVector2.Dot(input, target);
+        var dot = Vector2.Dot(input, target);
         var result = dot / target.LengthSquared() * target;
         return result;
     }
 
     /// <summary>
     /// Performs a linear interpolation between <paramref name="input.lerpFrom"/> and <paramref name="input.lerpTo"/>.
-    ///   Wrapper for <see cref="MgVector2.Lerp(MgVector2, MgVector2, float)"/>
+    ///   Wrapper for <see cref="Vector2.Lerp(Vector2, Vector2, float)"/>
     /// </summary>
-    public static MgVector2 Lerp(this (MgVector2 lerpFrom, MgVector2 lerpTo) input, float t)
+    public static Vector2 Lerp(this (Vector2 lerpFrom, Vector2 lerpTo) input, float t)
     {
-        return MgVector2.Lerp(input.lerpFrom, input.lerpTo, t);
+        return Vector2.Lerp(input.lerpFrom, input.lerpTo, t);
     }
 
     /// <summary>
     /// Performs linear interpolation from the first vector to the second vector on its components individually,
     ///   using <paramref name="tValues"/>.X to lerp the X components and <paramref name="tValues"/>.Y to lerp the Y components.
     /// </summary>
-    public static MgVector2 PiecewiseLerp(this (MgVector2 lerpFrom, MgVector2 lerpTo) input, MgVector2 tValues)
+    public static Vector2 PiecewiseLerp(this (Vector2 lerpFrom, Vector2 lerpTo) input, Vector2 tValues)
     {
         var xLerp = MathHelper.Lerp(input.lerpFrom.X, input.lerpTo.X, tValues.X);
         var yLerp = MathHelper.Lerp(input.lerpFrom.Y, input.lerpTo.Y, tValues.Y);
-        return new MgVector2(xLerp, yLerp);
+        return new Vector2(xLerp, yLerp);
     }
 
     #region Random
@@ -233,14 +233,14 @@ public static class MgVector2Extensions
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided.
     /// <br/><br/>Common usage: <c>Vector2.One.Randomize()</c>
     /// </summary>
-    public static MgVector2 Randomize(this MgVector2 input, bool canInvert = false, Random? random = null)
+    public static Vector2 Randomize(this Vector2 input, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
         if (canInvert)
         {
-            return new MgVector2(input.X * random.NextSingle() * random.NextSign(), input.Y * random.NextSingle() * random.NextSign());
+            return new Vector2(input.X * random.NextSingle() * random.NextSign(), input.Y * random.NextSingle() * random.NextSign());
         }
-        return new MgVector2(input.X * random.NextSingle(), input.Y * random.NextSingle());
+        return new Vector2(input.X * random.NextSingle(), input.Y * random.NextSingle());
     }
 
     /// <summary>
@@ -249,10 +249,10 @@ public static class MgVector2Extensions
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     /// Common usage: <c>(Vector2.Zero, Vector2.One).Randomize()</c> <br/>
     /// </summary>
-    public static MgVector2 RandomizeBetween(this (MgVector2 minValues, MgVector2 maxValues) input, Random? random = null)
+    public static Vector2 RandomizeBetween(this (Vector2 minValues, Vector2 maxValues) input, Random? random = null)
     {
         random ??= Random.Shared;
-        return input.PiecewiseLerp(MgVector2.One.Randomize(random: random));
+        return input.PiecewiseLerp(Vector2.One.Randomize(random: random));
     }
 
     /// <summary>
@@ -261,7 +261,7 @@ public static class MgVector2Extensions
     ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     /// </summary>
-    public static MgVector2 RandomizeAngle(this MgVector2 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
+    public static Vector2 RandomizeAngle(this Vector2 input, float tolerance = MathConstants.HalfTurn, Random? random = null)
     {
         random ??= Random.Shared;
         return input.RotatedBy(MathHelper.Lerp(-tolerance, tolerance, random.NextSingle()));
@@ -273,7 +273,7 @@ public static class MgVector2Extensions
     ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     /// </summary>
-    public static MgVector2 RandomizeAngleBetween(this MgVector2 input, float min, float max, Random? random = null)
+    public static Vector2 RandomizeAngleBetween(this Vector2 input, float min, float max, Random? random = null)
     {
         random ??= Random.Shared;
         return input.AtLength(MathHelper.Lerp(min, max, random.NextSingle()));
@@ -285,7 +285,7 @@ public static class MgVector2Extensions
     ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     /// </summary>
-    public static MgVector2 RandomizeMagnitude(this MgVector2 input, bool canInvert = false, Random? random = null)
+    public static Vector2 RandomizeMagnitude(this Vector2 input, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
         if (canInvert)
@@ -302,7 +302,7 @@ public static class MgVector2Extensions
     ///   <br/>You may optionally provide an existing <see cref="Random"/> instance.
     ///   Random instance falls back to <see cref="Random.Shared"/> if none is provided. <br/>
     /// </summary>
-    public static MgVector2 RandomizeMagnitudeBetween(this MgVector2 input, float min, float max, bool canInvert = false, Random? random = null)
+    public static Vector2 RandomizeMagnitudeBetween(this Vector2 input, float min, float max, bool canInvert = false, Random? random = null)
     {
         random ??= Random.Shared;
         if (canInvert)
@@ -317,38 +317,38 @@ public static class MgVector2Extensions
     #region Transforms
 
     /// <summary>
-    /// Applies a transformation matrix to a vector. Wrapper for <see cref="MgVector2.Transform(MgVector2, MgMatrix)"/>.
+    /// Applies a transformation matrix to a vector. Wrapper for <see cref="Vector2.Transform(Vector2, MgMatrix)"/>.
     /// </summary>
-    public static MgVector2 Transform(this MgVector2 input1, MgMatrix input2)
+    public static Vector2 Transform(this Vector2 input1, MgMatrix input2)
     {
-        return MgVector2.Transform(input1, input2);
+        return Vector2.Transform(input1, input2);
     }
 
     /// <summary>
     /// Translates a Vector2 by the specified amounts on the 2 axes.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X + <paramref name="x"/>,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X + <paramref name="x"/>,
     ///   <paramref name="input1"/>.Y + <paramref name="y"/> }</returns>
-    public static MgVector2 Translate(this MgVector2 input1, float x = 0f, float y = 0f)
+    public static Vector2 Translate(this Vector2 input1, float x = 0f, float y = 0f)
     {
-        return new MgVector2(input1.X + x, input1.Y + y);
+        return new Vector2(input1.X + x, input1.Y + y);
     }
 
     /// <summary>
     /// Scales a Vector2 by the specified amounts on the 2 axes.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X * <paramref name="x"/>,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X * <paramref name="x"/>,
     ///   <paramref name="input1"/>.Y * <paramref name="y"/> }</returns>
-    public static MgVector2 Scale(this MgVector2 input1, float x = 1f, float y = 1f)
+    public static Vector2 Scale(this Vector2 input1, float x = 1f, float y = 1f)
     {
-        return new MgVector2(input1.X * x, input1.Y * y);
+        return new Vector2(input1.X * x, input1.Y * y);
     }
 
     // /// <summary>
     // /// Rotates a vector by <paramref name="radians"/>.
     // /// </summary>
-    // /// <returns>A new MgVector2 that has been rotated.</returns>
-    // public static MgVector2 Rotate(this MgVector2 input1, float radians)
+    // /// <returns>A new Vector2 that has been rotated.</returns>
+    // public static Vector2 Rotate(this Vector2 input1, float radians)
     // {
     //     return input1.Transform(MgMatrix.CreateRotationZ(radians));
     // }
@@ -357,13 +357,13 @@ public static class MgVector2Extensions
     // /// Normalizes a vector, i.e. sets this vector's magnitude to 0 while preserving its direction.
     // /// </summary>
     // /// <param name="input1"></param>
-    // /// <returns>A MgVector2 with magnitude 1 if the input vector's magnitude is nonzero. Returns the zero vector otherwise.</returns>
-    // public static MgVector2 NormalizeExtension(this MgVector2 input1)
+    // /// <returns>A Vector2 with magnitude 1 if the input vector's magnitude is nonzero. Returns the zero vector otherwise.</returns>
+    // public static Vector2 NormalizeExtension(this Vector2 input1)
     // {
     //     var magnitude = input1.Length();
     //     if (magnitude == 0)
     //     {
-    //         return MgVector2.Zero;
+    //         return Vector2.Zero;
     //     }
     //     return input1 / magnitude;
     // }
@@ -371,150 +371,150 @@ public static class MgVector2Extensions
     /// <summary>
     /// Returns a new vector with the same direction but with the magnitude provided.
     /// </summary>
-    public static MgVector2 WithMagnitude(this MgVector2 input, float magnitude)
+    public static Vector2 WithMagnitude(this Vector2 input, float magnitude)
     {
         var angle = input.GetCcwAngle();
-        return magnitude * MgVector2.UnitX.RotatedBy(angle);
+        return magnitude * Vector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
     /// Returns a new vector with the same magnitude but at the angle provided.
     /// </summary>
-    public static MgVector2 WithAngle(this MgVector2 input, float angle)
+    public static Vector2 WithAngle(this Vector2 input, float angle)
     {
         var length = input.Length();
-        return length * MgVector2.UnitX.RotatedBy(angle);
+        return length * Vector2.UnitX.RotatedBy(angle);
     }
 
     /// <summary>
     /// Applies a given func to each component of this vector and returns the result.
     /// </summary>
-    public static MgVector2 MutatePiecewise(this MgVector2 inputMgVector, Func<float, float> mutator)
+    public static Vector2 MutatePiecewise(this Vector2 inputVector, Func<float, float> mutator)
     {
-        return new MgVector2(mutator(inputMgVector.X), mutator(inputMgVector.Y));
+        return new Vector2(mutator(inputVector.X), mutator(inputVector.Y));
     }
 
     /// <summary>
     /// Moves this vector right the specified amount and returns the result.
     /// </summary>
-    public static MgVector2 Right(this MgVector2 inputMgVector, float amount)
+    public static Vector2 Right(this Vector2 inputVector, float amount)
     {
-        return inputMgVector with { X = inputMgVector.X + amount};
+        return inputVector with { X = inputVector.X + amount};
     }
 
     /// <summary>
     /// Moves this vector left the specified amount and returns the result.
     /// </summary>
-    public static MgVector2 Left(this MgVector2 inputMgVector, float amount)
+    public static Vector2 Left(this Vector2 inputVector, float amount)
     {
-        return inputMgVector with { X = inputMgVector.X - amount };
+        return inputVector with { X = inputVector.X - amount };
     }
 
     /// <summary>
     /// Moves this vector up the specified amount and returns the result.
     /// </summary>
-    public static MgVector2 Up(this MgVector2 inputMgVector, float amount)
+    public static Vector2 Up(this Vector2 inputVector, float amount)
     {
-        return inputMgVector with { Y = inputMgVector.Y + amount };
+        return inputVector with { Y = inputVector.Y + amount };
     }
 
     /// <summary>
     /// Moves this vector down the specified amount and returns the result.
     /// </summary>
-    /// <param name="inputMgVector"></param>
+    /// <param name="inputVector"></param>
     /// <param name="amount"></param>
     /// <returns></returns>
-    public static MgVector2 Down(this MgVector2 inputMgVector, float amount)
+    public static Vector2 Down(this Vector2 inputVector, float amount)
     {
-        return inputMgVector with { Y = inputMgVector.Y - amount };
+        return inputVector with { Y = inputVector.Y - amount };
     }
 
     #endregion
 
-    #region Arithmetic: MgVector3
+    #region Arithmetic: Vector3
 
     /// <summary>
-    /// Adds a MgVector3 to this MgVector2. The Z component of the MgVector3 is ignored.
+    /// Adds a Vector3 to this Vector2. The Z component of the Vector3 is ignored.
     /// </summary>
-    /// <returns>A new MgVector3 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.X,
+    /// <returns>A new Vector3 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.X,
     ///   <paramref name="input1"/>.Y + <paramref name="input2"/>.Y, <paramref name="input2"/>.Z }</returns>
-    public static MgVector2 Add(this MgVector2 input1, MgVector3 input2)
+    public static Vector2 Add(this Vector2 input1, Vector3 input2)
     {
-        return new MgVector2(input1.X + input2.X, input1.Y + input2.Y);
+        return new Vector2(input1.X + input2.X, input1.Y + input2.Y);
     }
 
     /// <summary>
-    /// Multiplies a MgVector3 by this MgVector2. The Z component of the MgVector3 is ignored.
+    /// Multiplies a Vector3 by this Vector2. The Z component of the Vector3 is ignored.
     /// </summary>
-    /// <returns>A new MgVector3 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.X,
+    /// <returns>A new Vector3 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.X,
     ///   <paramref name="input1"/>.Y * <paramref name="input2"/>.Y, <paramref name="input2"/>.Z }</returns>
-    public static MgVector2 Multiply(this MgVector2 input1, MgVector3 input2)
+    public static Vector2 Multiply(this Vector2 input1, Vector3 input2)
     {
-        return new MgVector2(input1.X * input2.X, input1.Y * input2.Y);
+        return new Vector2(input1.X * input2.X, input1.Y * input2.Y);
     }
 
     /// <summary>
-    /// Subtracts a MgVector3 from this MgVector2.  The Z component of the MgVector3 is ignored.
+    /// Subtracts a Vector3 from this Vector2.  The Z component of the Vector3 is ignored.
     /// </summary>
-    /// <returns>A new MgVector3 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.X,
+    /// <returns>A new Vector3 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.X,
     ///   <paramref name="input1"/>.Y - <paramref name="input2"/>.Y, 0f - <paramref name="input2"/>.Z }</returns>
-    public static MgVector2 Subtract(this MgVector2 input1, MgVector3 input2)
+    public static Vector2 Subtract(this Vector2 input1, Vector3 input2)
     {
-        return new MgVector2(input1.X - input2.X, input1.Y - input2.Y);
+        return new Vector2(input1.X - input2.X, input1.Y - input2.Y);
     }
 
     /// <summary>
-    /// Divides this MgVector2 by a MgVector3. The Z component of the MgVector3 is ignored.
+    /// Divides this Vector2 by a Vector3. The Z component of the Vector3 is ignored.
     /// </summary>
-    /// <returns>A new MgVector3 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.X,
+    /// <returns>A new Vector3 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.X,
     ///   <paramref name="input1"/>.Y / <paramref name="input2"/>.Y, 1f / <paramref name="input2"/>.Z }</returns>
-    public static MgVector2 Divide(this MgVector2 input1, MgVector3 input2)
+    public static Vector2 Divide(this Vector2 input1, Vector3 input2)
     {
-        return new MgVector2(input1.X / input2.X, input1.Y / input2.Y);
+        return new Vector2(input1.X / input2.X, input1.Y / input2.Y);
     }
 
     #endregion
 
-    #region Arithmetic: MgVector2
+    #region Arithmetic: Vector2
 
     /// <summary>
     /// Adds another vector to this one per-component. Equivalent to vector + vector
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X + <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Add(this MgVector2 input1, MgVector2 input2)
+    public static Vector2 Add(this Vector2 input1, Vector2 input2)
     {
-        return new MgVector2(input1.X + input2.X, input1.Y + input2.Y);
+        return new Vector2(input1.X + input2.X, input1.Y + input2.Y);
     }
 
     /// <summary>
     /// Multiplies (does not perform dot product or cross product) this vector by another one per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X * <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Multiply(this MgVector2 input1, MgVector2 input2)
+    public static Vector2 Multiply(this Vector2 input1, Vector2 input2)
     {
-        return new MgVector2(input1.X * input2.X, input1.Y * input2.Y);
+        return new Vector2(input1.X * input2.X, input1.Y * input2.Y);
     }
 
     /// <summary>
     /// Subtracts another vector from this vector per-component. Equivalent to vector - vector
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X - <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Subtract(this MgVector2 input1, MgVector2 input2)
+    public static Vector2 Subtract(this Vector2 input1, Vector2 input2)
     {
-        return new MgVector2(input1.X - input2.X, input1.Y - input2.Y);
+        return new Vector2(input1.X - input2.X, input1.Y - input2.Y);
     }
 
     /// <summary>
     /// Divides this vector by another one per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X / <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Divide(this MgVector2 input1, MgVector2 input2)
+    public static Vector2 Divide(this Vector2 input1, Vector2 input2)
     {
-        return new MgVector2(input1.X / input2.X, input1.Y / input2.Y);
+        return new Vector2(input1.X / input2.X, input1.Y / input2.Y);
     }
 
     #endregion
@@ -524,41 +524,41 @@ public static class MgVector2Extensions
     /// <summary>
     /// Adds a point to this vector per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X + <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Add(this MgVector2 input1, FrbPoint input2)
+    public static Vector2 Add(this Vector2 input1, FrbPoint input2)
     {
-        return new MgVector2(input1.X + (float)input2.X, input1.Y + (float)input2.Y);
+        return new Vector2(input1.X + (float)input2.X, input1.Y + (float)input2.Y);
     }
 
     /// <summary>
     /// Multiplies this vector by a point per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X * <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Multiply(this MgVector2 input1, FrbPoint input2)
+    public static Vector2 Multiply(this Vector2 input1, FrbPoint input2)
     {
-        return new MgVector2(input1.X * (float)input2.X, input1.Y * (float)input2.Y);
+        return new Vector2(input1.X * (float)input2.X, input1.Y * (float)input2.Y);
     }
 
     /// <summary>
     /// Subtracts a point from this vector per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X - <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Subtract(this MgVector2 input1, FrbPoint input2)
+    public static Vector2 Subtract(this Vector2 input1, FrbPoint input2)
     {
-        return new MgVector2(input1.X - (float)input2.X, input1.Y - (float)input2.Y);
+        return new Vector2(input1.X - (float)input2.X, input1.Y - (float)input2.Y);
     }
 
     /// <summary>
     /// Divides this vector by another one per-component.
     /// </summary>
-    /// <returns>A new MgVector2 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.Y,
+    /// <returns>A new Vector2 of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X / <paramref name="input2"/>.Y }</returns>
-    public static MgVector2 Divide(this MgVector2 input1, FrbPoint input2)
+    public static Vector2 Divide(this Vector2 input1, FrbPoint input2)
     {
-        return new MgVector2(input1.X / (float)input2.X, input1.Y / (float)input2.Y);
+        return new Vector2(input1.X / (float)input2.X, input1.Y / (float)input2.Y);
     }
 
     #endregion

@@ -1,6 +1,6 @@
-using MgVector2 = Microsoft.Xna.Framework.Vector2;
-using MgVector3 = Microsoft.Xna.Framework.Vector3;
-using MgVector4 = Microsoft.Xna.Framework.Vector4;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
+using Vector4 = Microsoft.Xna.Framework.Vector4;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
@@ -32,9 +32,9 @@ public static class SwizzleExtensions
 
     #region Vector2 Swizzles
 
-    public static MgVector2 Swizzle(this MgVector2 input, char component0, char component1)
+    public static Vector2 Swizzle(this Vector2 input, char component0, char component1)
     {
-        MgVector2 result = default;
+        Vector2 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -42,9 +42,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector3 Swizzle(this MgVector2 input, char component0, char component1, char component2)
+    public static Vector3 Swizzle(this Vector2 input, char component0, char component1, char component2)
     {
-        MgVector3 result = default;
+        Vector3 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -53,9 +53,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector4 Swizzle(this MgVector2 input, char component0, char component1, char component2, char component3)
+    public static Vector4 Swizzle(this Vector2 input, char component0, char component1, char component2, char component3)
     {
-        MgVector4 result = default;
+        Vector4 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -69,9 +69,9 @@ public static class SwizzleExtensions
 
     #region Vector3 Swizzles
 
-    public static MgVector2 Swizzle(this MgVector3 input, char component0, char component1)
+    public static Vector2 Swizzle(this Vector3 input, char component0, char component1)
     {
-        MgVector2 result = default;
+        Vector2 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -79,9 +79,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector3 Swizzle(this MgVector3 input, char component0, char component1, char component2)
+    public static Vector3 Swizzle(this Vector3 input, char component0, char component1, char component2)
     {
-        MgVector3 result = default;
+        Vector3 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -90,9 +90,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector4 Swizzle(this MgVector3 input, char component0, char component1, char component2, char component3)
+    public static Vector4 Swizzle(this Vector3 input, char component0, char component1, char component2, char component3)
     {
-        MgVector4 result = default;
+        Vector4 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -106,9 +106,9 @@ public static class SwizzleExtensions
 
     #region Vector4 Swizzles
 
-    public static MgVector2 Swizzle(this MgVector4 input, char component0, char component1)
+    public static Vector2 Swizzle(this Vector4 input, char component0, char component1)
     {
-        MgVector2 result = default;
+        Vector2 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -116,9 +116,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector3 Swizzle(this MgVector4 input, char component0, char component1, char component2)
+    public static Vector3 Swizzle(this Vector4 input, char component0, char component1, char component2)
     {
-        MgVector3 result = default;
+        Vector3 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -127,9 +127,9 @@ public static class SwizzleExtensions
         return result;
     }
 
-    public static MgVector4 Swizzle(this MgVector4 input, char component0, char component1, char component2, char component3)
+    public static Vector4 Swizzle(this Vector4 input, char component0, char component1, char component2, char component3)
     {
-        MgVector4 result = default;
+        Vector4 result = default;
         
         result.X = GetVecComponentFromFormatChar(input, component0);
         result.Y = GetVecComponentFromFormatChar(input, component1);
@@ -141,7 +141,7 @@ public static class SwizzleExtensions
 
     #endregion
 
-    private static float GetVecComponentFromFormatChar(MgVector2 input, char component)
+    private static float GetVecComponentFromFormatChar(Vector2 input, char component)
     {
         bool exists = IndexLookup.TryGetValue(component, out int inputVectorIndex);
         if (!exists) throw new ArgumentException($"Format string contains invalid character: '{component}'.");
@@ -149,7 +149,7 @@ public static class SwizzleExtensions
         return input.GetComponent(inputVectorIndex);
     }
 
-    private static float GetVecComponentFromFormatChar(MgVector3 input, char component)
+    private static float GetVecComponentFromFormatChar(Vector3 input, char component)
     {
         bool exists = IndexLookup.TryGetValue(component, out int inputVectorIndex);
         if (!exists) throw new ArgumentException($"Format string contains invalid character: '{component}'.");
@@ -157,7 +157,7 @@ public static class SwizzleExtensions
         return input.GetComponent(inputVectorIndex);
     }
 
-    private static float GetVecComponentFromFormatChar(MgVector4 input, char component)
+    private static float GetVecComponentFromFormatChar(Vector4 input, char component)
     {
         bool exists = IndexLookup.TryGetValue(component, out int inputVectorIndex);
         if (!exists) throw new ArgumentException($"Format string contains invalid character: '{component}'.");

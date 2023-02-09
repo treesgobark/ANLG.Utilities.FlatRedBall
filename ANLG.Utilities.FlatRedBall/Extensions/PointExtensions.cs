@@ -1,5 +1,5 @@
 ﻿using FrbPoint = FlatRedBall.Math.Geometry.Point;
-using MgVector2 = Microsoft.Xna.Framework.Vector2;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
 
@@ -75,14 +75,14 @@ public static class PointExtensions
 
     #endregion
 
-    #region Arithmetic: MgVector2
+    #region Arithmetic: Vector2
 
     /// <summary>
     /// Add a vector to this point per-component.
     /// </summary>
     /// <returns>A new Point of the form { <paramref name="input1"/>.X + <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X + <paramref name="input2"/>.Y }</returns>
-    public static FrbPoint Add(this FrbPoint input1, MgVector2 input2)
+    public static FrbPoint Add(this FrbPoint input1, Vector2 input2)
     {
         return new FrbPoint(input1.X + input2.X, input1.Y + input2.Y);
     }
@@ -92,7 +92,7 @@ public static class PointExtensions
     /// </summary>
     /// <returns>A new Point of the form { <paramref name="input1"/>.X * <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X * <paramref name="input2"/>.Y }</returns>
-    public static FrbPoint Multiply(this FrbPoint input1, MgVector2 input2)
+    public static FrbPoint Multiply(this FrbPoint input1, Vector2 input2)
     {
         return new FrbPoint(input1.X * input2.X, input1.Y * input2.Y);
     }
@@ -102,7 +102,7 @@ public static class PointExtensions
     /// </summary>
     /// <returns>A new Point of the form { <paramref name="input1"/>.X - <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X - <paramref name="input2"/>.Y }</returns>
-    public static FrbPoint Subtract(this FrbPoint input1, MgVector2 input2)
+    public static FrbPoint Subtract(this FrbPoint input1, Vector2 input2)
     {
         return new FrbPoint(input1.X - input2.X, input1.Y - input2.Y);
     }
@@ -112,7 +112,7 @@ public static class PointExtensions
     /// </summary>
     /// <returns>A new Point of the form { <paramref name="input1"/>.X / <paramref name="input2"/>.Y,
     ///   <paramref name="input1"/>.X / <paramref name="input2"/>.Y }</returns>
-    public static FrbPoint Divide(this FrbPoint input1, MgVector2 input2)
+    public static FrbPoint Divide(this FrbPoint input1, Vector2 input2)
     {
         return new FrbPoint(input1.X / input2.X, input1.Y / input2.Y);
     }

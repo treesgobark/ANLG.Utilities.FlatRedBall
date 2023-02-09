@@ -1,6 +1,6 @@
 using ANLG.Utilities.FlatRedBall.Extensions;
 using FlatRedBall.Input;
-using MgVector2 = Microsoft.Xna.Framework.Vector2;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
 [TestFixture]
@@ -27,11 +27,11 @@ public class I2DInputExtensionsTests
     [Test]
     public void Deconstruct_NonZeroInput_ReturnsNonZero()
     {
-        (MgVector2 position, MgVector2 velocity, float magnitude) =
+        (Vector2 position, Vector2 velocity, float magnitude) =
             new Test2DInput(0.5f, 0.5f, 1.5f, 2.5f, 0.707f);
         
-        Assert.That(position, Is.EqualTo(new MgVector2(0.5f, 0.5f)));
-        Assert.That(velocity, Is.EqualTo(new MgVector2(1.5f, 2.5f)));
+        Assert.That(position, Is.EqualTo(new Vector2(0.5f, 0.5f)));
+        Assert.That(velocity, Is.EqualTo(new Vector2(1.5f, 2.5f)));
         Assert.That(magnitude, Is.EqualTo(0.707f));
     }
     
@@ -39,10 +39,10 @@ public class I2DInputExtensionsTests
     public void Deconstruct_NullInput_ReturnsZero()
     {
         I2DInput? input = null;
-        (MgVector2 position, MgVector2 velocity, float magnitude) = input;
+        (Vector2 position, Vector2 velocity, float magnitude) = input;
         
-        Assert.That(position, Is.EqualTo(new MgVector2(0f, 0f)));
-        Assert.That(velocity, Is.EqualTo(new MgVector2(0f, 0f)));
+        Assert.That(position, Is.EqualTo(new Vector2(0f, 0f)));
+        Assert.That(velocity, Is.EqualTo(new Vector2(0f, 0f)));
         Assert.That(magnitude, Is.EqualTo(0f));
     }
 
@@ -62,7 +62,7 @@ public class I2DInputExtensionsTests
         var input = new Test2DInput(0f, 0f, 1.5f, 2.5f, 0f);
         var normalizedPosition = input.GetNormalizedPositionOrZero();
         
-        Assert.That(normalizedPosition, Is.EqualTo(new MgVector2(0f, 0f)));
+        Assert.That(normalizedPosition, Is.EqualTo(new Vector2(0f, 0f)));
     }
 
     [Test]
@@ -71,6 +71,6 @@ public class I2DInputExtensionsTests
         I2DInput? input = null;
         var normalizedPosition = input.GetNormalizedPositionOrZero();
         
-        Assert.That(normalizedPosition, Is.EqualTo(new MgVector2(0f, 0f)));
+        Assert.That(normalizedPosition, Is.EqualTo(new Vector2(0f, 0f)));
     }
 }
