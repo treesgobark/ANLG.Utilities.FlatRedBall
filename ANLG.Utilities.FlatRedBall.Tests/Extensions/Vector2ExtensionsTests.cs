@@ -1,8 +1,11 @@
 using ANLG.Utilities.FlatRedBall.Constants;
 using ANLG.Utilities.FlatRedBall.Extensions;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
+using MgVector4 = Microsoft.Xna.Framework.Vector4;
 
 namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
@@ -183,5 +186,49 @@ public class Vector2ExtensionsTests
     public void Translate_Vector2WithoutParameters_ReturnsSameVector()
     {
         Assert.That(new MgVector2(5, 4), Is.EqualTo(new MgVector2(5, 4).Translate()));
+    }
+
+    [Test]
+    [SuppressMessage("ReSharper", "HeapView.BoxingAllocation")]
+    public void Test1()
+    {
+        MgVector2 input2 = MgVector2.One.Randomize();
+        MgVector3 input3 = MgVector3.One.Randomize();
+        MgVector4 input4 = MgVector4.One.Randomize();
+        
+        input2.Swizzle('y', 'x');
+        input2.Swizzle('y', 'x', '0');
+        input2.Swizzle('y', 'x', '1', '0');
+        
+        Console.WriteLine(GC.GetTotalMemory(true));
+        Console.WriteLine(GC.GetTotalMemory(true));
+
+        input2.Swizzle('y', 'x');
+        input2.Swizzle('y', 'x', '0');
+        input2.Swizzle('y', 'x', '1', '0');
+
+        Console.WriteLine(GC.GetTotalMemory(true));
+        Console.WriteLine(GC.GetTotalMemory(true));
+
+        Console.WriteLine(input2);
+        Console.WriteLine(input2.Swizzle('y', 'x'));
+        Console.WriteLine(input2.Swizzle('y', 'x', '0'));
+        Console.WriteLine(input2.Swizzle('y', 'x', '1', '0'));
+        Console.WriteLine();
+        
+        Console.WriteLine(input3);
+        Console.WriteLine(input3.Swizzle('z', 'x'));
+        Console.WriteLine(input3.Swizzle('z', 'x', '0'));
+        Console.WriteLine(input3.Swizzle('z', 'x', '1', '0'));
+        Console.WriteLine();
+        
+        Console.WriteLine(input4);
+        Console.WriteLine(input4.Swizzle('y', 'w'));
+        Console.WriteLine(input4.Swizzle('y', 'w', '0'));
+        Console.WriteLine(input4.Swizzle('y', 'w', '1', '0'));
+        Console.WriteLine();
+        
+        Console.WriteLine(GC.GetTotalMemory(true));
+        Console.WriteLine(GC.GetTotalMemory(true));
     }
 }

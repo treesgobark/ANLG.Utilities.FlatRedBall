@@ -3,6 +3,7 @@ using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using MgVector2 = Microsoft.Xna.Framework.Vector2;
 using MgVector3 = Microsoft.Xna.Framework.Vector3;
+using MgVector4 = Microsoft.Xna.Framework.Vector4;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 using static Microsoft.Xna.Framework.Vector2ExtensionMethods;
 
@@ -11,14 +12,14 @@ namespace ANLG.Utilities.FlatRedBall.Extensions;
 ///
 public static class MgVector2Extensions
 {
-    /// <summary>
-    /// Allows deconstruction into (float x, float y)
-    /// </summary>
-    public static void Deconstruct(this MgVector2 input, out float x, out float y)
-    {
-        x = input.X;
-        y = input.Y;
-    }
+    // /// <summary>
+    // /// Allows deconstruction into (float x, float y)
+    // /// </summary>
+    // public static void Deconstruct(this MgVector2 input, out float x, out float y)
+    // {
+    //     x = input.X;
+    //     y = input.Y;
+    // }
     
     /// <summary>
     /// Allows deconstruction into (float x, float y)
@@ -39,12 +40,66 @@ public static class MgVector2Extensions
     /// <summary>
     /// Adds a dimension to a <see cref="MgVector2"/>.
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="z"></param>
     /// <returns>A new <see cref="MgVector3"/> of the form { <paramref name="input"/>.X, <paramref name="input"/>.Y, <paramref name="z"/> }</returns>
     public static MgVector3 ToVec3(this MgVector2 input, float z = 0f)
     {
         return new MgVector3(input, z);
+    }
+    
+    /// <summary>
+    /// Adds two dimensions to a <see cref="MgVector2"/>.
+    /// </summary>
+    /// <returns>A new <see cref="MgVector3"/> of the form
+    /// { <paramref name="input"/>.X, <paramref name="input"/>.Y, <paramref name="z"/>, <paramref name="w"/> }</returns>
+    public static MgVector4 ToVec4(this MgVector2 input, float z = 0f, float w = 0f)
+    {
+        return new MgVector4(input, z, w);
+    }
+
+    /// <summary>
+    /// Returns the component at the given index. 0 is X and 1 is Y.
+    /// </summary>
+    public static float GetComponent(this MgVector2 input, int index)
+    {
+        return index switch
+        {
+            0 => input.X,
+            1 => input.Y,
+            SwizzleExtensions.SwizzleZeroIndex => 0,
+            SwizzleExtensions.SwizzleOneIndex => 1,
+            _ => throw new IndexOutOfRangeException("Index must be 0 or 1"),
+        };
+    }
+
+    /// <summary>
+    /// Returns a new vector with the component at the given index set to the given value. 0 is X and 1 is Y.
+    /// </summary>
+    public static MgVector2 SetComponent(this MgVector2 input, int index, float value)
+    {
+        return index switch
+        {
+            0 => input with { X = value },
+            1 => input with { Y = value },
+            _ => throw new IndexOutOfRangeException("Index must be 0 or 1"),
+        };
+    }
+    
+    /// <summary>
+    /// Sets the given vector's component at the given index to the given value. Mutates original vector. 0 is X, 1 is Y.
+    /// </summary>
+    public static void SetComponentMutate(this ref MgVector2 input, int index, float value)
+    {
+        switch (index)
+        {
+            case 0:
+                input.X = value;
+                break;
+            case 1:
+                input.Y = value;
+                break;
+            default:
+                throw new IndexOutOfRangeException("Index must be 0 or 1.");
+        }
     }
 
     /// <summary>
