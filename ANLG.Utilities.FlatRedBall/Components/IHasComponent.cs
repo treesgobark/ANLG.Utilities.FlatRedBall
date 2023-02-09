@@ -1,5 +1,4 @@
 using FlatRedBall;
-using FlatRedBall.Entities;
 using FlatRedBall.Instructions;
 using FlatRedBall.Math;
 using FlatRedBall.Utilities;

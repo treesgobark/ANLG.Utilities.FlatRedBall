@@ -1,6 +1,3 @@
-using FlatRedBall;
-using FlatRedBall.Entities;
-
 namespace ANLG.Utilities.FlatRedBall.Components;
 
 public abstract class Component<T, TSelf> : IComponent

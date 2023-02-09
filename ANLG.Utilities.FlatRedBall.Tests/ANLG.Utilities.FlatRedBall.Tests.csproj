@@ -18,28 +18,28 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
         <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj" />
-    </ItemGroup>
     
-    <ItemGroup>
-        <Reference Include="FlatRedBall.Forms">
-            <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>
-        </Reference>
-        <Reference Include="FlatRedBallDesktopGL">
-            <HintPath>Libraries\DesktopGl\Debug\FlatRedBallDesktopGL.dll</HintPath>
-        </Reference>
-        <Reference Include="GumCoreXnaPc">
-            <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>
-        </Reference>
-        <Reference Include="StateInterpolation">
-            <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>
-        </Reference>
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--        <Reference Include="FlatRedBall.Forms">-->
+<!--            <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>-->
+<!--        </Reference>-->
+<!--        <Reference Include="FlatRedBallDesktopGL">-->
+<!--            <HintPath>Libraries\DesktopGl\Debug\FlatRedBallDesktopGL.dll</HintPath>-->
+<!--        </Reference>-->
+<!--        <Reference Include="GumCoreXnaPc">-->
+<!--            <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>-->
+<!--        </Reference>-->
+<!--        <Reference Include="StateInterpolation">-->
+<!--            <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>-->
+<!--        </Reference>-->
+<!--    </ItemGroup>-->
 
     <ItemGroup>
       <Folder Include="Libraries\Tmx" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj" />
     </ItemGroup>
 
 </Project>
