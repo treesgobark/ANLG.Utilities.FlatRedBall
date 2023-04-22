@@ -29,21 +29,12 @@
       <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
     </ItemGroup>
 
-    <Import Project="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall\FlatRedBallShared.projitems" Label="Shared" />
-
-<!--    <ItemGroup>-->
-<!--        <Reference Include="FlatRedBall.Forms">-->
-<!--            <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>-->
-<!--        </Reference>-->
-<!--        <Reference Include="FlatRedBallDesktopGL">-->
-<!--            <HintPath>Libraries\DesktopGl\Debug\FlatRedBallDesktopGL.dll</HintPath>-->
-<!--        </Reference>-->
-<!--        <Reference Include="GumCoreXnaPc">-->
-<!--            <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>-->
-<!--        </Reference>-->
-<!--        <Reference Include="StateInterpolation">-->
-<!--            <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>-->
-<!--        </Reference>-->
-<!--    </ItemGroup>-->
+    <ItemGroup>
+      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj" />
+      <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\FlatRedBall.Forms.DesktopGlNet6\FlatRedBall.Forms.DesktopGlNet6.csproj" />
+      <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\StateInterpolation\StateInterpolation.DesktopGlNet6\StateInterpolation.DesktopNet6.csproj" />
+      <ProjectReference Include="..\..\Gum\GumCore\GumCoreXnaPc\GumCore.DesktopGlNet6\GumCore.DesktopGlNet6.csproj" />
+      <ProjectReference Include="..\..\Gum\SvgPlugin\SkiaInGumShared\SkiaInGum.csproj" />
+    </ItemGroup>
 
 </Project>
