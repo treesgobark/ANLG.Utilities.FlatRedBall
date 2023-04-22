@@ -6,20 +6,20 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// Controllers are meant to be the only pathway through which input flows in an FRB entity. Very similar to the object-oriented state pattern:
 ///   <a href="https://refactoring.guru/design-patterns/state">here</a>.
 /// </summary>
-/// <typeparam name="T">The parent entity of this controller</typeparam>
-/// <typeparam name="TSelf">The controller type that is specific to your parent entity,
+/// <typeparam name="TEntity">The parent entity of this controller</typeparam>
+/// <typeparam name="TController">The controller type that is specific to your parent entity,
 ///   usually the type of the class extending this one, like PlayerController, for example.</typeparam>
-public abstract class EntityController<T, TSelf>
-    where T : PositionedObject, IHasControllers<T, TSelf>
-    where TSelf : EntityController<T, TSelf>
+public abstract class EntityController<TEntity, TController>
+    where TEntity : PositionedObject, IHasControllers<TEntity, TController>
+    where TController : EntityController<TEntity, TController>
 {
     /// <summary>
     /// Entity that this controller acts on
     /// </summary>
-    public T Parent { get; }
+    public TEntity Parent { get; }
 
     /// <summary></summary>
-    protected EntityController(T parent)
+    protected EntityController(TEntity parent)
     {
         Parent = parent;
     }
@@ -27,7 +27,12 @@ public abstract class EntityController<T, TSelf>
     /// <summary>
     /// Wrapper for <see cref="ControllerCollection{T,TController}.Get{TSearch}"/>
     /// </summary>
-    public TSearch Get<TSearch>() where TSearch : TSelf => Parent.Controllers.Get<TSearch>();
+    public TSearch Get<TSearch>() where TSearch : TController => Parent.Controllers.Get<TSearch>();
+
+    /// <summary>
+    /// Called once after all controllers have been constructed and added to the collection.
+    /// </summary>
+    public abstract void Initialize();
     
     /// <summary>
     /// Called once when this controller is set as the active controller
@@ -46,7 +51,7 @@ public abstract class EntityController<T, TSelf>
     ///   transition out of the current state and then back into the current state. This action would trigger
     ///   all the lifecycle hooks again.
     /// </summary>
-    public abstract TSelf? EvaluateExitConditions();
+    public abstract TController? EvaluateExitConditions();
     
     /// <summary>
     /// Called once before this controller is no longer the active controller. This happens after <see cref="EvaluateExitConditions"/>,

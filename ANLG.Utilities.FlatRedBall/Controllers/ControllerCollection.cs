@@ -57,6 +57,8 @@ public class ControllerCollection<T, TController>
     /// </summary>
     public void InitializeStartingController<TSearch>() where TSearch : TController
     {
+        Controllers.ForEach(c => c.Initialize());
+        
         var newStart = Get<TSearch>();
         CurrentController = newStart;
         CurrentController.OnActivate();
