@@ -11,6 +11,8 @@ public class ControllerCollection<T, TController>
 {
     private bool _isInitialized = false;
 
+    protected TController? ExitOverride { get; set; }
+
     /// <summary>
     /// All the controllers that belong to this collection (state machine)
     /// </summary>
@@ -80,7 +82,8 @@ public class ControllerCollection<T, TController>
                 + $"{nameof(InitializeStartingController)} before performing activity.");
         }
         
-        var newController = CurrentController.EvaluateExitConditions();
+        var newController = ExitOverride ?? CurrentController.EvaluateExitConditions();
+        ExitOverride = null;
         
         if (newController is not null)
         {
@@ -90,6 +93,14 @@ public class ControllerCollection<T, TController>
         }
         
         CurrentController.CustomActivity();
+    }
+
+    /// <summary>
+    /// Forces the state machine to move to the given state by replacing the next exit condition check.
+    /// </summary>
+    public void OverrideState<TState>() where TState : TController
+    {
+        ExitOverride = Get<TState>();
     }
     
     // write log for all previous states entered
