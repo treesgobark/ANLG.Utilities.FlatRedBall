@@ -1,4 +1,5 @@
 ﻿using ANLG.Utilities.FlatRedBall.Constants;
+using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -35,6 +36,34 @@ public static class Vector2Extensions
         
         x = input.Value.X;
         y = input.Value.Y;
+    }
+
+    /// <summary>
+    /// Returns a vector with at the given angle with the given length.
+    /// </summary>
+    public static Vector2 FromAngleAndLength(float angle, float length)
+    {
+        return FromAngle(angle).AtLength(length);
+    }
+
+    /// <summary>
+    /// Returns a vector that points from the point represented by <paramref name="from"/>
+    ///   to the point represented by <paramref name="to"/>
+    /// </summary>
+    public static Vector2 GetVectorTo(this Vector2 from, Vector2 to)
+    {
+        return to - from;
+    }
+
+    /// <summary>
+    /// Returns a vector that is the same as <paramref name="vec"/> except that its length is adjusted to be
+    ///   within the range from <paramref name="min"/> to <paramref name="max"/> if needed.
+    /// </summary>
+    public static Vector2 ClampMagnitude(this Vector2 vec, float min, float max)
+    {
+        float magnitude = vec.Length();
+        magnitude = Math.Clamp(magnitude, min, max);
+        return vec.AtLength(magnitude);
     }
     
     /// <summary>

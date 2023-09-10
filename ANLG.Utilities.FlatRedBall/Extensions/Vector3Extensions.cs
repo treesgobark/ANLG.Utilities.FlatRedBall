@@ -52,6 +52,26 @@ public static class Vector3Extensions
     }
 
     /// <summary>
+    /// Returns a vector that points from the point represented by <paramref name="from"/>
+    ///   to the point represented by <paramref name="to"/>
+    /// </summary>
+    public static Vector3 GetVectorTo(this Vector3 from, Vector3 to)
+    {
+        return to - from;
+    }
+
+    /// <summary>
+    /// Returns a vector that is the same as <paramref name="vec"/> except that its length is adjusted to be
+    ///   within the range from <paramref name="min"/> to <paramref name="max"/> if needed.
+    /// </summary>
+    public static Vector3 ClampMagnitude(this Vector3 vec, float min, float max)
+    {
+        float magnitude = vec.Length();
+        magnitude = Math.Clamp(magnitude, min, max);
+        return vec.AtLength(magnitude);
+    }
+
+    /// <summary>
     /// Returns the component at the given index. 0 is X, 1 is Y, and 2 is Z.
     /// </summary>
     public static float GetComponent(this Vector3 input, int index)
