@@ -24,85 +24,85 @@ public abstract class AnimationController<TEntity, TController> : EntityControll
     /// <summary>
     /// The AnimationChainList that this controller's animation belongs to.
     /// </summary>
-    protected abstract AnimationChainList ChainList { get; }
+    public abstract AnimationChainList ChainList { get; }
     
     /// <summary>
     /// The base name of the AnimationChain for this controller without a direction at the end like "Left" 
     /// </summary>
-    protected abstract string ChainName { get; }
+    public abstract string ChainName { get; }
     
     /// <summary>
     /// The state that the state machine will transition to when its animation times out if <see cref="CurrentStateAfterTimeout"/>
     ///   is still null.
     /// </summary>
-    protected abstract TController? DefaultStateAfterTimeout { get; }
+    public abstract TController? DefaultStateAfterTimeout { get; }
     
     /// <summary>
     /// The direction this entity is facing, for the purpose of choosing animations.
     /// </summary>
-    protected abstract FourDirections AnimationDirection { get; }
+    public abstract FourDirections AnimationDirection { get; }
 
     /// <summary>
     /// The total duration of this controller's animation when your AnimationChain has been normalized.
     ///   Only used if <see cref="ScaleAnimationSpeedByDuration"/> is true.
     /// </summary>
-    protected virtual float AnimationDuration => DefaultDuration;
+    public virtual float AnimationDuration => DefaultDuration;
     
     /// <summary>
     /// Controls whether the current <see cref="AnimationDirection"/> is appended to the end of <see cref="ChainName"/>.
     /// </summary>
-    protected virtual bool UseDirectionInChainName => true;
+    public virtual bool UseDirectionInChainName => true;
     
     /// <summary>
     /// Controls whether the animation speed will be scaled with <see cref="AnimationDuration"/>. This assumes that
     ///   your AnimationChain has a total duration of one second (is normalized).
     /// </summary>
-    protected virtual bool ScaleAnimationSpeedByDuration => false;
+    public virtual bool ScaleAnimationSpeedByDuration => false;
 
     #endregion
     
     /// <summary>
     /// The direction this entity was facing last frame.
     /// </summary>
-    protected FourDirections PreviousAnimationDirection { get; set; }
+    public FourDirections PreviousAnimationDirection { get; set; }
     
     /// <summary>
     /// If non-null, the state that this controller will transition to once the current animation cycles.
     /// </summary>
-    protected TController? CurrentStateAfterTimeout { get; set; }
+    public TController? CurrentStateAfterTimeout { get; set; }
     
     /// <summary>
     /// Will be placed between the <see cref="ChainName"/> and the <see cref="AnimationDirection"/> when getting the <see cref="CurrentChainName"/>.
     ///   Defaults to <see cref="string.Empty"/>.
     /// </summary>
-    protected string ChainNameSeparator { get; set; } = "";
+    public string ChainNameSeparator { get; set; } = "";
     
     #region Computed Properties
 
     /// <summary>
     /// Whether the direction the entity was facing is different from the previous frame.
     /// </summary>
-    protected bool ChangedDirection => AnimationDirection != PreviousAnimationDirection;
+    public bool ChangedDirection => AnimationDirection != PreviousAnimationDirection;
     
     /// <summary>
     /// The part at the end of the chain name with the direction, if applicable.
     /// </summary>
-    protected string ChainNameSuffix => UseDirectionInChainName ? ChainNameSeparator + AnimationDirection : "";
+    public string ChainNameSuffix => UseDirectionInChainName ? ChainNameSeparator + AnimationDirection : "";
     
     /// <summary>
     /// The full AnimationChain name to provide to the Sprite.
     /// </summary>
-    protected string CurrentChainName => $"{ChainName}{ChainNameSuffix}";
+    public string CurrentChainName => $"{ChainName}{ChainNameSuffix}";
     
     /// <summary>
     /// Passthrough property for Parent.SpriteInstance.JustCycled. Returns true if the current animation just finished a full cycle.
     /// </summary>
-    protected bool AnimationJustCycled => Parent.ControllerSprite.JustCycled;
+    public bool AnimationJustCycled => Parent.ControllerSprite.JustCycled;
     
     /// <summary>
     /// The speed multiplier for normalized animations. Only used when <see cref="ScaleAnimationSpeedByDuration"/> is true.
     /// </summary>
-    protected float AnimationSpeed => ScaleAnimationSpeedByDuration ? 1 / AnimationDuration : 1f;
+    public float AnimationSpeed => ScaleAnimationSpeedByDuration ? 1 / AnimationDuration : 1f;
     
     #endregion
 
@@ -157,7 +157,7 @@ public abstract class AnimationController<TEntity, TController> : EntityControll
     /// <summary>
     /// Sets the animation chain for this controller.
     /// </summary>
-    protected virtual void BeginAnimation()
+    public virtual void BeginAnimation()
     {
         Parent.ControllerSprite.AnimationChains = ChainList;
         Parent.ControllerSprite.CurrentChainName = null;
@@ -168,7 +168,7 @@ public abstract class AnimationController<TEntity, TController> : EntityControll
     /// <summary>
     /// Restarts the animation if the entity direction changed this frame.
     /// </summary>
-    protected virtual void HandleDirectionChange()
+    public virtual void HandleDirectionChange()
     {
         if (ChangedDirection)
         {
