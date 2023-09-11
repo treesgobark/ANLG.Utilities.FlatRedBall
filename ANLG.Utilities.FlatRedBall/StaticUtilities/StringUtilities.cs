@@ -51,7 +51,7 @@ public static class StringUtilities
                 lastLineBreakIndex = i;
                 continue;
             }
-            else if (charsOnCurrentLine > maxCharactersPerLine)
+            if (charsOnCurrentLine > maxCharactersPerLine)
             {
                 if (lastLineBreakIndex is not null)
                 {
