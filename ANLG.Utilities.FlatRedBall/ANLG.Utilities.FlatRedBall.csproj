@@ -36,4 +36,8 @@
       <ProjectReference Include="..\..\Gum\SvgPlugin\SkiaInGumShared\SkiaInGum.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ClCompile Include="Content\Shaders\PostProcessingTemplate.fx" />
+    </ItemGroup>
+
 </Project>
