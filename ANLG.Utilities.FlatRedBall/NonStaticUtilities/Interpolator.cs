@@ -14,12 +14,12 @@ public abstract class Interpolator<T>
     /// <summary>
     /// The value at the start of the interpolation
     /// </summary>
-    public T Value1 { get; }
+    public T Value1 { get; set; }
     
     /// <summary>
     /// The value at the end of the interpolation
     /// </summary>
-    public T Value2 { get; }
+    public T Value2 { get; set; }
     
     /// 
     protected Interpolator(T value1, T value2, Func<T, T, float, T> func)
