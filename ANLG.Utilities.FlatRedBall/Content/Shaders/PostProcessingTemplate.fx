@@ -4,18 +4,33 @@
 //==============================================================================
 // External Parameters
 //==============================================================================
-float Time;
-float NormalizedTime;
-float2 UVPerPixel;
-float2 Resolution;
+float Time; // Total game time elapsed in seconds
+float NormalizedTime; // The percentage of this shader's animation that has elapsed. 0 is the beginning, 1 is the end.
+float2 UVPerPixel; // The distance between each pixel on screen in texture coordinates.
+float2 Resolution; // Screen resolution
 
-texture CurrentTexture;
-sampler pointTextureSampler = sampler_state
+// Debug parameters for visualizing the shader and its parameters. Usually wanna stick to only setting one of them to 1f at a time.
+float TexWeight;
+float PixelPosWeight;
+float ScreenPosWeight;
+float WorldPosWeight;
+float ColorWeight;
+float UvWeight;
+
+texture ScreenTexture; // Texture data for the whole game screen
+sampler screenTextureSampler = sampler_state
 {
-    Texture = <CurrentTexture>;
+    Texture = <ScreenTexture>;
     MipFilter = Point;
     MinFilter = Point;
     MagFilter = Point;
+    AddressU = Wrap; // X direction sampling
+    AddressV = Wrap; // Y direction sampling
+    // MipFilter = Linear;
+    // MinFilter = Linear;
+    // MagFilter = Linear;
+    // AddressU = Clamp;
+    // AddressV = Clamp;
 };
 
 //==============================================================================
@@ -59,12 +74,12 @@ VertexToPixel VsMain(const in AssemblerToVertex input)
 //==============================================================================
 float4 PsMain(VertexToPixel input) : SV_TARGET
 {
-    float4 textureSample = tex2D(pointTextureSampler,  input.TexCoord.xy);
+    float4 textureSample = tex2D(screenTextureSampler,  input.TexCoord.xy);
     
     return TexWeight * textureSample
-        + PixelPosWeight * float4(input.Position.xy, 0, 0)
-        + ScreenPosWeight * input.ScreenPosition
-        + WorldPosWeight * input.WorldPosition
+        + PixelPosWeight * float4(input.Position.xy, 0, 1)
+        + ScreenPosWeight * float4(input.ScreenPosition.xyz, 1)
+        + WorldPosWeight * float4(input.WorldPosition.xyz, 1)
         + ColorWeight * input.Color
         + UvWeight * input.TexCoord;
 }
