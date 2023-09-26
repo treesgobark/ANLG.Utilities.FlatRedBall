@@ -132,6 +132,8 @@ public class SpeedInterpolator<T> : Interpolator<T>
 public static class InterpolatorFactory
 {
     public static Func<float, float, float, float> Lerp = MathHelper.Lerp;
+    public static Func<float, float, float, float> Smoothstep = MathHelper.SmoothStep;
 
     public static DurationInterpolator<float> GetLerper(float value1, float value2, double totalDuration) => new(value1, value2, totalDuration, Lerp);
+    public static DurationInterpolator<float> GetSmoothStepper(float value1, float value2, double totalDuration) => new(value1, value2, totalDuration, Smoothstep);
 }
