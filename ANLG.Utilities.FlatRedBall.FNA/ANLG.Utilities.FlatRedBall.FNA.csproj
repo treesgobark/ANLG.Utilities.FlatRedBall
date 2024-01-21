@@ -1,0 +1,140 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Components\Component.cs">
+        <Link>Components\Component.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Components\ComponentList.cs">
+        <Link>Components\ComponentList.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Components\IComponent.cs">
+        <Link>Components\IComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Components\IHasComponent.cs">
+        <Link>Components\IHasComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Constants\Directions.cs">
+        <Link>Constants\Directions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Constants\MathConstants.cs">
+        <Link>Constants\MathConstants.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\AnimationController.cs">
+        <Link>Controllers\AnimationController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\ControllerCollection.cs">
+        <Link>Controllers\ControllerCollection.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\EntityController.cs">
+        <Link>Controllers\EntityController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IHasAnimationControllers.cs">
+        <Link>Controllers\IHasAnimationControllers.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IHasControllers.cs">
+        <Link>Controllers\IHasControllers.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IHasMultispriteControllers.cs">
+        <Link>Controllers\IHasMultispriteControllers.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\MultispriteController.cs">
+        <Link>Controllers\MultispriteController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\CameraExtensions.cs">
+        <Link>Extensions\CameraExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\EnumExtensions.cs">
+        <Link>Extensions\EnumExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\FloatExtensions.cs">
+        <Link>Extensions\FloatExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\FrbShapeExtensions.cs">
+        <Link>Extensions\FrbShapeExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\I2DInputExtensions.cs">
+        <Link>Extensions\I2DInputExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\MatrixExtensions.cs">
+        <Link>Extensions\MatrixExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\PointExtensions.cs">
+        <Link>Extensions\PointExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\RandomExtensions.cs">
+        <Link>Extensions\RandomExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\RectangleExtensions.cs">
+        <Link>Extensions\RectangleExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\StringExtensions.cs">
+        <Link>Extensions\StringExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\SwizzleExtensions.cs">
+        <Link>Extensions\SwizzleExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\Vector2Extensions.cs">
+        <Link>Extensions\Vector2Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\Vector3Extensions.cs">
+        <Link>Extensions\Vector3Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\Vector4Extensions.cs">
+        <Link>Extensions\Vector4Extensions.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\BufferedInput.cs">
+        <Link>NonStaticUtilities\BufferedInput.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\ConsumableInput.cs">
+        <Link>NonStaticUtilities\ConsumableInput.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\CyclableList.cs">
+        <Link>NonStaticUtilities\CyclableList.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\FrameCache.cs">
+        <Link>NonStaticUtilities\FrameCache.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\IBufferedInput.cs">
+        <Link>NonStaticUtilities\IBufferedInput.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\Interpolator.cs">
+        <Link>NonStaticUtilities\Interpolator.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\RunningAverage.cs">
+        <Link>NonStaticUtilities\RunningAverage.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\StaticUtilities\MathUtilities.cs">
+        <Link>StaticUtilities\MathUtilities.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\StaticUtilities\SimpleColorTransforms.cs">
+        <Link>StaticUtilities\SimpleColorTransforms.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\StaticUtilities\StringUtilities.cs">
+        <Link>StaticUtilities\StringUtilities.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="..\ANLG.Utilities.FlatRedBall\Components\Prefabs\">
+        <Link>Components\Prefabs</Link>
+      </Folder>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\3rd Party Libraries\FNA\FNA.Core.csproj" />
+      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall.FNA\FlatRedBall.FNA.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ClCompile Include="..\ANLG.Utilities.FlatRedBall\Content\Shaders\PostProcessingTemplate.fx">
+        <Link>Content\Shaders\PostProcessingTemplate.fx</Link>
+      </ClCompile>
+    </ItemGroup>
+
+</Project>

@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.Tests", "ANLG.Utilities.FlatRedBall.Tests\ANLG.Utilities.FlatRedBall.Tests.csproj", "{D6A02744-E500-49A1-845A-0976A2859F8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.FNA", "ANLG.Utilities.FlatRedBall.FNA\ANLG.Utilities.FlatRedBall.FNA.csproj", "{F0A7E264-4540-499A-A42A-DD911AED67C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNA.Core", "..\FNA\FNA.Core.csproj", "{1BC9CD03-1C50-40FD-B8E6-946494815228}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +22,14 @@ Global
 		{D6A02744-E500-49A1-845A-0976A2859F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6A02744-E500-49A1-845A-0976A2859F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6A02744-E500-49A1-845A-0976A2859F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
