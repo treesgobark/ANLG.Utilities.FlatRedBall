@@ -40,9 +40,24 @@ public abstract class Interpolator<T>
     public T CurrentValue => InterpolationFunc(Value1, Value2, TValue);
 
     /// <summary>
+    /// Returns whether the interpolator has finished its duration.
+    /// </summary>
+    public virtual bool IsFinished => TValue >= 1;
+
+    /// <summary>
     /// Advances the interpolator using <see cref="TimeManager.SecondDifference"/>. Returns new current value.
     /// </summary>
     public abstract T Update();
+
+    /// <summary>
+    /// Sets the interpolator back to the zero state.
+    /// </summary>
+    public abstract void Reset();
+
+    public virtual void Reverse()
+    {
+        (Value1, Value2) = (Value2, Value1);
+    }
 }
 
 /// <summary>
@@ -56,7 +71,7 @@ public class DurationInterpolator<T> : Interpolator<T>
     /// <summary>
     /// The total amount of time it will take this interpolator to finish
     /// </summary>
-    public double TotalDuration { get; }
+    public double TotalDuration { get; set; }
 
     /// 
     public DurationInterpolator(T value1, T value2, double totalDuration, Func<T, T, float, T> func) : base(value1, value2, func)
@@ -89,6 +104,19 @@ public class DurationInterpolator<T> : Interpolator<T>
     /// <inheritdoc cref="Interpolator{T}.Update"/>
     public override T Update() => Update(TimeManager.SecondDifference);
 
+    public override void Reset()
+    {
+        ElapsedTime = 0;
+    }
+
+    public void Reset(T value1, T value2, double totalDuration)
+    {
+        Value1 = value1;
+        Value2 = value2;
+        TotalDuration = totalDuration;
+        Reset();
+    }
+
     /// <summary>
     /// Advances the interpolator by the given amount of seconds. Returns new current value.
     /// </summary>
@@ -96,6 +124,12 @@ public class DurationInterpolator<T> : Interpolator<T>
     {
         ElapsedTime += elapsedSeconds;
         return CurrentValue;
+    }
+
+    public override void Reverse()
+    {
+        base.Reverse();
+        ElapsedTime = TotalDuration - ElapsedTime;
     }
 }
 
@@ -115,6 +149,11 @@ public class SpeedInterpolator<T> : Interpolator<T>
     /// <inheritdoc cref="Interpolator{T}.Update"/>
     public override T Update() => Update(TimeManager.SecondDifference);
 
+    public override void Reset()
+    {
+        _tValue = 0;
+    }
+
     /// <summary>
     /// Advances the interpolator by the given amount of seconds. Returns new current value.
     /// </summary>
@@ -123,6 +162,12 @@ public class SpeedInterpolator<T> : Interpolator<T>
         _tValue += TPerSecond * (float)elapsedSeconds;
         _tValue = Math.Clamp(_tValue, 0, 1);
         return CurrentValue;
+    }
+
+    public override void Reverse()
+    {
+        base.Reverse();
+        _tValue = 1 - _tValue;
     }
 }
 
