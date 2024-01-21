@@ -81,15 +81,28 @@ public class ControllerCollection<T, TController>
             throw new InvalidOperationException($"You must initialize collection with "
                 + $"{nameof(InitializeStartingController)} before performing activity.");
         }
-        
+
         var newController = ExitOverride ?? CurrentController.EvaluateExitConditions();
         ExitOverride = null;
-        
-        if (newController is not null)
+
+        int count = 0;
+        while (newController is not null)
         {
+            if (count++ > 100)
+            {
+                throw new StackOverflowException($"The controller collection {GetType().Name} has reached the exit condition limit. " +
+                                                 $"The current controller, {CurrentController.GetType().Name}, is trying to go to " +
+                                                 $"{newController.GetType().Name}. For more information, consult the innerException.",
+                    new Exception("Your controllers have likely encountered an infinite loop of exit conditions. Controller collections" +
+                                  " will try to cycle to the next controller via their exit conditions continuously until it reaches " +
+                                  "a controller that returns null from EvaluateExitConditions."));
+            }
+            
             CurrentController.BeforeDeactivate();
             CurrentController = newController;
             CurrentController.OnActivate();
+
+            newController = CurrentController.EvaluateExitConditions();
         }
         
         CurrentController.CustomActivity();
