@@ -21,7 +21,7 @@ public class ControllerCollection<T, TController>
     /// <summary>
     /// The currently active controller
     /// </summary>
-    protected TController CurrentController { get; set; }
+    public TController CurrentController { get; protected set; }
     
     /// <summary>
     /// Adds a controller to the collection.
