@@ -6,7 +6,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.FNA", "ANLG.Utilities.FlatRedBall.FNA\ANLG.Utilities.FlatRedBall.FNA.csproj", "{F0A7E264-4540-499A-A42A-DD911AED67C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNA.Core", "..\FNA\FNA.Core.csproj", "{1BC9CD03-1C50-40FD-B8E6-946494815228}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNA.Core", "..\FlatRedBall\Engines\FlatRedBallXNA\3rd Party Libraries\FNA\FNA.Core.csproj", "{4DAB74BA-CCB2-4806-8DCA-EDF838747121}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatRedBall.FNA", "..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall.FNA\FlatRedBall.FNA.csproj", "{C9DEEB3C-15C4-4A39-AF0E-F7A22BACF751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatRedBallDesktopGLNet6", "..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj", "{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +30,18 @@ Global
 		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0A7E264-4540-499A-A42A-DD911AED67C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BC9CD03-1C50-40FD-B8E6-946494815228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAB74BA-CCB2-4806-8DCA-EDF838747121}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{4DAB74BA-CCB2-4806-8DCA-EDF838747121}.Debug|Any CPU.Build.0 = Debug|x64
+		{4DAB74BA-CCB2-4806-8DCA-EDF838747121}.Release|Any CPU.ActiveCfg = Release|x64
+		{4DAB74BA-CCB2-4806-8DCA-EDF838747121}.Release|Any CPU.Build.0 = Release|x64
+		{C9DEEB3C-15C4-4A39-AF0E-F7A22BACF751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DEEB3C-15C4-4A39-AF0E-F7A22BACF751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DEEB3C-15C4-4A39-AF0E-F7A22BACF751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DEEB3C-15C4-4A39-AF0E-F7A22BACF751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

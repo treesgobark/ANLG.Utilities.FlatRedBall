@@ -29,14 +29,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj" />
-      <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\FlatRedBall.Forms.DesktopGlNet6\FlatRedBall.Forms.DesktopGlNet6.csproj" />
-      <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\StateInterpolation\StateInterpolation.DesktopGlNet6\StateInterpolation.DesktopNet6.csproj" />
-      <ProjectReference Include="..\..\Gum\SvgPlugin\SkiaInGumShared\SkiaInGum.csproj" />
+      <ClCompile Include="Content\Shaders\PostProcessingTemplate.fx" />
     </ItemGroup>
 
     <ItemGroup>
-      <ClCompile Include="Content\Shaders\PostProcessingTemplate.fx" />
+      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj" />
     </ItemGroup>
 
 </Project>

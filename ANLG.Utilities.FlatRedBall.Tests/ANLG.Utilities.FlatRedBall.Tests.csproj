@@ -23,9 +23,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ANLG.Utilities.FlatRedBall\ANLG.Utilities.FlatRedBall.csproj" />
-        <ProjectReference Include="../../../../source/repos/FlatRedBallCompute/Engines/FlatRedBallXNA/FlatRedBallDesktopGLNet6/FlatRedBallDesktopGLNet6.csproj">
-            <Name>FlatRedBallDesktopGLNet6</Name>
-        </ProjectReference>
     </ItemGroup>
 
 </Project>

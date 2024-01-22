@@ -127,14 +127,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\3rd Party Libraries\FNA\FNA.Core.csproj" />
-      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall.FNA\FlatRedBall.FNA.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ClCompile Include="..\ANLG.Utilities.FlatRedBall\Content\Shaders\PostProcessingTemplate.fx">
         <Link>Content\Shaders\PostProcessingTemplate.fx</Link>
       </ClCompile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall.FNA\FlatRedBall.FNA.csproj" />
     </ItemGroup>
 
 </Project>
