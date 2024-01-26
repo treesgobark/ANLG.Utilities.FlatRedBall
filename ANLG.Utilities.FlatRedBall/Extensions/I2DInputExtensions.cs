@@ -1,5 +1,6 @@
 using FlatRedBall;
 using FlatRedBall.Input;
+using FlatRedBall.Math;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
@@ -36,5 +37,23 @@ public static class I2DInputExtensions
             null or { Magnitude: 0 } => Vector2.Zero,
             _ => new Vector2(input.X, input.Y) / input.Magnitude,
         };
+    }
+
+    /// <summary>
+    /// Returns the angle in radians of the input object, where 0 is to the right, rotating counterclockwise.
+    /// Returns null if the X and Y values are 0 (meaning the input device is centered)
+    /// </summary>
+    /// <param name="instance">The I2DInput instance</param>
+    /// <returns>The angle, or null if X and Y are 0</returns>
+    public static float GetAngleOrZero(this I2DInput instance)
+    {
+        if(instance.X == 0 && instance.Y == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return MathFunctions.NormalizeAngle((float)Math.Atan2(instance.Y, instance.X));
+        }
     }
 }
