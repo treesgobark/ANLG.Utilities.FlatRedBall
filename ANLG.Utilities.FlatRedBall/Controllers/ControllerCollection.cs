@@ -1,12 +1,10 @@
-using FlatRedBall;
-
 namespace ANLG.Utilities.FlatRedBall.Controllers;
 
 /// <summary>
 /// Stores the list 
 /// </summary>
 public class ControllerCollection<T, TController>
-    where T : PositionedObject, IHasControllers<T, TController>
+    where T : IHasControllers<T, TController>
     where TController : EntityController<T, TController>
 {
     private bool _isInitialized = false;

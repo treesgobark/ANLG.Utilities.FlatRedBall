@@ -1,5 +1,3 @@
-using FlatRedBall;
-
 namespace ANLG.Utilities.FlatRedBall.Controllers;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// <typeparam name="TController">The controller type that is specific to your parent entity,
 ///   usually the type of the class extending this one, like PlayerController, for example.</typeparam>
 public abstract class EntityController<TEntity, TController>
-    where TEntity : PositionedObject, IHasControllers<TEntity, TController>
+    where TEntity : IHasControllers<TEntity, TController>
     where TController : EntityController<TEntity, TController>
 {
     /// <summary>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\FlatRedBall\FRBDK\Glue\PluginLibraries\PluginLibraries.csproj" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="IF NOT EXIST &quot;$(SolutionDir)\..\FlatRedBall\FRBDK\Glue\Glue\bin\Debug\Plugins\ANLG.Utilities.FlatRedBall.ControllerPlugin\&quot; md &quot;$(SolutionDir)\..\FlatRedBall\FRBDK\Glue\Glue\bin\Debug\Plugins\ANLG.Utilities.FlatRedBall.ControllerPlugin\&quot;&#xA;copy &quot;$(TargetDir)ANLG.Utilities.FlatRedBall.ControllerPlugin.dll&quot; &quot;$(SolutionDir)\..\FlatRedBall\FRBDK\Glue\Glue\bin\Debug\Plugins\ANLG.Utilities.FlatRedBall.ControllerPlugin\ANLG.Utilities.FlatRedBall.ControllerPlugin.dll&quot;" />
+    </Target>
+
+</Project>

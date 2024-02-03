@@ -1,9 +1,7 @@
-using FlatRedBall;
-
 namespace ANLG.Utilities.FlatRedBall.Controllers;
 
 public abstract class MultispriteController<TEntity, TController> : AnimationController<TEntity, TController>
-    where TEntity : PositionedObject, IHasMultispriteControllers<TEntity, TController>
+    where TEntity : IHasMultispriteControllers<TEntity, TController>
     where TController : MultispriteController<TEntity, TController>
 {
     protected MultispriteController(TEntity parent) : base(parent)

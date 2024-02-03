@@ -1,4 +1,3 @@
-using FlatRedBall;
 using FlatRedBall.Input;
 
 namespace ANLG.Utilities.FlatRedBall.Controllers;
@@ -7,7 +6,7 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// Denotes that an entity is using a ControllerCollection. 
 /// </summary>
 public interface IHasControllers<T, TSelf>
-    where T : PositionedObject, IHasControllers<T, TSelf>
+    where T : IHasControllers<T, TSelf>
     where TSelf : EntityController<T, TSelf>
 {
     /// <summary>

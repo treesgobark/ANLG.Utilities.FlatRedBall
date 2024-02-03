@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatRedBall.FNA", "..\FlatR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatRedBallDesktopGLNet6", "..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj", "{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANLG.Utilities.FlatRedBall.ControllerPlugin", "ANLG.Utilities.FlatRedBall.ControllerPlugin\ANLG.Utilities.FlatRedBall.ControllerPlugin.csproj", "{FD0F39FA-3420-4E85-A939-AA3F518C177D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginLibraries", "..\FlatRedBall\FRBDK\Glue\PluginLibraries\PluginLibraries.csproj", "{14FA8186-20AD-43BE-B710-68428E34B04E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,14 @@ Global
 		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A45D56-CE2C-4DF0-8FF3-8ED8EEF63FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD0F39FA-3420-4E85-A939-AA3F518C177D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD0F39FA-3420-4E85-A939-AA3F518C177D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD0F39FA-3420-4E85-A939-AA3F518C177D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD0F39FA-3420-4E85-A939-AA3F518C177D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FA8186-20AD-43BE-B710-68428E34B04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FA8186-20AD-43BE-B710-68428E34B04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FA8186-20AD-43BE-B710-68428E34B04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FA8186-20AD-43BE-B710-68428E34B04E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

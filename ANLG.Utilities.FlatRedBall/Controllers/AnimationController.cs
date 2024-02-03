@@ -1,5 +1,4 @@
 using ANLG.Utilities.FlatRedBall.Constants;
-using FlatRedBall;
 using FlatRedBall.Graphics.Animation;
 
 namespace ANLG.Utilities.FlatRedBall.Controllers;
@@ -10,7 +9,7 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// <typeparam name="TEntity">The type of entity this controller is bound to. Is often your <c>Player</c> class.</typeparam>
 /// <typeparam name="TController">The base controller type for <typeparamref name="TEntity"/>. Is often your <c>PlayerController</c> class.</typeparam>
 public abstract class AnimationController<TEntity, TController> : EntityController<TEntity, TController>
-    where TEntity : PositionedObject, IHasAnimationControllers<TEntity, TController>
+    where TEntity : IHasAnimationControllers<TEntity, TController>
     where TController : AnimationController<TEntity, TController>
 {
     /// <summary> Seconds </summary>
