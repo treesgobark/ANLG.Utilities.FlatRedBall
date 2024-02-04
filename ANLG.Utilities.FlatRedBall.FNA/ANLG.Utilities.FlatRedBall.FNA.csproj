@@ -67,6 +67,9 @@
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\PointExtensions.cs">
         <Link>Extensions\PointExtensions.cs</Link>
       </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\PositionedObjectExtensions.cs">
+        <Link>Extensions\PositionedObjectExtensions.cs</Link>
+      </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\RandomExtensions.cs">
         <Link>Extensions\RandomExtensions.cs</Link>
       </Compile>
