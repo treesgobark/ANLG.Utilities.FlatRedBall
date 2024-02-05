@@ -5,6 +5,16 @@ namespace ANLG.Utilities.FlatRedBall.NonStaticUtilities;
 public class CyclableList<T> : List<T>
 {
     private int _currentIndex = 0;
+
+    public CyclableList() { }
+    
+    public CyclableList(IEnumerable<T> existingList)
+    {
+        foreach (var item in existingList)
+        {
+            Add(item);
+        }
+    }
     
     public T CurrentItem { get; private set; }
 
