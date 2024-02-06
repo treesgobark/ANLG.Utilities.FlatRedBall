@@ -64,6 +64,9 @@
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\MatrixExtensions.cs">
         <Link>Extensions\MatrixExtensions.cs</Link>
       </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\MouseExtensions.cs">
+        <Link>Extensions\MouseExtensions.cs</Link>
+      </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\PointExtensions.cs">
         <Link>Extensions\PointExtensions.cs</Link>
       </Compile>
