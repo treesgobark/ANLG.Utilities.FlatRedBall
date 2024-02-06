@@ -17,9 +17,9 @@ public abstract class EntityController<TEntity, TController>
     public TEntity Parent { get; }
 
     /// <summary>Probably wanna call this in your <typeparamref name="TEntity"/>'s CustomInitialize.</summary>
-    protected EntityController(TEntity parent)
+    protected EntityController(TEntity obj)
     {
-        Parent = parent;
+        Parent = obj;
     }
 
     /// <summary>

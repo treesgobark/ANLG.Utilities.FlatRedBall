@@ -59,10 +59,9 @@ public class ControllerCollection<T, TController>
     {
         Controllers.ForEach(c => c.Initialize());
         
-        var newStart = Get<TSearch>();
-        CurrentController = newStart;
-        CurrentController.OnActivate();
-        _isInitialized = true;
+        CurrentController = Get<TSearch>();
+        ExitOverride      = CurrentController;
+        _isInitialized    = true;
     }
 
     /// <summary>
