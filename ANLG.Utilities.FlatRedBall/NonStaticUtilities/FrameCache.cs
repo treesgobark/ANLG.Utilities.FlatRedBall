@@ -2,30 +2,22 @@ using FlatRedBall;
 
 namespace ANLG.Utilities.FlatRedBall.NonStaticUtilities;
 
-public class FrameCache<T>
+public class FrameCache<T>(Func<T> refreshFunc)
 {
     private int _cachedOn = -69;
-    private T _obj;
+    private T _obj = default!;
 
     public T Obj
     {
-        get => _obj;
-        set
+        get
         {
-            _obj = value;
+            if (TimeManager.CurrentFrame == _cachedOn)
+            {
+                return _obj;
+            }
+
             _cachedOn = TimeManager.CurrentFrame;
+            return _obj = refreshFunc();
         }
-    }
-
-    public bool TryGetObj(out T cachedObject)
-    {
-        if (TimeManager.CurrentFrame == _cachedOn)
-        {
-            cachedObject = Obj;
-            return true;
-        }
-
-        cachedObject = default;
-        return false;
     }
 }
