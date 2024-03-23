@@ -5,7 +5,7 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// </summary>
 public class ControllerCollection<T, TController>
     where T : IHasControllers<T, TController>
-    where TController : EntityController<T, TController>
+    where TController : IEntityController<T, TController>
 {
     private bool _isInitialized = false;
 
@@ -14,7 +14,7 @@ public class ControllerCollection<T, TController>
     /// <summary>
     /// All the controllers that belong to this collection (state machine)
     /// </summary>
-    protected List<EntityController<T, TController>> Controllers { get; } = new();
+    protected List<TController> Controllers { get; } = new();
     
     /// <summary>
     /// The currently active controller
@@ -76,11 +76,11 @@ public class ControllerCollection<T, TController>
         if (!_isInitialized)
         {
             throw new InvalidOperationException($"You must initialize collection with "
-                + $"{nameof(InitializeStartingController)} before performing activity.");
+                                                + $"{nameof(InitializeStartingController)} before performing activity.");
         }
 
         var newController = ExitOverride ?? CurrentController.EvaluateExitConditions();
-        ExitOverride = null;
+        ExitOverride = default;
 
         int count = 0;
         while (newController is not null)

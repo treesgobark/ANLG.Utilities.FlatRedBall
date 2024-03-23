@@ -7,7 +7,7 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// </summary>
 public interface IHasControllers<T, TSelf>
     where T : IHasControllers<T, TSelf>
-    where TSelf : EntityController<T, TSelf>
+    where TSelf : IEntityController<T, TSelf>
 {
     /// <summary>
     /// Instantiate this during initialize along with all

@@ -7,9 +7,9 @@ namespace ANLG.Utilities.FlatRedBall.Controllers;
 /// <typeparam name="TEntity">The parent entity of this controller</typeparam>
 /// <typeparam name="TController">The controller type that is specific to your parent entity,
 ///   usually the type of the class extending this one, like PlayerController, for example.</typeparam>
-public abstract class EntityController<TEntity, TController>
+public abstract class EntityController<TEntity, TController> : IEntityController<TEntity, TController>
     where TEntity : IHasControllers<TEntity, TController>
-    where TController : EntityController<TEntity, TController>
+    where TController : IEntityController<TEntity, TController>
 {
     /// <summary>
     /// Entity that this controller acts on

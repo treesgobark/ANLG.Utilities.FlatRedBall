@@ -31,8 +31,20 @@
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\ControllerCollection.cs">
         <Link>Controllers\ControllerCollection.cs</Link>
       </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\StateMachine.cs">
+        <Link>Controllers\StateMachine.cs</Link>
+      </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\EntityController.cs">
         <Link>Controllers\EntityController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IStateMachine.cs">
+        <Link>Controllers\IStateMachine.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IEntityController.cs">
+        <Link>Controllers\IEntityController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IState.cs">
+        <Link>Controllers\IState.cs</Link>
       </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\IHasAnimationControllers.cs">
         <Link>Controllers\IHasAnimationControllers.cs</Link>
@@ -45,6 +57,9 @@
       </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\MultispriteController.cs">
         <Link>Controllers\MultispriteController.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Controllers\State.cs">
+        <Link>Controllers\State.cs</Link>
       </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\CameraExtensions.cs">
         <Link>Extensions\CameraExtensions.cs</Link>
