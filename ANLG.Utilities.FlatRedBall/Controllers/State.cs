@@ -14,10 +14,10 @@ public abstract class State<T> : IState<T>
     /// </summary>
     public T Parent { get; }
 
-    public IStateMachine StateMachine { get; }
+    protected IReadonlyStateMachine StateMachine { get; }
 
     /// <summary>Probably wanna call this in your <typeparamref name="T"/>'s CustomInitialize.</summary>
-    protected State(T parent, IStateMachine stateMachine)
+    protected State(T parent, IReadonlyStateMachine stateMachine)
     {
         Parent     = parent;
         StateMachine = stateMachine;
