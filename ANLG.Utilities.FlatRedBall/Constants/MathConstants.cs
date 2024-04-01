@@ -36,6 +36,11 @@ public static class MathConstants
     public const int RotateCw = -1;
 
     /// <summary>
+    /// Represents the absence of rotation.
+    /// </summary>
+    public const float NoRotation = 0 * MathF.PI;
+
+    /// <summary>
     /// Represents a full 360-degree rotation in radians.
     /// </summary>
     public const float FullTurn = 2 * MathF.PI;
