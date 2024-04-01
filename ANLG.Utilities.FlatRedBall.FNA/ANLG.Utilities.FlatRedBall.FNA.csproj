@@ -76,6 +76,9 @@
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\I2DInputExtensions.cs">
         <Link>Extensions\I2DInputExtensions.cs</Link>
       </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\IPositionableExtensions.cs">
+        <Link>Extensions\IPositionableExtensions.cs</Link>
+      </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\MatrixExtensions.cs">
         <Link>Extensions\MatrixExtensions.cs</Link>
       </Compile>
@@ -129,6 +132,9 @@
       </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\Interpolator.cs">
         <Link>NonStaticUtilities\Interpolator.cs</Link>
+      </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\Rotation.cs">
+        <Link>NonStaticUtilities\Rotation.cs</Link>
       </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\NonStaticUtilities\RunningAverage.cs">
         <Link>NonStaticUtilities\RunningAverage.cs</Link>
