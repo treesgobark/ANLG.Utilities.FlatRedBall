@@ -12,11 +12,11 @@ public class StateMachine : IStateMachine
     /// All the states that belong to this collection (state machine)
     /// </summary>
     protected List<IState> States { get; } = new();
-    
+
     /// <summary>
     /// The currently active state
     /// </summary>
-    public IState CurrentState { get; protected set; }
+    protected IState CurrentState { get; set; } = null!;
     
     /// <summary>
     /// Adds a state to the collection.
@@ -56,6 +56,11 @@ public class StateMachine : IStateMachine
     /// </summary>
     public void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState
     {
+        if (_isInitialized)
+        {
+            throw new InvalidOperationException($"State machine already initialized.");
+        }
+        
         States.ForEach(c => c.Initialize());
         
         CurrentState   = Get<TSearch>(isExact);
@@ -111,7 +116,26 @@ public class StateMachine : IStateMachine
     {
         ExitOverride = Get<TState>(isExact);
     }
-    
+
+    public void Uninitialize()
+    {
+        if (!_isInitialized)
+        {
+            throw new InvalidOperationException($"You must initialize collection with "
+                                                + $"{nameof(InitializeStartingState)} before calling {nameof(Uninitialize)}.");
+        }
+
+        _isInitialized = false;
+        
+        CurrentState.BeforeDeactivate();
+        CurrentState = default!;
+
+        foreach (var state in States)
+        {
+            state.Uninitialize();
+        }
+    }
+
     // write log for all previous states entered
     // and you know what fuck it ill also write down the thing about entering state machines within state machines like with a stack like magic lol
 }

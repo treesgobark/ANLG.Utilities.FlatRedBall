@@ -28,15 +28,15 @@ public interface IStateMachine : IReadonlyStateMachine
     /// Forces the state machine to move to the given state by replacing the next exit condition check.
     /// </summary>
     void OverrideState<TState>(bool isExact = false) where TState : IState;
+    
+    /// <summary>
+    /// Uninitializes all the states in the collection so this state machine can be safely destroyed
+    /// </summary>
+    void Uninitialize();
 }
 
 public interface IReadonlyStateMachine
 {
-    /// <summary>
-    /// The currently active state
-    /// </summary>
-    IState CurrentState { get; }
-
     /// <summary>
     /// Returns the state in this collection with the exact type <typeparamref name="TSearch"/>.
     /// Returns the first state in this collection whose type is assignable to <typeparamref name="TSearch"/>.
