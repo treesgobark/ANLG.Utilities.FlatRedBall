@@ -1,0 +1,12 @@
+using FlatRedBall.Math;
+using Microsoft.Xna.Framework;
+
+namespace ANLG.Utilities.FlatRedBall.Extensions;
+
+public static class IPositionableExtensions
+{
+    public static Vector3 GetPosition(this IPositionable positionable)
+    {
+        return new Vector3(positionable.X, positionable.Y, positionable.Z);
+    }
+}
