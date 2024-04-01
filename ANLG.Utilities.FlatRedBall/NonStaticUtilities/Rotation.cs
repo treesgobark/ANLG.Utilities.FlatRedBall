@@ -16,10 +16,37 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
     public static Rotation FromRadians(float radians) => new(radians);
     public static Rotation FromDegrees(float degrees) => new(degrees * DegreesToRadians);
     
+    /// <summary>
+    /// Full rotation value in radians, unbound.
+    /// </summary>
     public float TotalRadians => _radians;
+    
+    /// <summary>
+    /// Full rotation value in degrees, unbound.
+    /// </summary>
     public float TotalDegrees => _radians * RadiansToDegrees;
-    public float Radians => Regulate(_radians, MathF.PI * 2f);
-    public float Degrees => Regulate(_radians, MathF.PI * 2f) * RadiansToDegrees;
+    
+    /// <summary>
+    /// Rotation value in radians, normalized to be between 0 and 2 pi.
+    /// </summary>
+    public float NormalizedRadians => NormalizePositive(_radians);
+    
+    /// <summary>
+    /// Full rotation value in degrees, normalized to be between 0 and 360.
+    /// </summary>
+    public float NormalizedDegrees => NormalizePositive(_radians) * RadiansToDegrees;
+    
+    /// <summary>
+    /// Full rotation value in radians, normalized to be between -pi and pi.
+    /// </summary>
+    public float CondensedRadians => NormalizeAroundZero(_radians);
+    
+    /// <summary>
+    /// Full rotation value in degrees, normalized to be between -180 and 180.
+    /// </summary>
+    public float CondensedDegrees => NormalizeAroundZero(_radians) * RadiansToDegrees;
+    
+    public bool IsClockwise => _radians < 0;
     
     #region Operators
     
@@ -33,27 +60,41 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
         return new(r1._radians - r2._radians);
     }
     
-    public static Rotation operator *(Rotation r1, Rotation r2)
+    public static Rotation operator *(float r1, Rotation r2)
     {
-        return new(r1._radians * r2._radians);
+        return new(r1 * r2._radians);
     }
     
-    public static Rotation operator /(Rotation r1, Rotation r2)
+    public static Rotation operator *(Rotation r1, float r2)
     {
-        return new(r1._radians / r2._radians);
+        return new(r1._radians * r2);
+    }
+    
+    public static Rotation operator /(Rotation r1, float r2)
+    {
+        return new(r1._radians / r2);
     }
     
     #endregion
     
-    /// <summary>
-    /// Takes a value <paramref name="x"/> and regulates it to the range 0 &lt;= <paramref name="x"/> &lt; <paramref name="m"/>
-    ///   such that it cycles through the range. Equivalent to a mathematical modulus.
-    ///   Will give equivalent values to the '%' operator for non-negative numbers.
-    /// </summary>
-    private static float Regulate(float x, float m)
+    private static float NormalizePositive(float x)
     {
-        float r = x % m;
-        return r < 0 ? r + m : r;
+        float r = x % MathF.PI * 2f;
+        return r < 0 ? r + MathF.PI * 2f : r;
+    }
+
+    private static float NormalizeAroundZero(float angle)
+    {
+        // Convert the angle to the range of -2π to 2π
+        angle %= 2 * MathF.PI;
+
+        // Adjust the angle to the range of -π to π
+        if (angle > MathF.PI)
+            return angle - 2 * MathF.PI;
+        if (angle <= -Math.PI)
+            return angle + 2 * MathF.PI;
+
+        return angle;
     }
     
     public int CompareTo(object? value)
