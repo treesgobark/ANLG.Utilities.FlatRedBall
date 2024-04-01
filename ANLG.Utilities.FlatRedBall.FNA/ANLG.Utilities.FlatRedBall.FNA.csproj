@@ -79,6 +79,9 @@
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\IPositionableExtensions.cs">
         <Link>Extensions\IPositionableExtensions.cs</Link>
       </Compile>
+      <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\IRotatableExtensions.cs">
+        <Link>Extensions\IRotatableExtensions.cs</Link>
+      </Compile>
       <Compile Include="..\ANLG.Utilities.FlatRedBall\Extensions\MatrixExtensions.cs">
         <Link>Extensions\MatrixExtensions.cs</Link>
       </Compile>

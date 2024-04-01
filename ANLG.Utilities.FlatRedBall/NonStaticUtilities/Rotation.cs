@@ -15,6 +15,7 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
 
     public static Rotation FromRadians(float radians) => new(radians);
     public static Rotation FromDegrees(float degrees) => new(degrees * DegreesToRadians);
+    public static readonly Rotation Zero = new(0f);
     
     /// <summary>
     /// Full rotation value in radians, unbound.
