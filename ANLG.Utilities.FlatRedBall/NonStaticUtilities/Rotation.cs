@@ -80,7 +80,7 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
     
     private static float NormalizePositive(float x)
     {
-        float r = x % MathF.PI * 2f;
+        float r = x % (MathF.PI * 2f);
         return r < 0 ? r + MathF.PI * 2f : r;
     }
 
