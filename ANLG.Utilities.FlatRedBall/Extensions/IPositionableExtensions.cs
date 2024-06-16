@@ -5,7 +5,7 @@ namespace ANLG.Utilities.FlatRedBall.Extensions;
 
 public static class IPositionableExtensions
 {
-    public static Vector3 GetPosition(this IPositionable positionable)
+    public static Vector3 PositionAsVec3(this IPositionable positionable)
     {
         return new Vector3(positionable.X, positionable.Y, positionable.Z);
     }

@@ -1,8 +1,6 @@
 namespace ANLG.Utilities.FlatRedBall.Components;
 
-public abstract class Component<T, TSelf> : IComponent
-    where T : IHasComponent<TSelf>
-    where TSelf : IComponent
+public abstract class Component<T> : IComponent
 {
     /// <summary>
     /// The entity that this component resides on.

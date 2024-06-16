@@ -3,7 +3,7 @@ namespace ANLG.Utilities.FlatRedBall.Components;
 /// <summary>
 /// Stores components and allows the initialization, activity, and destroy methods to be called on each one in sequence.
 /// </summary>
-public class ComponentList
+public class ComponentList : IComponentList
 {
     /// <summary>
     /// The list of components this manages.
