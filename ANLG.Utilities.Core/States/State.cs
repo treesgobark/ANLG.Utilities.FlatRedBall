@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.Controllers;
+namespace ANLG.Utilities.Core.States;
 
 /// <summary>
 /// States are meant to be the only pathway through which input flows in an FRB entity. Very similar to the object-oriented state pattern:

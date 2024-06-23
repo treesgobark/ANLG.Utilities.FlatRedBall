@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.Controllers;
+namespace ANLG.Utilities.Core.States;
 
 public interface IStateMachine : IReadonlyStateMachine
 {
