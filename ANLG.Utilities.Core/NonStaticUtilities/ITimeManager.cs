@@ -9,4 +9,9 @@ public interface ITimeManager
     /// Time in game since the last frame
     /// </summary>
     TimeSpan GameTimeSinceLastFrame { get; }
+    
+    /// <summary>
+    /// Time in seconds in game since the last frame
+    /// </summary>
+    double GameSecondsSinceLastFrame { get; }
 }
