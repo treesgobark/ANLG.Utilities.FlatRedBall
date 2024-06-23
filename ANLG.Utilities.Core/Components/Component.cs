@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.FlatRedBall.Components;
+namespace ANLG.Utilities.Core.Components;
 
 public abstract class Component<T> : IComponent
 {

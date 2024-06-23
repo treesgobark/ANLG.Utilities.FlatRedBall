@@ -1,6 +1,6 @@
-using ANLG.Utilities.FlatRedBall.Constants;
+using ANLG.Utilities.Core.Constants;
 
-namespace ANLG.Utilities.FlatRedBall.Extensions;
+namespace ANLG.Utilities.Core.Extensions;
 
 public static class EnumExtensions
 {

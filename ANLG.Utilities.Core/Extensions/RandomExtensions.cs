@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.FlatRedBall.Extensions;
+namespace ANLG.Utilities.Core.Extensions;
 
 public static class RandomExtensions
 {

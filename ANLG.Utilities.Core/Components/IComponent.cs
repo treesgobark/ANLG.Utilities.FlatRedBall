@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.FlatRedBall.Components;
+namespace ANLG.Utilities.Core.Components;
 
 public interface IComponent
 {

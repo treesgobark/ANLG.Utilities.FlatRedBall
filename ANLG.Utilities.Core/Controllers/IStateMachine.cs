@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.FlatRedBall.States;
+namespace ANLG.Utilities.Core.Controllers;
 
 public interface IStateMachine : IReadonlyStateMachine
 {

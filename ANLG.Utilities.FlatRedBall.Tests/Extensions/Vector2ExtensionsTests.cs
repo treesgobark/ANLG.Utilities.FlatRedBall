@@ -1,4 +1,4 @@
-using ANLG.Utilities.FlatRedBall.Constants;
+using ANLG.Utilities.Core.Constants;
 using ANLG.Utilities.FlatRedBall.Extensions;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;

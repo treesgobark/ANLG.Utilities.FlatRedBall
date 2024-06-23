@@ -1,5 +1,5 @@
 #pragma warning disable CS1591
-namespace ANLG.Utilities.FlatRedBall.Constants;
+namespace ANLG.Utilities.Core.Constants;
 
 /// <summary>
 /// Basic directions for general use.

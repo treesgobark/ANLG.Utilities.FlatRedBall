@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
-using ANLG.Utilities.FlatRedBall.Constants;
+using ANLG.Utilities.Core.Constants;
+using ANLG.Utilities.Core.Extensions;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
