@@ -1,4 +1,4 @@
-using ANLG.Utilities.FlatRedBall.NonStaticUtilities;
+using ANLG.Utilities.Core.NonStaticUtilities;
 using FlatRedBall.Math;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;
