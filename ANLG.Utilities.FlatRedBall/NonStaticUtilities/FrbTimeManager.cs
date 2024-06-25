@@ -17,5 +17,5 @@ public class FrbTimeManager : ITimeManager
     public TimeSpan GameTimeSinceLastFrame => TimeSpan.FromSeconds(TimeManager.SecondDifference);
 
     /// <inheritdoc/>
-    public double GameSecondsSinceLastFrame => TimeManager.SecondDifference;
+    public TimeSpan TotalGameTime => TimeSpan.FromSeconds(TimeManager.CurrentScreenTime);
 }

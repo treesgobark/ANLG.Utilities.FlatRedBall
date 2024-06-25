@@ -11,7 +11,7 @@ public interface ITimeManager
     TimeSpan GameTimeSinceLastFrame { get; }
     
     /// <summary>
-    /// Time in seconds in game since the last frame
+    /// Time since the game started
     /// </summary>
-    double GameSecondsSinceLastFrame { get; }
+    TimeSpan TotalGameTime { get; }
 }
