@@ -16,12 +16,12 @@ public class CyclableList<T> : List<T>
         }
     }
     
-    public T CurrentItem { get; private set; }
+    public T CurrentItem => Count > 0 ? this[_currentIndex] : throw new InvalidOperationException("List has no items");
 
     public T SetCurrentItem(int index)
     {
         _currentIndex = ValidateIndex(index);
-        return CurrentItem = this[_currentIndex];
+        return this[_currentIndex];
     }
 
     public T CycleToNextItem() => SetCurrentItem(_currentIndex + 1);
