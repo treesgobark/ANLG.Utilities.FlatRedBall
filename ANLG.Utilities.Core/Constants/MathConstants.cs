@@ -65,3 +65,16 @@ public static class MathConstants
     /// </summary>
     public const float EighthTurn = MathF.PI / 4;
 }
+
+public enum Quadrant
+{
+    Zero,
+    One,
+    Two,
+    Three,
+    Four,
+    Right,
+    Up,
+    Left,
+    Down,
+}

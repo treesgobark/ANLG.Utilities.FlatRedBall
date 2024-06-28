@@ -593,16 +593,3 @@ public static class Vector2Extensions
 
     #endregion
 }
-
-public enum Quadrant
-{
-    Zero,
-    One,
-    Two,
-    Three,
-    Four,
-    Right,
-    Up,
-    Left,
-    Down,
-}
