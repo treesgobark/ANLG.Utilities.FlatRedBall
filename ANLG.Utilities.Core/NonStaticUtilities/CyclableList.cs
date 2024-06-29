@@ -16,7 +16,7 @@ public class CyclableList<T> : List<T>
         }
     }
     
-    public T CurrentItem => Count > 0 ? this[_currentIndex] : throw new InvalidOperationException("List has no items");
+    public T? CurrentItem => Count > 0 ? this[_currentIndex] : default;
 
     public T SetCurrentItem(int index)
     {
