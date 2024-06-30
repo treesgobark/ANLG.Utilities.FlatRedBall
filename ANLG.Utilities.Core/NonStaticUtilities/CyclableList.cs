@@ -16,7 +16,19 @@ public class CyclableList<T> : List<T>
         }
     }
     
-    public T? CurrentItem => Count > 0 ? this[_currentIndex] : default;
+    public T CurrentItem => Count > 0 ? this[_currentIndex] : throw new InvalidOperationException("List is empty. Cannot get current item.");
+
+    public bool TryGetCurrentItem(out T currentItem)
+    {
+        if (Count > 0)
+        {
+            currentItem = CurrentItem;
+            return true;
+        }
+
+        currentItem = default;
+        return false;
+    }
 
     public T SetCurrentItem(int index)
     {
