@@ -15,7 +15,20 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
 
     public static Rotation FromRadians(float radians) => new(radians);
     public static Rotation FromDegrees(float degrees) => new(degrees * DegreesToRadians);
-    public static readonly Rotation Zero = new(0f);
+    
+    private static readonly Rotation ZeroField = new(0f);
+    private static readonly Rotation FullTurnField = new(2f * MathF.PI);
+    private static readonly Rotation HalfTurnField = new(MathF.PI);
+    private static readonly Rotation QuarterTurnField = new(MathF.PI / 2f);
+    private static readonly Rotation ThreeQuartersTurnField = new(3f * MathF.PI / 2f);
+    private static readonly Rotation EighthTurnField = new(MathF.PI / 4f);
+    
+    public static Rotation Zero => ZeroField;
+    public static Rotation FullTurn => FullTurnField;
+    public static Rotation HalfTurn => HalfTurnField;
+    public static Rotation QuarterTurn => QuarterTurnField;
+    public static Rotation ThreeQuartersTurn => ThreeQuartersTurnField;
+    public static Rotation EighthTurn => EighthTurnField;
     
     /// <summary>
     /// Full rotation value in radians, unbound.
