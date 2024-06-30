@@ -9,10 +9,12 @@ namespace ANLG.Utilities.Core.States;
 public abstract class TimedState : IState
 {
     protected ITimeManager TimeManager { get; }
+    protected IReadonlyStateMachine StateMachine { get; }
 
-    protected TimedState(ITimeManager timeManager)
+    protected TimedState(IReadonlyStateMachine stateMachine, ITimeManager timeManager)
     {
-        TimeManager = timeManager;
+        StateMachine = stateMachine;
+        TimeManager  = timeManager;
     }
 
     protected TimeSpan TimeInState { get; set; }
