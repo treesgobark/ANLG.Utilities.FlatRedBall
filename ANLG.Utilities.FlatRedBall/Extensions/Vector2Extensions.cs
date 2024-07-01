@@ -399,24 +399,6 @@ public static class Vector2Extensions
     // }
 
     /// <summary>
-    /// Returns a new vector with the same direction but with the magnitude provided.
-    /// </summary>
-    public static Vector2 WithMagnitude(this Vector2 input, float magnitude)
-    {
-        var angle = input.GetCcwAngle();
-        return magnitude * Vector2.UnitX.RotatedBy(angle);
-    }
-
-    /// <summary>
-    /// Returns a new vector with the same magnitude but at the angle provided.
-    /// </summary>
-    public static Vector2 WithAngle(this Vector2 input, float angle)
-    {
-        var length = input.Length();
-        return length * Vector2.UnitX.RotatedBy(angle);
-    }
-
-    /// <summary>
     /// Applies a given func to each component of this vector and returns the result.
     /// </summary>
     public static Vector2 MutatePiecewise(this Vector2 inputVector, Func<float, float> mutator)
