@@ -181,6 +181,26 @@ public static class Vector3Extensions
         return new Vector3(xLerp, yLerp, zLerp);
     }
 
+    /// <summary>
+    /// Increases the magnitude of a vector by the specified amount without changing its direction and returns the result as a new vector.
+    ///   Does not mutate <paramref name="input"/>.
+    /// </summary>
+    public static Vector3 Extend(this Vector3 input, float distance)
+    {
+        float length = input.Length();
+        return input.Scale(1 + distance / length, 1 + distance / length, 1 + distance / length);
+    }
+
+    /// <summary>
+    /// Increases the magnitude of a vector by the specified amount without changing its direction and returns the result as a new vector.
+    ///   Does not mutate <paramref name="input"/>.
+    /// </summary>
+    public static Vector3 Extend2D(this Vector3 input, float distance)
+    {
+        float length = input.Length();
+        return input.Scale(1 + distance / length, 1 + distance / length);
+    }
+
     #region Random
 
     /// <summary>
