@@ -16,7 +16,7 @@ public class StateMachine : IStateMachine
     /// <summary>
     /// The currently active state
     /// </summary>
-    protected IState CurrentState { get; set; } = null!;
+    protected IState CurrentState { get; set; } = EmptyState.Instance;
     
     /// <summary>
     /// Adds a state to the collection.
@@ -63,8 +63,7 @@ public class StateMachine : IStateMachine
         
         States.ForEach(c => c.Initialize());
         
-        CurrentState   = Get<TSearch>(isExact);
-        ExitOverride   = CurrentState;
+        ExitOverride   = Get<TSearch>(isExact);
         _isInitialized = true;
     }
 
@@ -128,7 +127,7 @@ public class StateMachine : IStateMachine
         _isInitialized = false;
         
         CurrentState.BeforeDeactivate();
-        CurrentState = default!;
+        CurrentState = EmptyState.Instance;
 
         foreach (var state in States)
         {
