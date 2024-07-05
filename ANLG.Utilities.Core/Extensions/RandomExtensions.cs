@@ -11,6 +11,14 @@ public static class RandomExtensions
     {
         return input.Next(2) * 2 - 1;
     }
+    
+    /// <summary>
+    /// Randomly returns 1 or -1.
+    /// </summary>
+    public static bool NextBool(this Random input)
+    {
+        return input.Next(2) != 0;
+    }
 
     /// <summary>
     /// Returns a value greater than or equal to <c>value * (1 - tolerance)</c> and less than <c>value * (1 + tolerance)</c>
