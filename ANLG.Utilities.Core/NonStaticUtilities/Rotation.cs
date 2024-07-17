@@ -149,4 +149,25 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
     {
         return float.Abs(_radians - other._radians) < epsilon;
     }
+
+    /// <summary>
+    /// Snaps this rotation to a number of equidistant angles around a circle equal to <paramref name="angles"/>.
+    /// <paramref name="halfAngleOffset"/> rotates the snap positions by half the angle between positions.
+    /// </summary>
+    public Rotation Snap(int angles, bool halfAngleOffset = false)
+    {
+        float newAngle;
+        
+        if (halfAngleOffset)
+        {
+            newAngle = (float)(double.Floor(_radians / (2 * Math.PI) * angles + Math.PI / angles)
+                / angles * (2 * Math.PI));
+        }
+        else
+        {
+            newAngle = (float)(double.Floor(_radians / (2 * Math.PI) * angles) / angles * (2 * Math.PI));
+        }
+        
+        return FromRadians(newAngle);
+    }
 }
