@@ -170,4 +170,18 @@ public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable
         
         return FromRadians(newAngle);
     }
+
+    /// <summary>
+    /// Returns the index of the "sector" of the unit circle that the current rotation value is in,
+    ///   given the number of sectors.
+    /// <paramref name="halfAngleOffset"/> causes the sectors to rotate by half the arc of a sector.
+    /// </summary>
+    public int GetSector(int sectors, bool halfAngleOffset = false)
+    {
+        float offset = halfAngleOffset ? MathF.PI / sectors : 0f;
+        
+        float sector = NormalizePositive(NormalizedRadians + offset) / (2f * MathF.PI / sectors);
+
+        return (int)sector;
+    }
 }
