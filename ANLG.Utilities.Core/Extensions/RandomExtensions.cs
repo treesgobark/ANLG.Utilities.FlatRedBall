@@ -13,11 +13,29 @@ public static class RandomExtensions
     }
     
     /// <summary>
-    /// Randomly returns 1 or -1.
+    /// Randomly returns true or false
     /// </summary>
     public static bool NextBool(this Random input)
     {
         return input.Next(2) != 0;
+    }
+    
+    /// <summary>
+    /// Randomly returns a float greater than or equal to 0.0f and less than <paramref name="maxValue"/>
+    /// </summary>
+    public static float NextSingle(this Random input, float maxValue)
+    {
+        float t = input.NextSingle();
+        return maxValue * t;
+    }
+    
+    /// <summary>
+    /// Randomly returns a float greater than or equal to <paramref name="minValue"/> and less than <paramref name="maxValue"/>
+    /// </summary>
+    public static float NextSingle(this Random input, float minValue, float maxValue)
+    {
+        float t = input.NextSingle();
+        return minValue * (1 - t) + maxValue * t;
     }
 
     /// <summary>
