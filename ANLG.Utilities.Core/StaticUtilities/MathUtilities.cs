@@ -41,4 +41,12 @@ public static class MathUtilities
         double r = x % m;
         return r < 0 ? r + m : r;
     }
+    
+    /// <summary>
+    /// Linear interpolation between TimeSpans
+    /// </summary>
+    public static TimeSpan Lerp(TimeSpan value1, TimeSpan value2, float tValue)
+    {
+        return value1 * (tValue - 1) + value2 * tValue;
+    }
 }
