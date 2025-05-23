@@ -4,9 +4,10 @@ namespace ANLG.Utilities.Core.States;
 /// </summary>
 public class StateMachine : IStateMachine
 {
-    private bool _isInitialized = false;
-
     protected IState? ExitOverride { get; set; }
+
+    /// <inheritdoc/>
+    public bool IsInitialized { get; private set; }
 
     /// <summary>
     /// All the states that belong to this collection (state machine)
@@ -56,7 +57,7 @@ public class StateMachine : IStateMachine
     /// </summary>
     public void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState
     {
-        if (_isInitialized)
+        if (IsInitialized)
         {
             throw new InvalidOperationException($"State machine already initialized.");
         }
@@ -64,7 +65,7 @@ public class StateMachine : IStateMachine
         States.ForEach(c => c.Initialize());
         
         ExitOverride   = Get<TSearch>(isExact);
-        _isInitialized = true;
+        IsInitialized = true;
     }
 
     /// <inheritdoc/>
@@ -77,7 +78,7 @@ public class StateMachine : IStateMachine
     /// <inheritdoc/>
     public void EvaluateExitConditions()
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
         {
             throw new InvalidOperationException($"You must initialize collection with "
                                                 + $"{nameof(InitializeStartingState)} before performing activity.");
@@ -117,13 +118,13 @@ public class StateMachine : IStateMachine
 
     public void Uninitialize()
     {
-        if (!_isInitialized)
+        if (!IsInitialized)
         {
             throw new InvalidOperationException($"You must initialize collection with "
                                                 + $"{nameof(InitializeStartingState)} before calling {nameof(Uninitialize)}.");
         }
 
-        _isInitialized = false;
+        IsInitialized = false;
         
         CurrentState.BeforeDeactivate();
         CurrentState = EmptyState.Instance;

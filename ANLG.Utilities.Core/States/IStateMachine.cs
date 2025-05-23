@@ -46,6 +46,11 @@ public interface IStateMachine : IReadonlyStateMachine
 public interface IReadonlyStateMachine
 {
     /// <summary>
+    /// Indicates whether the state machine is ready to perform activity
+    /// </summary>
+    bool IsInitialized { get; }
+    
+    /// <summary>
     /// Returns the state in this collection with the exact type <typeparamref name="TSearch"/>.
     /// Returns the first state in this collection whose type is assignable to <typeparamref name="TSearch"/>.
     /// </summary>
