@@ -67,19 +67,20 @@ public class StateMachine : IStateMachine
         _isInitialized = true;
     }
 
-    /// <summary>
-    /// Evaluates the exit conditions of the current state, then if a state switch happens,
-    ///   <see cref="EntityState{T,TSelf}.BeforeDeactivate"/> is called on the old state,
-    ///   then <see cref="EntityState{T,TSelf}.OnActivate"/> and <see cref="EntityState{T,TSelf}.CustomActivity"/>
-    ///   are called on the new state, in that order.
-    /// </summary>
-    /// <exception cref="InvalidOperationException">Throws InvalidOperationException if collection is uninitialized.</exception>
+    /// <inheritdoc/>
     public void DoCurrentStateActivity()
+    {
+        EvaluateExitConditions();
+        CurrentState.CustomActivity();
+    }
+
+    /// <inheritdoc/>
+    public void EvaluateExitConditions()
     {
         if (!_isInitialized)
         {
             throw new InvalidOperationException($"You must initialize collection with "
-                + $"{nameof(InitializeStartingState)} before performing activity.");
+                                                + $"{nameof(InitializeStartingState)} before performing activity.");
         }
 
         var newState = ExitOverride ?? CurrentState.EvaluateExitConditions();
@@ -93,9 +94,9 @@ public class StateMachine : IStateMachine
                 throw new StackOverflowException($"The state collection {GetType().Name} has reached the exit condition limit. " +
                                                  $"The current state, {CurrentState.GetType().Name}, is trying to go to " +
                                                  $"{newState.GetType().Name}. For more information, consult the innerException.",
-                    new Exception("Your states have likely encountered an infinite loop of exit conditions. State collections" +
-                                  " will try to cycle to the next state via their exit conditions continuously until it reaches " +
-                                  "a state that returns null from EvaluateExitConditions."));
+                                                 new Exception("Your states have likely encountered an infinite loop of exit conditions. State collections" +
+                                                               " will try to cycle to the next state via their exit conditions continuously until it reaches " +
+                                                               "a state that returns null from EvaluateExitConditions."));
             }
             
             CurrentState.BeforeDeactivate();
@@ -104,8 +105,6 @@ public class StateMachine : IStateMachine
 
             newState = CurrentState.EvaluateExitConditions();
         }
-        
-        CurrentState.CustomActivity();
     }
 
     /// <summary>

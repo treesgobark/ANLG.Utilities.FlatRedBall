@@ -25,6 +25,14 @@ public interface IStateMachine : IReadonlyStateMachine
     void DoCurrentStateActivity();
 
     /// <summary>
+    /// Evaluates the exit conditions of the current state, then if a state switch happens,
+    ///   <see cref="EntityState{T,TSelf}.BeforeDeactivate"/> is called on the old state,
+    ///   then <see cref="EntityState{T,TSelf}.OnActivate"/> is called on the new state.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Throws InvalidOperationException if collection is uninitialized.</exception>
+    void EvaluateExitConditions();
+
+    /// <summary>
     /// Forces the state machine to move to the given state by replacing the next exit condition check.
     /// </summary>
     void OverrideState<TState>(bool isExact = false) where TState : IState;
