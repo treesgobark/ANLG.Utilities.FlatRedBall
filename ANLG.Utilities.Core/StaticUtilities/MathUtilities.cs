@@ -49,4 +49,14 @@ public static class MathUtilities
     {
         return value1 * (tValue - 1) + value2 * tValue;
     }
+
+    public static float Saturate(this float value)
+    {
+        return Math.Clamp(value, 0, 1);
+    }
+
+    public static double Saturate(this double value)
+    {
+        return Math.Clamp(value, 0, 1);
+    }
 }
