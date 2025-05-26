@@ -2,6 +2,7 @@
 
 using ANLG.Utilities.Core.Constants;
 using ANLG.Utilities.Core.Extensions;
+using ANLG.Utilities.Core.NonStaticUtilities;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
@@ -40,6 +41,14 @@ public static class Vector3Extensions
         x = input.Value.X;
         y = input.Value.Y;
         z = input.Value.Z;
+    }
+
+    /// <summary>
+    /// Returns a vector with at the given angle with the given length.
+    /// </summary>
+    public static Vector3 FromRotationAndLength(Rotation angle, float length)
+    {
+        return FromAngle(angle.NormalizedRadians).AtLength(length);
     }
     
     /// <summary>

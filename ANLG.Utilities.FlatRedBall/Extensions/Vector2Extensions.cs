@@ -1,5 +1,6 @@
 ﻿using ANLG.Utilities.Core.Constants;
 using ANLG.Utilities.Core.Extensions;
+using ANLG.Utilities.Core.NonStaticUtilities;
 using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;
@@ -45,6 +46,14 @@ public static class Vector2Extensions
     public static Vector2 FromAngleAndLength(float angle, float length)
     {
         return FromAngle(angle).AtLength(length);
+    }
+
+    /// <summary>
+    /// Returns a vector with at the given angle with the given length.
+    /// </summary>
+    public static Vector2 FromRotationAndLength(Rotation angle, float length)
+    {
+        return FromAngle(angle.NormalizedRadians).AtLength(length);
     }
 
     /// <summary>
