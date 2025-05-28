@@ -23,7 +23,7 @@ public sealed class EmptyState : IState
     public IState? EvaluateExitConditions() => null;
 
     /// <inheritdoc/>
-    public void BeforeDeactivate() { }
+    public void BeforeDeactivate(IState? nextState) { }
 
     /// <inheritdoc/>
     public void Uninitialize() { }

@@ -35,8 +35,8 @@ public abstract class TimedState : IState
     }
 
     public abstract IState? EvaluateExitConditions();
-    public abstract void BeforeDeactivate();
-    public abstract void Uninitialize();
+    public abstract void    BeforeDeactivate(IState? nextState);
+    public abstract void    Uninitialize();
 
     protected abstract void AfterTimedStateActivate();
     protected abstract void AfterTimedStateActivity();

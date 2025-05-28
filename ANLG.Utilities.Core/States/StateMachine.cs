@@ -100,7 +100,7 @@ public class StateMachine : IStateMachine
                                                                "a state that returns null from EvaluateExitConditions."));
             }
             
-            CurrentState.BeforeDeactivate();
+            CurrentState.BeforeDeactivate(newState);
             CurrentState = newState;
             CurrentState.OnActivate();
 
@@ -126,7 +126,7 @@ public class StateMachine : IStateMachine
 
         IsInitialized = false;
         
-        CurrentState.BeforeDeactivate();
+        CurrentState.BeforeDeactivate(null);
         CurrentState = EmptyState.Instance;
 
         foreach (var state in States)
