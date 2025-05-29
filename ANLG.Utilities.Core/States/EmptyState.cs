@@ -14,7 +14,7 @@ public sealed class EmptyState : IState
     public void Initialize() { }
 
     /// <inheritdoc/>
-    public void OnActivate() { }
+    public void OnActivate(IState? previousState) { }
 
     /// <inheritdoc/>
     public void CustomActivity() { }

@@ -101,8 +101,8 @@ public class StateMachine : IStateMachine
             }
             
             CurrentState.BeforeDeactivate(newState);
+            newState.OnActivate(CurrentState);
             CurrentState = newState;
-            CurrentState.OnActivate();
 
             newState = CurrentState.EvaluateExitConditions();
         }

@@ -22,10 +22,10 @@ public abstract class TimedState : IState
 
     public abstract void Initialize();
 
-    public virtual void OnActivate()
+    public virtual void OnActivate(IState? previousState)
     {
         TimeInState = TimeSpan.Zero;
-        AfterTimedStateActivate();
+        AfterTimedStateActivate(previousState);
     }
 
     public virtual void CustomActivity()
@@ -38,6 +38,6 @@ public abstract class TimedState : IState
     public abstract void    BeforeDeactivate(IState? nextState);
     public abstract void    Uninitialize();
 
-    protected abstract void AfterTimedStateActivate();
+    protected abstract void AfterTimedStateActivate(IState? previousState);
     protected abstract void AfterTimedStateActivity();
 }

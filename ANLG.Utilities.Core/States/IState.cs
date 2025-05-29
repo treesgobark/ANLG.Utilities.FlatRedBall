@@ -20,7 +20,7 @@ public interface IState
     /// <summary>
     /// Called once when this state is set as the active state
     /// </summary>
-    public void OnActivate();
+    public void OnActivate(IState? previousState);
 
     /// <summary>
     /// Called each frame during the parent entity's CustomActivity
