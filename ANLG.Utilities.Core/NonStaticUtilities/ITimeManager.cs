@@ -15,3 +15,11 @@ public interface ITimeManager
     /// </summary>
     TimeSpan TotalGameTime { get; }
 }
+
+public class ZeroTimeManager : ITimeManager
+{
+    public static ZeroTimeManager Instance { get; } = new();
+    
+    public TimeSpan GameTimeSinceLastFrame => TimeSpan.Zero;
+    public TimeSpan TotalGameTime => TimeSpan.Zero;
+}

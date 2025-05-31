@@ -49,6 +49,24 @@ public static class MathUtilities
     {
         return value1 * (tValue - 1) + value2 * tValue;
     }
+    
+    /// <summary>
+    /// Linear interpolation between TimeSpans
+    /// </summary>
+    public static TimeSpan Clamp(TimeSpan value, TimeSpan min, TimeSpan max)
+    {
+        if (value < min)
+        {
+            return min;
+        }
+
+        if (value > max)
+        {
+            return max;
+        }
+
+        return value;
+    }
 
     public static float Saturate(this float value)
     {
