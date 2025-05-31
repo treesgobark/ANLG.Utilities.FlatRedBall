@@ -9,6 +9,9 @@ public class StateMachine : IStateMachine
     /// <inheritdoc/>
     public bool IsInitialized { get; private set; }
 
+    /// <inheritdoc/>
+    public bool IsRunning => CurrentState != EmptyState.Instance || ExitOverride != null;
+
     /// <summary>
     /// All the states that belong to this collection (state machine)
     /// </summary>
@@ -19,10 +22,7 @@ public class StateMachine : IStateMachine
     /// </summary>
     protected IState CurrentState { get; set; } = EmptyState.Instance;
     
-    /// <summary>
-    /// Adds a state to the collection.
-    /// </summary>
-    /// <exception cref="ArgumentException">Throws ArgumentException for duplicate types.</exception>
+    /// <inheritdoc/>
     public void Add(IState state)
     {
         if (States.Any(existing => existing.GetType() == state.GetType()))
@@ -32,6 +32,7 @@ public class StateMachine : IStateMachine
         States.Add(state);
     }
 
+    /// <inheritdoc/>
     public IState Get<TSearch>(bool isExact = false) where TSearch : IState
     {
         foreach (var state in States)
@@ -50,16 +51,12 @@ public class StateMachine : IStateMachine
         throw new ArgumentException($"State machine does not contain any states of type {typeof(TSearch).Name}");
     }
 
-    /// <summary>
-    /// Sets the current state to the one of type <typeparamref name="TSearch"/> in this collection,
-    ///   then calls <see cref="EntityState{T,TSelf}.OnActivate"/> on it.
-    ///   Must be called before any state activity can happen.
-    /// </summary>
+    /// <inheritdoc/>
     public void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState
     {
         if (IsInitialized)
         {
-            throw new InvalidOperationException($"State machine already initialized.");
+            throw new InvalidOperationException("State machine already initialized.");
         }
         
         States.ForEach(c => c.Initialize());
@@ -71,12 +68,12 @@ public class StateMachine : IStateMachine
     /// <inheritdoc/>
     public void DoCurrentStateActivity()
     {
-        EvaluateExitConditions();
+        AdvanceCurrentState();
         CurrentState.CustomActivity();
     }
 
     /// <inheritdoc/>
-    public void EvaluateExitConditions()
+    public void AdvanceCurrentState()
     {
         if (!IsInitialized)
         {
@@ -108,9 +105,7 @@ public class StateMachine : IStateMachine
         }
     }
 
-    /// <summary>
-    /// Forces the state machine to move to the given state by replacing the next exit condition check.
-    /// </summary>
+    /// <inheritdoc/>
     public void OverrideState<TState>(bool isExact = false) where TState : IState
     {
         ExitOverride = Get<TState>(isExact);

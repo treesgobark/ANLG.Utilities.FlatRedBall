@@ -9,9 +9,8 @@ public interface IStateMachine : IReadonlyStateMachine
     void Add(IState state);
 
     /// <summary>
-    /// Sets the current state to the one of type <typeparamref name="TSearch"/> in this collection,
-    ///   then calls <see cref="EntityState{T,TSelf}.OnActivate"/> on it.
-    ///   Must be called before any state activity can happen.
+    /// Initializes all states in the machine, then overrides the machine to move to the given state,
+    /// <typeparamref name="TSearch"/>, on the first <see cref="DoCurrentStateActivity"/> call.
     /// </summary>
     void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState;
 
@@ -27,10 +26,11 @@ public interface IStateMachine : IReadonlyStateMachine
     /// <summary>
     /// Evaluates the exit conditions of the current state, then if a state switch happens,
     ///   <see cref="EntityState{T,TSelf}.BeforeDeactivate"/> is called on the old state,
-    ///   then <see cref="EntityState{T,TSelf}.OnActivate"/> is called on the new state.
+    ///   then <see cref="EntityState{T,TSelf}.OnActivate"/> is called on the new state. This process repeats until
+    ///   a stable state has been reached.
     /// </summary>
     /// <exception cref="InvalidOperationException">Throws InvalidOperationException if collection is uninitialized.</exception>
-    void EvaluateExitConditions();
+    void AdvanceCurrentState();
 
     /// <summary>
     /// Forces the state machine to move to the given state by replacing the next exit condition check.
@@ -49,6 +49,12 @@ public interface IReadonlyStateMachine
     /// Indicates whether the state machine is ready to perform activity
     /// </summary>
     bool IsInitialized { get; }
+    
+    /// <summary>
+    /// Indicates whether the state machine is currently traversing a path. Typically, this is equivalent to the
+    /// current state being something other than <see cref="EmptyState"/>.
+    /// </summary>
+    bool IsRunning { get; }
     
     /// <summary>
     /// Returns the state in this collection with the exact type <typeparamref name="TSearch"/>.
