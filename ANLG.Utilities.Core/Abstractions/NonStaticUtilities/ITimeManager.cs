@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.NonStaticUtilities;
+namespace ANLG.Utilities.Core;
 
 /// <summary>
 /// Provides time information to services, like the time between frames, AKA delta time.
@@ -14,12 +14,4 @@ public interface ITimeManager
     /// Time since the game started
     /// </summary>
     TimeSpan TotalGameTime { get; }
-}
-
-public class ZeroTimeManager : ITimeManager
-{
-    public static ZeroTimeManager Instance { get; } = new();
-    
-    public TimeSpan GameTimeSinceLastFrame => TimeSpan.Zero;
-    public TimeSpan TotalGameTime => TimeSpan.Zero;
 }

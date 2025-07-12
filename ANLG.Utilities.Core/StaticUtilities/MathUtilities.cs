@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.StaticUtilities;
+namespace ANLG.Utilities.Core;
 
 /// 
 public static class MathUtilities

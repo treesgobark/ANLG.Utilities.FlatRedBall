@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.Constants;
+namespace ANLG.Utilities.Core;
 
 /// <summary>
 /// A collection of constants commonly used for mathematics and physics.

@@ -1,6 +1,4 @@
-using ANLG.Utilities.Core.StaticUtilities;
-
-namespace ANLG.Utilities.Core.NonStaticUtilities;
+namespace ANLG.Utilities.Core;
 
 public abstract class Interpolator<T>
 {

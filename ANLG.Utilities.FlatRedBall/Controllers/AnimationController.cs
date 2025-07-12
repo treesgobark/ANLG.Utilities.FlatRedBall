@@ -1,4 +1,4 @@
-using ANLG.Utilities.Core.Constants;
+using ANLG.Utilities.Core;
 using FlatRedBall.Graphics.Animation;
 
 namespace ANLG.Utilities.FlatRedBall.Controllers;

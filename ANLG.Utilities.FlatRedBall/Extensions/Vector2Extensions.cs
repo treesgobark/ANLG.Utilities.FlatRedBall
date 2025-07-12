@@ -1,6 +1,4 @@
-﻿using ANLG.Utilities.Core.Constants;
-using ANLG.Utilities.Core.Extensions;
-using ANLG.Utilities.Core.NonStaticUtilities;
+﻿using ANLG.Utilities.Core;
 using Microsoft.Xna.Framework;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 using FrbPoint = FlatRedBall.Math.Geometry.Point;

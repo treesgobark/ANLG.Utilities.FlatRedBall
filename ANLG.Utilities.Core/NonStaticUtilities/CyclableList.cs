@@ -1,6 +1,4 @@
-using ANLG.Utilities.Core.StaticUtilities;
-
-namespace ANLG.Utilities.Core.NonStaticUtilities;
+namespace ANLG.Utilities.Core;
 
 public class CyclableList<T> : List<T>
 {

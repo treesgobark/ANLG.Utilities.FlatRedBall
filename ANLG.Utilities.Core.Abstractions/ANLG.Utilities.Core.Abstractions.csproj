@@ -4,12 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <DocumentationFile>bin\Debug\ANLG.Utilities.Core.xml</DocumentationFile>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="Abstractions\" />
-    </ItemGroup>
 
 </Project>

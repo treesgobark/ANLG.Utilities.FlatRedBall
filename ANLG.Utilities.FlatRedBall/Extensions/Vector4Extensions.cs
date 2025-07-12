@@ -1,4 +1,4 @@
-using ANLG.Utilities.Core.Extensions;
+using ANLG.Utilities.Core;
 using Vector4 = Microsoft.Xna.Framework.Vector4;
 
 namespace ANLG.Utilities.FlatRedBall.Extensions;

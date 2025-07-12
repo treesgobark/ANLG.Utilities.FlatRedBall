@@ -1,7 +1,7 @@
-using ANLG.Utilities.Core.Constants;
 using ANLG.Utilities.FlatRedBall.Extensions;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using ANLG.Utilities.Core;
 using MgMatrix = Microsoft.Xna.Framework.Matrix;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Vector3 = Microsoft.Xna.Framework.Vector3;

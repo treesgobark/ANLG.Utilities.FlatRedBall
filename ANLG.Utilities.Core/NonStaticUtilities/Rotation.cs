@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.NonStaticUtilities;
+namespace ANLG.Utilities.Core;
 
 public readonly struct Rotation : IComparable, IComparable<Rotation>, IEquatable<Rotation>
 {

@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.Components;
+namespace ANLG.Utilities.Core;
 
 public interface IComponentList
 {

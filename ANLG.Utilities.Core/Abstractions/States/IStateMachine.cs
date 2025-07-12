@@ -1,5 +1,8 @@
-namespace ANLG.Utilities.Core.States;
+namespace ANLG.Utilities.Core;
 
+/// <summary>
+/// Stores states and manages their updates and transitions
+/// </summary>
 public interface IStateMachine : IReadonlyStateMachine
 {
     /// <summary>
@@ -43,6 +46,9 @@ public interface IStateMachine : IReadonlyStateMachine
     void Uninitialize();
 }
 
+/// <summary>
+/// Exposes read-only members of <see cref="IStateMachine"/>
+/// </summary>
 public interface IReadonlyStateMachine
 {
     /// <summary>

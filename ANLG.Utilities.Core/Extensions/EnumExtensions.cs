@@ -1,6 +1,4 @@
-using ANLG.Utilities.Core.Constants;
-
-namespace ANLG.Utilities.Core.Extensions;
+namespace ANLG.Utilities.Core;
 
 public static class EnumExtensions
 {

@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core.States;
+namespace ANLG.Utilities.Core;
 
 /// <summary>
 /// </summary>

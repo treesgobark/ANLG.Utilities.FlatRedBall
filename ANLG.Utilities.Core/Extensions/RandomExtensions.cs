@@ -1,6 +1,4 @@
-using System.Numerics;
-
-namespace ANLG.Utilities.Core.Extensions;
+namespace ANLG.Utilities.Core;
 
 public static class RandomExtensions
 {

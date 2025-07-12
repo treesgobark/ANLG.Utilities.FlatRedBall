@@ -1,4 +1,4 @@
-using ANLG.Utilities.Core.Extensions;
+using ANLG.Utilities.Core;
 
 namespace ANLG.Utilities.FlatRedBall.Tests.Extensions;
 
