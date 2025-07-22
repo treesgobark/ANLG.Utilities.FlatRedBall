@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.States;
 
 public interface IStateMachineManager
 {

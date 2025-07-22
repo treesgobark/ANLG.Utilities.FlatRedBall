@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.States;
 
 /// <summary>
 /// Stores states and manages their updates and transitions

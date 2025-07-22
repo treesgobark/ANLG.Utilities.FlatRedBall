@@ -1,6 +1,6 @@
 using System.Diagnostics.Contracts;
 
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.States;
 
 public interface IState<out T> : IState
 {

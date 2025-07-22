@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.Components;
 
 /// <summary>
 /// Stores components and allows the initialization, activity, and destroy methods to be called on each one in sequence.

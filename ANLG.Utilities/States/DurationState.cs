@@ -1,4 +1,6 @@
-namespace ANLG.Utilities.Core;
+using ANLG.Utilities.Core;
+
+namespace ANLG.Utilities.States;
 
 /// <inheritdoc cref="TimedState"/>
 public abstract class DurationState : TimedState

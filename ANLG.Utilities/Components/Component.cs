@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.Components;
 
 public abstract class Component<T> : IComponent
 {

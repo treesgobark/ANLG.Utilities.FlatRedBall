@@ -53,7 +53,7 @@ public static class MathUtilities
     /// <summary>
     /// Linear interpolation between TimeSpans
     /// </summary>
-    public static TimeSpan Clamp(TimeSpan value, TimeSpan min, TimeSpan max)
+    public static TimeSpan Clamp(this TimeSpan value, TimeSpan min, TimeSpan max)
     {
         if (value < min)
         {

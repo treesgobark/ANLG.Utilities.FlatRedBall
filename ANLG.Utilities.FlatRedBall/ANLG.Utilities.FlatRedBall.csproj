@@ -27,7 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBallDesktopGLNet6\FlatRedBallDesktopGLNet6.csproj" />
-      <ProjectReference Include="..\ANLG.Utilities.Core\ANLG.Utilities.Core.csproj" />
+      <ProjectReference Include="..\ANLG.Utilities\ANLG.Utilities.csproj" />
     </ItemGroup>
 
 </Project>

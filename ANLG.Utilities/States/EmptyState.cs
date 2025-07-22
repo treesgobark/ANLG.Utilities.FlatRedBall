@@ -1,4 +1,4 @@
-namespace ANLG.Utilities.Core;
+namespace ANLG.Utilities.States;
 
 /// <inheritdoc/>
 public sealed class EmptyState : IState
