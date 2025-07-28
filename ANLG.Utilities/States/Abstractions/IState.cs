@@ -2,44 +2,10 @@ using System.Diagnostics.Contracts;
 
 namespace ANLG.Utilities.States;
 
-public interface IState<out T> : IState
-{
-    /// <summary>
-    /// Entity that this state acts on
-    /// </summary>
-    public T Parent { get; }
-}
-
 /// <summary>
 /// A self-contained unit of logic that is relevant only while this state is active. Designed to be used by <see cref="IStateMachine"/>
 ///   Based on the object-oriented state pattern: <a href="https://refactoring.guru/design-patterns/state">here</a>.
 /// </summary>
-public interface IState
+public interface IState : IActivate, IActivity, IExitCondition, IDeactivate
 {
-    /// <summary>
-    /// Called once when this state is set as the active state
-    /// </summary>
-    public void OnActivate();
-
-    /// <summary>
-    /// Called each frame during the parent entity's CustomActivity
-    /// </summary>
-    public void CustomActivity();
-
-    /// <summary>
-    /// Called before CustomActivity each frame. Evaluates the current state of the entity and decide which
-    ///   state should be moved to next. This method has no side effects, i.e. it is pure.
-    ///   Returning null signals that no exit conditions have been fulfilled
-    ///   and the current state should be maintained. Returning <c>`this`</c> signals that the machine should
-    ///   transition out of the current state and then back into the current state. This action would trigger
-    ///   all the lifecycle hooks again.
-    /// </summary>
-    [Pure]
-    public IState? EvaluateExitConditions();
-
-    /// <summary>
-    /// Called once before this state is no longer the active state. This happens after <see cref="EntityController{TEntity,TController}.EvaluateExitConditions"/>,
-    ///   but before the next state's <see cref="EntityController{TEntity,TController}.OnActivate"/>.
-    /// </summary>
-    public void BeforeDeactivate();
 }
