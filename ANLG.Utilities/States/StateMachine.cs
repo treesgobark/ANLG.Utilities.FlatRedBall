@@ -7,10 +7,7 @@ public class StateMachine : IStateMachine
     protected IState? ExitOverride { get; set; }
 
     /// <inheritdoc/>
-    public bool IsInitialized { get; private set; }
-
-    /// <inheritdoc/>
-    public bool IsRunning => CurrentState != EmptyState.Instance || ExitOverride != null;
+    public bool IsRunning => CurrentState != EmptyState.Instance;
 
     /// <summary>
     /// All the states that belong to this collection (state machine)
@@ -23,13 +20,15 @@ public class StateMachine : IStateMachine
     protected IState CurrentState { get; set; } = EmptyState.Instance;
     
     /// <inheritdoc/>
-    public void Add(IState state)
+    public IStateMachine Add(IState state)
     {
         if (States.Any(existing => existing.GetType() == state.GetType()))
         {
             throw new ArgumentException($"Collection already has a state of type {state.GetType().Name}");
         }
         States.Add(state);
+
+        return this;
     }
 
     /// <inheritdoc/>
@@ -37,6 +36,11 @@ public class StateMachine : IStateMachine
     {
         foreach (var state in States)
         {
+            if (Type.GetTypeHandle(EmptyState.Instance).Value == typeof(TSearch).TypeHandle.Value)
+            {
+                return EmptyState.Instance;
+            }
+            
             if (isExact && Type.GetTypeHandle(state).Value == typeof(TSearch).TypeHandle.Value)
             {
                 return state;
@@ -52,17 +56,20 @@ public class StateMachine : IStateMachine
     }
 
     /// <inheritdoc/>
-    public void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState
+    public void SetStartingState<TSearch>(bool isExact = false) where TSearch : IState
     {
-        if (IsInitialized)
+        if (IsRunning)
         {
-            throw new InvalidOperationException("State machine already initialized.");
+            throw new InvalidOperationException("Cannot set starting state when state machine is running.");
         }
         
-        States.ForEach(c => c.Initialize());
-        
-        ExitOverride   = Get<TSearch>(isExact);
-        IsInitialized = true;
+        ExitOverride = Get<TSearch>(isExact);
+    }
+
+    /// <inheritdoc/>
+    public void SetStartingState(IState state)
+    {
+        ExitOverride = state;
     }
 
     /// <inheritdoc/>
@@ -75,12 +82,6 @@ public class StateMachine : IStateMachine
     /// <inheritdoc/>
     public void AdvanceCurrentState()
     {
-        if (!IsInitialized)
-        {
-            throw new InvalidOperationException($"You must initialize collection with "
-                                                + $"{nameof(InitializeStartingState)} before performing activity.");
-        }
-
         var newState = ExitOverride ?? CurrentState.EvaluateExitConditions();
         ExitOverride = default;
 
@@ -97,8 +98,8 @@ public class StateMachine : IStateMachine
                                                                "a state that returns null from EvaluateExitConditions."));
             }
             
-            CurrentState.BeforeDeactivate(newState);
-            newState.OnActivate(CurrentState);
+            CurrentState.BeforeDeactivate();
+            newState.OnActivate();
             CurrentState = newState;
 
             newState = CurrentState.EvaluateExitConditions();
@@ -106,28 +107,10 @@ public class StateMachine : IStateMachine
     }
 
     /// <inheritdoc/>
-    public void OverrideState<TState>(bool isExact = false) where TState : IState
+    public void ShutDown()
     {
-        ExitOverride = Get<TState>(isExact);
-    }
-
-    public void Uninitialize()
-    {
-        if (!IsInitialized)
-        {
-            throw new InvalidOperationException($"You must initialize collection with "
-                                                + $"{nameof(InitializeStartingState)} before calling {nameof(Uninitialize)}.");
-        }
-
-        IsInitialized = false;
-        
-        CurrentState.BeforeDeactivate(null);
-        CurrentState = EmptyState.Instance;
-
-        foreach (var state in States)
-        {
-            state.Uninitialize();
-        }
+        ExitOverride = EmptyState.Instance;
+        AdvanceCurrentState();
     }
 
     // write log for all previous states entered

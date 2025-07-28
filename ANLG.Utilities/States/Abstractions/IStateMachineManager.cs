@@ -16,5 +16,5 @@ public interface IStateMachineManager
     /// <summary>
     /// Uninitializes all contained state machines.
     /// </summary>
-    void Uninitialize();
+    void ShutDown();
 }

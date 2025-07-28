@@ -14,7 +14,7 @@ public sealed class EmptyState : IState
     public void Initialize() { }
 
     /// <inheritdoc/>
-    public void OnActivate(IState? previousState) { }
+    public void OnActivate() { }
 
     /// <inheritdoc/>
     public void CustomActivity() { }
@@ -23,8 +23,5 @@ public sealed class EmptyState : IState
     public IState? EvaluateExitConditions() => null;
 
     /// <inheritdoc/>
-    public void BeforeDeactivate(IState? nextState) { }
-
-    /// <inheritdoc/>
-    public void Uninitialize() { }
+    public void BeforeDeactivate() { }
 }

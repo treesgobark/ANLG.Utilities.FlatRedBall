@@ -17,14 +17,9 @@ public interface IState<out T> : IState
 public interface IState
 {
     /// <summary>
-    /// Called once after all states have been constructed and added to the collection.
-    /// </summary>
-    public void Initialize();
-
-    /// <summary>
     /// Called once when this state is set as the active state
     /// </summary>
-    public void OnActivate(IState? previousState);
+    public void OnActivate();
 
     /// <summary>
     /// Called each frame during the parent entity's CustomActivity
@@ -46,10 +41,5 @@ public interface IState
     /// Called once before this state is no longer the active state. This happens after <see cref="EntityController{TEntity,TController}.EvaluateExitConditions"/>,
     ///   but before the next state's <see cref="EntityController{TEntity,TController}.OnActivate"/>.
     /// </summary>
-    public void BeforeDeactivate(IState? nextState);
-    
-    /// <summary>
-    /// Called once ever when the state has reached the end of its lifecycle
-    /// </summary>
-    public void Uninitialize();
+    public void BeforeDeactivate();
 }

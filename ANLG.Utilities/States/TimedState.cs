@@ -10,19 +10,13 @@ public abstract class TimedState : IState
     /// Source of time information for the state
     /// </summary>
     protected ITimeManager TimeManager { get; }
-    /// <summary>
-    /// Provides access to other states for the purposes of <see cref="EvaluateExitConditions"/>
-    /// </summary>
-    protected IReadonlyStateMachine States { get; }
 
     /// <summary>
     /// Standard Constructor
     /// </summary>
-    /// <param name="states"><see cref="States"/></param>
     /// <param name="timeManager"><see cref="TimeManager"/></param>
-    protected TimedState(IReadonlyStateMachine states, ITimeManager timeManager)
+    protected TimedState(ITimeManager timeManager)
     {
-        States      = states;
         TimeManager = timeManager;
     }
 
@@ -32,13 +26,10 @@ public abstract class TimedState : IState
     protected TimeSpan TimeInState { get; set; }
 
     /// <inheritdoc/>
-    public abstract void Initialize();
-
-    /// <inheritdoc/>
-    public virtual void OnActivate(IState? previousState)
+    public virtual void OnActivate()
     {
         TimeInState = TimeSpan.Zero;
-        AfterTimedStateActivate(previousState);
+        AfterTimedStateActivate();
     }
 
     /// <inheritdoc/>
@@ -51,10 +42,8 @@ public abstract class TimedState : IState
     /// <inheritdoc/>
     public abstract IState? EvaluateExitConditions();
     /// <inheritdoc/>
-    public abstract void    BeforeDeactivate(IState? nextState);
-    /// <inheritdoc/>
-    public abstract void    Uninitialize();
+    public abstract void    BeforeDeactivate();
 
-    protected abstract void AfterTimedStateActivate(IState? previousState);
+    protected abstract void AfterTimedStateActivate();
     protected abstract void AfterTimedStateActivity();
 }

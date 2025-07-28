@@ -9,13 +9,19 @@ public interface IStateMachine : IReadonlyStateMachine
     /// Adds a state to the collection.
     /// </summary>
     /// <exception cref="ArgumentException">Throws ArgumentException for duplicate types.</exception>
-    void Add(IState state);
+    IStateMachine Add(IState state);
 
     /// <summary>
     /// Initializes all states in the machine, then overrides the machine to move to the given state,
     /// <typeparamref name="TSearch"/>, on the first <see cref="DoCurrentStateActivity"/> call.
     /// </summary>
-    void InitializeStartingState<TSearch>(bool isExact = false) where TSearch : IState;
+    void SetStartingState<TSearch>(bool isExact = false) where TSearch : IState;
+
+    /// <summary>
+    /// Initializes all states in the machine, then overrides the machine to move to the given state,
+    /// <typeparamref name="TSearch"/>, on the first <see cref="DoCurrentStateActivity"/> call.
+    /// </summary>
+    void SetStartingState(IState state);
 
     /// <summary>
     /// Evaluates the exit conditions of the current state, then if a state switch happens,
@@ -36,14 +42,9 @@ public interface IStateMachine : IReadonlyStateMachine
     void AdvanceCurrentState();
 
     /// <summary>
-    /// Forces the state machine to move to the given state by replacing the next exit condition check.
+    /// Gracefully shuts down the state machine by forcing a transition into <see cref="EmptyState"/>
     /// </summary>
-    void OverrideState<TState>(bool isExact = false) where TState : IState;
-    
-    /// <summary>
-    /// Uninitializes all the states in the collection so this state machine can be safely destroyed
-    /// </summary>
-    void Uninitialize();
+    void ShutDown();
 }
 
 /// <summary>
@@ -51,11 +52,6 @@ public interface IStateMachine : IReadonlyStateMachine
 /// </summary>
 public interface IReadonlyStateMachine
 {
-    /// <summary>
-    /// Indicates whether the state machine is ready to perform activity
-    /// </summary>
-    bool IsInitialized { get; }
-    
     /// <summary>
     /// Indicates whether the state machine is currently traversing a path. Typically, this is equivalent to the
     /// current state being something other than <see cref="EmptyState"/>.
