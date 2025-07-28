@@ -32,27 +32,79 @@ public class StateMachine : IStateMachine
     }
 
     /// <inheritdoc/>
-    public IState Get<TSearch>(bool isExact = false) where TSearch : IState
+    public IState Get<TSearch>() where TSearch : IState
     {
-        foreach (var state in States)
+        foreach (IState state in States)
         {
             if (Type.GetTypeHandle(EmptyState.Instance).Value == typeof(TSearch).TypeHandle.Value)
             {
                 return EmptyState.Instance;
             }
             
-            if (isExact && Type.GetTypeHandle(state).Value == typeof(TSearch).TypeHandle.Value)
-            {
-                return state;
-            }
-            
-            if (!isExact && state is TSearch)
+            if (state is TSearch)
             {
                 return state;
             }
         }
         
         throw new ArgumentException($"State machine does not contain any states of type {typeof(TSearch).Name}");
+    }
+
+    /// <inheritdoc/>
+    public IState Get(Type type)
+    {
+        foreach (IState state in States)
+        {
+            if (Type.GetTypeHandle(EmptyState.Instance).Value == type.TypeHandle.Value)
+            {
+                return EmptyState.Instance;
+            }
+            
+            if (state.GetType().IsAssignableTo(type))
+            {
+                return state;
+            }
+        }
+        
+        throw new ArgumentException($"State machine does not contain any states of type {type.Name}");
+    }
+
+    /// <inheritdoc/>
+    public IState GetExact<TSearch>() where TSearch : IState
+    {
+        foreach (IState state in States)
+        {
+            if (Type.GetTypeHandle(EmptyState.Instance).Value == typeof(TSearch).TypeHandle.Value)
+            {
+                return EmptyState.Instance;
+            }
+            
+            if (Type.GetTypeHandle(state).Value == typeof(TSearch).TypeHandle.Value)
+            {
+                return state;
+            }
+        }
+        
+        throw new ArgumentException($"State machine does not contain any states of type {typeof(TSearch).Name}");
+    }
+
+    /// <inheritdoc/>
+    public IState GetExact(Type type)
+    {
+        foreach (IState state in States)
+        {
+            if (Type.GetTypeHandle(EmptyState.Instance).Value == type.TypeHandle.Value)
+            {
+                return EmptyState.Instance;
+            }
+            
+            if (Type.GetTypeHandle(state).Value == type.TypeHandle.Value)
+            {
+                return state;
+            }
+        }
+        
+        throw new ArgumentException($"State machine does not contain any states of type {type.Name}");
     }
 
     /// <inheritdoc/>
@@ -63,7 +115,7 @@ public class StateMachine : IStateMachine
             throw new InvalidOperationException("Cannot set starting state when state machine is running.");
         }
         
-        ExitOverride = Get<TSearch>(isExact);
+        ExitOverride = GetExact<TSearch>();
     }
 
     /// <inheritdoc/>

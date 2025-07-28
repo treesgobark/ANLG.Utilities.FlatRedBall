@@ -59,9 +59,27 @@ public interface IReadonlyStateMachine
     bool IsRunning { get; }
     
     /// <summary>
+    /// Returns the first state in this collection whose type is assignable to <typeparamref name="TSearch"/>.
+    /// </summary>
+    /// <exception cref="ArgumentException">Throws ArgumentException if the collection doesn't have a state of the given type.</exception>
+    IState Get<TSearch>() where TSearch : IState;
+    
+    /// <summary>
     /// Returns the state in this collection with the exact type <typeparamref name="TSearch"/>.
     /// Returns the first state in this collection whose type is assignable to <typeparamref name="TSearch"/>.
     /// </summary>
     /// <exception cref="ArgumentException">Throws ArgumentException if the collection doesn't have a state of the given type.</exception>
-    IState Get<TSearch>(bool isExact = false) where TSearch : IState;
+    IState Get(Type type);
+    
+    /// <summary>
+    /// Returns the state in this collection with the exact type <typeparamref name="TSearch"/>.
+    /// </summary>
+    /// <exception cref="ArgumentException">Throws ArgumentException if the collection doesn't have a state of the given type.</exception>
+    IState GetExact<TSearch>() where TSearch : IState;
+
+    /// <summary>
+    /// Returns the state in this collection with the exact type <paramref name="type"/>.
+    /// </summary>
+    /// <exception cref="ArgumentException">Throws ArgumentException if the collection doesn't have a state of the given type.</exception>
+    IState GetExact(Type type);
 }
