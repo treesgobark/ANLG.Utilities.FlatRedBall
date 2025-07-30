@@ -33,7 +33,7 @@ public abstract class TimedState : IState
     }
 
     /// <inheritdoc/>
-    public virtual void CustomActivity()
+    public virtual void Update()
     {
         TimeInState += TimeManager.GameTimeSinceLastFrame;
         AfterTimedStateActivity();

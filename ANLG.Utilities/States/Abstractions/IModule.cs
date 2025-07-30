@@ -12,12 +12,12 @@ public interface IActivate : IModule
     void OnActivate();
 }
 
-public interface IActivity : IModule
+public interface IUpdate : IModule
 {
     /// <summary>
     /// Called each frame
     /// </summary>
-    void CustomActivity();
+    void Update();
 }
 
 public interface IExitCondition : IModule

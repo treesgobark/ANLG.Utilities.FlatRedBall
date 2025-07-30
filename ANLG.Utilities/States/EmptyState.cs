@@ -11,13 +11,10 @@ public sealed class EmptyState : IState
     private EmptyState() { }
     
     /// <inheritdoc/>
-    public void Initialize() { }
-
-    /// <inheritdoc/>
     public void OnActivate() { }
 
     /// <inheritdoc/>
-    public void CustomActivity() { }
+    public void Update() { }
 
     /// <inheritdoc/>
     public IState? EvaluateExitConditions() => null;

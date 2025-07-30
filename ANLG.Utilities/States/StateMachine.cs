@@ -128,7 +128,7 @@ public class StateMachine : IStateMachine
     public void DoCurrentStateActivity()
     {
         AdvanceCurrentState();
-        CurrentState.CustomActivity();
+        CurrentState.Update();
     }
 
     /// <inheritdoc/>
