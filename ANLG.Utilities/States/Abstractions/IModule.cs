@@ -12,14 +12,6 @@ public interface IActivate : IModule
     void OnActivate();
 }
 
-public interface IUpdate : IModule
-{
-    /// <summary>
-    /// Called each frame
-    /// </summary>
-    void Update();
-}
-
 public interface IExitCondition : IModule
 {
     /// <summary>
@@ -32,6 +24,14 @@ public interface IExitCondition : IModule
     /// </summary>
     [Pure]
     IState? EvaluateExitConditions();
+}
+
+public interface IUpdate : IModule
+{
+    /// <summary>
+    /// Called each frame
+    /// </summary>
+    void Update();
 }
 
 public interface IDeactivate : IModule
